@@ -176,7 +176,7 @@
 			    font-size:xx-large;
                         }
                     </style>
-             <?php echo $shi->appends(['zhuan'=>$search['zhuan'],'lei'=>$search['lei']])->render(); ?>
+
         </div>
     </div>
 
