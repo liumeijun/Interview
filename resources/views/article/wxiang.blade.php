@@ -35,9 +35,7 @@ var authorUid = {
 <link rel="stylesheet" href="css/detail-less.css?v=1463035000" type="text/css" />
 </head>
 <body >
-@extends('layouts.master')
-@section('sidebar')
-    @parent
+@include('layouts.master')
 
 
 <script>
@@ -250,7 +248,7 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
 <div id="main">
 
 </div>
-@endsection
+@include('layouts.foot')
 <div id="J_GotoTop" class="elevator">
     <a class="elevator-weixin" href="javascript:;">
         <div class="elevator-weixin-box">

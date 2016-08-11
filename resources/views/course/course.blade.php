@@ -16,9 +16,7 @@
     <link rel="stylesheet" href="css/d79d81e9ab144c28aae8b073106e6881.css" type="text/css" />
 </head>
 <body  id="List_courseId">
-@extends('layouts.master')
-@section('sidebar')
-    @parent
+@include('layouts.master')
 <div id="main">
     <div class="container">
         <div class="course-content">
@@ -118,7 +116,7 @@
 
 
 				<div class="course-list-img">
-                                    <img width="240" height="135" alt="" src="<?php                                         if($v['c_college']=="软工学院"){
+                                    <img  width="240" height="135" alt="" class="lazy" data-original="<?php                                         if($v['c_college']=="软工学院"){
                                         echo "/images/logo/软工.jpg";
                                     }elseif($v['c_college']=="移动通信学院"){
                                         echo "/images/logo/移动.jpg";
@@ -177,6 +175,7 @@
                         }
                     </style>
 
+             <?php echo $shi->render(); ?>
         </div>
     </div>
 
@@ -203,7 +202,9 @@
         $.post('s',{
             leixing:leixing
         },function(data){
+
             $("#list").html(data)
+
         })
     })
 
@@ -215,7 +216,6 @@
         $.post('sou',{
             leixing:leixing
         },function(data){
-
             //alert(data)
             $("#zhuanye").html(data)
         })
@@ -248,7 +248,14 @@
        })
     })
 </script>
+<script src="js/jquery.lazyload.js"></script>
+<script charset="utf-8">
 
+    $(function($){
+        $(".lazy").show().lazyload({effect: "fadeIn",container: $("#List_courseId")});
+    })
+</script>
+@include('layouts.foot');
 </body>
-@endsection
+
 </html>

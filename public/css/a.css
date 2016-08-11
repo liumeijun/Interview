@@ -1148,10 +1148,9 @@ li.layer-usercard-medal {
   color: #14191e;
   background-color: #ffffff;
   border: 1px solid #98a1a6;
-  height: 20px;
+  height: auto;
   padding: 9px 9px;
   font-size: 14px;
-  line-height: 20px;
   border-radius: 0;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   -moz-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;

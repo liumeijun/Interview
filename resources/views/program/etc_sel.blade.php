@@ -35,9 +35,7 @@
 </head>
 <body  id="List_courseId">
 
-@extends('layouts.master')
-@section('sidebar')
-    @parent
+@include('layouts.master')
 
 	<div style=" width:600px;  margin-left:400px; margin-top:50px; margin-bottom:50px;">
 		<span style="font-size:30px;"><?php echo $arr['company_name']?></span>
@@ -77,5 +75,5 @@
 
 
 </body>
-    @endsection
+@include('layouts.foot')
 </html>

@@ -3,7 +3,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <title>
-
+    主页面
 </title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 <meta name="renderer" content="webkit">
@@ -43,9 +43,8 @@ var GC = {
 <script src="js/jquery_002.js" async="" charset="utf-8"></script><script src="js/seajs-text.js" async="" charset="utf-8"></script><script src="js/common.js" async="" charset="utf-8"></script><script src="js/share.js"></script><script src="js/string.js" async="" charset="utf-8"></script><script src="js/suggest.js" async="" charset="utf-8"></script><script src="js/store.js" async="" charset="utf-8"></script><script src="js/json.js" async="" charset="utf-8"></script><script src="javascripts/im.js" async="" charset="utf-8"></script><script src="js/view.js" async="" charset="utf-8"></script><link href="css/share_style0_16.css" rel="stylesheet"><script src="js/course_common.js" async="" charset="utf-8"></script><script src="js/course_collection.js" async="" charset="utf-8"></script><script src="js/socket.js" async="" charset="utf-8"></script><script src="js/jquery.js" async="" charset="utf-8"></script><script src="js/layer.js" async="" charset="utf-8"></script><link href="css/layer2.css" rel="stylesheet" charset="utf-8"></head>
 <body>
 
-@extends('layouts.master')
-@section('sidebar')
-@parent
+@include('layouts.master')
+
 
 
 <div id="main">
@@ -157,12 +156,13 @@ var GC = {
             <input type="hidden" id="s_id" value="<?php echo $arr['c_id']?>">
           <h3 class="ctit l">试题答案</h3>
             @if(empty($_SESSION['username']))
-                <h3 id="house" style="float: right;color: #0000ff"><a onclick="is_house()">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height: 20px;"></a></h3>
+
+                <h4 id="house" style="float: right;color: #0000ff"><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height: 20px;"></a></h4>
             @else
                 @if(empty($house))
-                    <h3 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['c_id']?>)"><span  id="house">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></span></a></h3>
+                    <h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['c_id']?>)"><span  id="house">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></span></a></h4>
                @else
-                    <h3 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['c_id']?>)"><span  id="house">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></span></a></h3>
+                    <h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['c_id']?>)"><span  id="house">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></span></a></h4>
                @endif
             @endif
         </div>
@@ -346,7 +346,7 @@ var GC = {
 
 </div>
 
-@endsection
+@include('layouts.foot')
 <div id="J_GotoTop" class="elevator">
     <a class="elevator-weixin" href="javascript:;">
         <div class="elevator-weixin-box">
@@ -416,7 +416,6 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
 </script>
 </div><script src="xiang_files/user.htm" type="text/javascript"></script><script src="xiang_files/iplookup.php" type="text/javascript"></script>
 
-
 </body></html>
 <script src="js/jquery-1.8.3.min.js"></script>
 <script>
@@ -453,7 +452,7 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
             success: function(msg){
                 if(msg == 1){
                     tr = '';
-                    tr += '<h3 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['c_id']?>)"><span id="house">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></span></a></h3>';
+                    tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['c_id']?>)"><span id="house">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></span></a></h4>';
                     $("#house").remove();
                     $("#s1").html(tr);
                  }
@@ -462,8 +461,8 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
     }
 
     function is_house(){
-        alert('请先登录');
-        location.href='index.php/login';
+        alert('<a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >登录</a>');
+        //location.href='index.php/login';
     }
 
     function delhouse(id){
@@ -474,7 +473,7 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
             success: function(msg){
                 if(msg == 1){
                     tr = '';
-                    tr += '<h3 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['c_id']?>)"><span  id="house">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></span></a></h3>';
+                    tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['c_id']?>)"><span  id="house">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></span></a></h4>';
                     $("#house").remove();
                     $("#s1").html(tr);
                 }

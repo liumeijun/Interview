@@ -30,9 +30,8 @@
 </head>
 <body >
 
-@extends('layouts.master')
-@section('sidebar')
-    @parent
+@include('layouts.master')
+
 
     <div id="main">
 
@@ -267,7 +266,8 @@
         })
     </script>
 </div>
+@include('layouts.foot')
 </body>
-@endsection
+
 </html>
 

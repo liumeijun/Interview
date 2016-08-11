@@ -25,9 +25,8 @@
 <script src="js/pjquery.js" async="" charset="utf-8"></script><script src="js/pseajs-text.js" async="" charset="utf-8"></script><script src="js/pcommon.js" async="" charset="utf-8"></script><script src="js/pstring.js" async="" charset="utf-8"></script><script src="js/psuggest.js" async="" charset="utf-8"></script><script src="js/pstore.js" async="" charset="utf-8"></script><script src="js/pjson.js" async="" charset="utf-8"></script><script src="js/pim.js" async="" charset="utf-8"></script><script src="js/ppublish.js" async="" charset="utf-8"></script><script src="js/psocket.js" async="" charset="utf-8"></script><script src="js/pmodal.js" async="" charset="utf-8"></script><script src="js/pwebuploader.js" async="" charset="utf-8"></script><link href="css/pwebuploader.css" rel="stylesheet" charset="utf-8"><script src="js/pMarkdown_004.js" async="" charset="utf-8"></script><link href="css/peditor.css" rel="stylesheet" charset="utf-8"><script src="js/pprettify.js" async="" charset="utf-8"></script><link href="css/prettify.css" rel="stylesheet" charset="utf-8"></head>
 <body>
 
-@extends('layouts.master')
-@section('sidebar')
-    @parent
+@include('layouts.master')
+
 
 
 <script>
@@ -135,7 +134,7 @@
 
 </div>
 
-@endsection
+@include('layouts.foot')
 <div id="J_GotoTop" class="elevator">
     <a class="elevator-weixin" href="javascript:;">
         <div class="elevator-weixin-box">
@@ -171,4 +170,4 @@
     })
 </script>
 
-</body></html>
+</div></body></html>

@@ -26,9 +26,8 @@
 	}
 
 </style>
-@extends('layouts.master')
-@section('sidebar')
-    @parent
+@include('layouts.master')
+
 
 <body style="background:#fff;">
 <input type="hidden"  id="college">
@@ -184,6 +183,7 @@ mutiTagIds: ''
 };
 seajs.use('nowcoder/1.2.456/javascripts/site/contest/paperList');
 </script>
+@include('layouts.foot')
 </body>
-@endsection
+
 </html>

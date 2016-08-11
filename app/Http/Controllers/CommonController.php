@@ -27,6 +27,7 @@ class CommonController extends Controller
 					$_SESSION['user_id']=$user_id;
 					$_SESSION['u_email']=$email;
 					//echo $_SESSION['u_email'];die;
+
 					echo "<script>alert('登陆成功');location.href='/index'</script>";
 				}else{
 					echo "<script>alert(密码错误);</script>";

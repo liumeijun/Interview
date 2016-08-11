@@ -87,7 +87,7 @@ Route::post('delhouse', 'CourseController@delhouse');
 
 //文章
 Route::get('article', 'ArticleController@article');
-Route::get('publish', 'ArticleController@publish');
+Route::get('article/publish', 'ArticleController@publish');
 Route::post('add', 'ArticleController@add');
 Route::post('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
