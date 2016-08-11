@@ -73,7 +73,12 @@ var isLogin=0
           </span>
                 <var class="cutoff l">|</var>
                               <span id="js-follow" data-id="6325" class="dc-follow l">
-              <span>收藏</span>
+<!--             收藏 -->
+
+
+
+
+
             </span>
                           
       </div>

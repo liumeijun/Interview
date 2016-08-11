@@ -104,7 +104,17 @@ var isLogin=1
             <!-- 收藏&举报 -->
             <div class="r-box r">
                                                                     <span id="js-follow" data-id="7997" class="dc-follow l">
-                        <span>收藏</span>
+
+                    @if(empty($_SESSION['username']))
+                        <h4 id="house" style="float: right;color: #0000ff"><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height: 20px;"></a></h4>
+                    @else
+                        @if(empty($house))
+                             <h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['a_id']?>)">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>
+                        @else
+                             <h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['a_id']?>)">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>
+                    @endif
+              @endif
+
                     </span>
                                                             </div>
             <!-- 收藏&举报end -->
@@ -307,6 +317,47 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
                   $("#aping").html(rp);
               })
           })
+
+          function addhouse(id,data){
+              $.ajax({
+                  type: "POST",
+                  url: "addhouse_article",
+                  data: "id="+id,
+                  success: function(msg){
+                      if(msg == 1){
+                          tr = '';
+                          tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['a_id']?>)">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>';
+                          $("#house").remove();
+                          $("#s1").html(tr);
+                      }
+                  }
+              });
+          }
+
+          function is_house(){
+              alert('<a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >登录</a>');
+              //location.href='index.php/login';
+          }
+
+          function delhouse(id){
+              $.ajax({
+                  type: "POST",
+                  url: "delhouse_article",
+                  data: "id="+id,
+                  success: function(msg){
+                      if(msg == 1){
+                          tr = '';
+                          tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['a_id']?>)">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>';
+                          $("#house").remove();
+                          $("#s1").html(tr);
+                      }
+                  }
+              });
+          }
+
+
+
+
       </script>
 <div style="display: none">
 </div>

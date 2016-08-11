@@ -81,6 +81,11 @@ Route::post('addhouse', 'CourseController@addhouse');
 //删除收藏的试题（取消关注）
 Route::post('delhouse', 'CourseController@delhouse');
 
+//收藏文章
+Route::post('addhouse_article', 'ArticleController@addhouse_article');
+//删除收藏的文章（取消关注）
+Route::post('delhouse_article', 'ArticleController@delhouse_article');
+
 /*
  * 试题结束
  */

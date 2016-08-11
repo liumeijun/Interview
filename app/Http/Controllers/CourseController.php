@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 class CourseController extends Controller
 {
     public function course(){
+        
         //学院
         $sql="select c_id,c_name from college where c_del=0";
         $arr=DB::select($sql);
