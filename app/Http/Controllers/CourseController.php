@@ -24,12 +24,12 @@ class CourseController extends Controller
             $type='';
         }
         if($type==0){
-            $sql = "select d_id,d_name from direction";
+            $sql="select d_id,d_name from direction";
         }else {
             $sql = "select d_id,d_name from direction where college_id=".$type;
         }
         $zhuan=DB::select($sql);
-        // print_r($zhuan);die;
+        //print_r($zhuan);die;
         //根据学院的id查询学院的名称
         $college = DB::table('college')->where('c_id',$type)->first();
         //类型的试题
@@ -83,10 +83,9 @@ class CourseController extends Controller
 
             }
         }
-        $search['zhuan'] = $zhuan;
-        $search['lei'] = $lei;
+
         //print_r($arr);die;
-        return view('course/shi',['shi'=>$arr,'search'=>$search]);
+        return view('course/shi',['shi'=>$arr]);
     }
     public function xiang(){
         $id=$_GET['id'];

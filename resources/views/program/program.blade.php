@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0021)http://www.lagou.com/ -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></script>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="renderer" content="webkit">
 <meta property="qc:admins" content="23635710066417756375">
@@ -9,9 +9,7 @@
 
 <title>招聘--面试宝典</title>
 
-    <!-- 公共样式 -->
-    <!-- header样式 -->   <!-- footer样式 -->
-    <!-- 页面样式 -->
+
     <link rel="stylesheet" type="text/css" href="css/main.html_aio_2ff5795.css">
     <link rel="stylesheet" type="text/css" href="css/widgets_cd857e8.css">
     <link rel="stylesheet" type="text/css" href="css/main.html_aio_2_d6c0dcf.css">
@@ -23,80 +21,65 @@
 
 </head>
 <body style="background:#fff;">
-@extends('layouts.master')
-@section('sidebar')
-    @parent
+@include('layouts.master')
+
 
 
 
     
-    <!-- 公共html -->
-    <!-- 页面公用结构、velocity变量 --><input type="hidden" value="" name="userid" id="userid">
+    <input type="hidden" value="" name="userid" id="userid">
 <input type="hidden" id="serverTime" value="1460098202966">
 
-    <!-- 城市分站 -->
 
 
-    <!-- header -->
-    
-    <!--C端头部通栏广告位-->
-    
-
-    <!--验证注册邮箱-->
-    <!--
-    @require "common/widgets/header_c/modules/emailvalid/main.less"
--->
 
 
     <div id="lg_header">
 
-       
-
-    <!-- 全部 -->
 
 
 
-    
 
-    </div><!--end #header-->
+
+
+    </div>
 
 
     <!-- 页面主体START -->
     <div class="container clearfix" id="container" style="min-height: 844px; margin-top:20px; margin-left:150px;">
-
         <div id="sidebar" class="sidebar" style=" border-bottom:5px solid green;">
     <div class="mainNavs">
-        @foreach($all as $key=>$value)                                                                                        
+        @foreach($all as $key=>$value)
                 <div class="menu_box">
             <div class="menu_main job_hopping">
                 <h2 style=" margin-bottom:10px;">
                     {{$value['p_name']}}
                                         <!-- 跳槽月 -->
                                         <span></span>
-                </h2>    
+                </h2>
                 @foreach($value['two'] as $ke=>$va)
              <a href="#" data-lg-tj-id="4A00" data-lg-tj-no="0001" data-lg-tj-cid="idnull" style=" font-size:14px; padding-left:3px; line-height:20px;" val="{{$va['three'][0]['p_name']}}" class="posi">{{$va['three'][0]['p_name']}}</a>
-             @endforeach                                                    
+             @endforeach
               </div>
-                
+
                     <div class="menu_sub dn">
                     @foreach($value['two'] as $k=>$v)
                                 <dl>
-                                        <dt>                                                          
+                                        <dt>
                         <a href="#" data-lg-tj-id="4H00" data-lg-tj-no="0001" data-lg-tj-cid="idnull" class="posi" val="{{$v['p_name']}}">{{$v['p_name']}}</a>
                     </dt>
-                    <dd>       
-                    @foreach($v['three'] as $z=>$x)                                                          
+                    <dd>
+                    @foreach($v['three'] as $z=>$x)
        <a href="#" data-lg-tj-id="4O00" data-lg-tj-no="0122" data-lg-tj-cid="idnull" class="posi" val="{{$x['p_name']}}">{{$x['p_name']}}</a>
                     @endforeach
                                             </dd>
                 </dl>
-                    @endforeach    
+                    @endforeach
                             </div>
-                
+
         </div>
         @endforeach
- </div> 
+ </div>
 </div>
 
 
@@ -112,14 +95,14 @@
         <li data-lg-tj-id="gD00" data-lg-tj-no="idnull" data-lg-tj-cid="idnull">最新职位</li>
 </ul>
 <div id="hotList" class="clearfix">
-    
+
     <div class="hot_posHotPosition position_list init_joblist" id="position">
         <ul class="clearfix">
         @foreach($data as $q=>$w)
             <li class="position_list_item" data-jobid="1621796" data-positionid="1621796" data-salary="25k-40k" data-company="51Talk 无忧英语" data-positionname="运营总监" data-companyid="119153">
 
 
-            
+
 
                 <div class="pli_top">
                     <div class="fl pli_top_l">
@@ -149,16 +132,16 @@
                     </div>
                     <div class="pli_btm_r fl">
                           <span>{{$w['r_number']}}</span>
-                          <span>{{$w['r_type']}}</span>                                    
+                          <span>{{$w['r_type']}}</span>
                                                                         </div>
                 </div>
 
-            
+
 
 
 
             </li>
-                @endforeach       
+                @endforeach
                                     </ul>
         {{$data->render()}}
     </div>
@@ -172,12 +155,6 @@
     </div>
     <!-- 页面主体END -->
 
-    <!-- footer <-->
-   
-<!-- feedback -->
-<!--
-    @require "common/widgets/footer_c/modules/feedback/feedback.less"
--->
 
 <!--我要反馈按钮-->
 
@@ -189,17 +166,9 @@
     </div>
 
 </div>
-
-
-
-    <!-- 底部登陆条 -->
-    <!--
-    @require "common/widgets/login_toolbar/main.less"
--->
-
     <div>
         <em></em>
-        
+
         <span class="companycount"><i style="background-position-y: -30px;"></i><i style="background-position-y: -30px;"></i><i style="background-position-y: -120px;"></i><b></b><i style="background-position-y: 0px;"></i><i style="background-position-y: -120px;"></i><i style="background-position-y: 0px;"></i></span>
         <span class="positioncount"><i style="background-position-y: -30px;"></i><b></b><i style="background-position-y: -180px;"></i><i style="background-position-y: -90px;"></i><i style="background-position-y: -150px;"></i><b></b><i style="background-position-y: 0px;"></i><i style="background-position-y: -30px;"></i><i style="background-position-y: -120px;"></i></span>
         <a class="bar_login passport_login_pop" href="javascript:;"><i></i></a>
@@ -210,7 +179,7 @@
         <input type="hidden" id="cp" value="1635014">
     </div>
 </div>
-
+@include('layouts.foot')
 
     <!-- jquery lib -->
     <!-- analytics js file -->  <!-- plat analytics js file --> <!-- plat ipinyou tj -->
@@ -297,7 +266,8 @@ require.config({paths:{
         //业务主模块入口
         require(['index/page/index/main']);
     </script>
-<script src="js/jquery-1.8.3.min.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/jquery.js" async="" charset="utf-8"></script>
 <script>
     $(document).on("click",".posi",function(){
         var p_name=$(this).attr('val');
@@ -312,6 +282,8 @@ require.config({paths:{
     <ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all" id="ui-id-1" tabindex="0" style="display: none; left: 538.5px;"></ul>
 <script type="text/javascript" src="js/ipinyou_2be9977.js"></script>
 
-<script src="js/js.php"></script><script src="js/ydap.js"></script><script src="js/ds.js" type="text/javascript"></script></body>
-@endsection
+<script src="js/js.php"></script><script src="js/ydap.js"></script><script src="js/ds.js" type="text/javascript"></script>
+
+</body>
+
 </html>

@@ -38,9 +38,8 @@ var u_Info = { uid:2098482,sex:1,age:0,teacher:0,img:'http://img.mukewang.com/us
 <link rel="stylesheet" href="http://static.mukewang.com/static/css/??base.css,common/common-less.css,showface.css,u/message-less.css?v=1463035000" type="text/css" />
 </head>
 <body  id="index">
- @extends('layouts.master')
-@section('sidebar')
-@parent
+ @include('layouts.master')
+
 
 
 <div id="main">
@@ -106,7 +105,7 @@ var u_Info = { uid:2098482,sex:1,age:0,teacher:0,img:'http://img.mukewang.com/us
 </div>
 
 </div>
- @endsection
+ @include('layouts.foot')
 <div id="J_GotoTop" class="elevator">
     <a class="elevator-weixin" href="javascript:;">
         <div class="elevator-weixin-box">

@@ -32,9 +32,8 @@ var is_choice = "";
 <body style="background:#fff;">
 
 
-@extends('layouts.master')
-@section('sidebar')
-@parent
+@include('layouts.master')
+
 <div style="" id="main">
 
     <script>
@@ -380,4 +379,4 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
     })
 </script>
 
-@endsection
+@include('layouts.foot')

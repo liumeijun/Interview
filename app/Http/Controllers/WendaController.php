@@ -1,9 +1,9 @@
 <?php
-use Illuminate\Pagination\LengthAwarePaginator;
+
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
-
+use  Illuminate\Pagination\LengthAwarePaginator;
 class WendaController extends Controller
 {
     public function wenda(){

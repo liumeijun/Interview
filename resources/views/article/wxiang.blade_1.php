@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html><head>
 <html xmlns:wb="http://open.weibo.com/wb">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
@@ -38,14 +37,14 @@ var user = {
 </head>
 <body>
 
-@extends('layouts.master')
-@section('sidebar')
-    @parent
+@include('layouts.master');
+
 
 
 <script>
 var isLogin=0
 </script>
+
 <div class="opus-wrap clearfix">
 
 <div class="detail-left l">
@@ -165,7 +164,7 @@ var isLogin=0
 
 </div>
 
-@endsection
+      @include('layouts.foot')
 <div id="J_GotoTop" class="elevator">
     <a class="elevator-weixin" href="javascript:;">
         <div class="elevator-weixin-box">

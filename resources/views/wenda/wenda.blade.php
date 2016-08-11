@@ -32,9 +32,8 @@ var is_choice = "0";
 </head>
 <body style="background:#fff;">
 
-@extends('layouts.master')
-@section('sidebar')
-@parent            
+@include('layouts.master')
+
         <div class='search-warp clearfix' style='min-width: 32px; height: 60px;'>
             <div class="search-area min" data-search="top-banner">
                 <input class="search-input" data-suggest-trigger="suggest-trigger" placeholder="请输入想搜索的内容..." type="text" autocomplete="off">
@@ -413,8 +412,7 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
 
 </div>
 
-
+@include('layouts.foot')
 </body>
 
-@endsection
 </html>

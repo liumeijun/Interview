@@ -52,10 +52,10 @@ class CompanyController extends Controller
 		$id=$_SESSION['id'];
 		$count=DB::table('exam')->where('company_id',"$id")->count();
 		if($count==0){
-			echo "<script>alert('暂无试题');location.href='company'</script>";
-		}else{
-			$data=DB::table('exam')->where('company_id',"$id")->paginate(1);
-			return view('company/college_exam',['arr'=>$data]);
-		}
+		 echo "<script>alert('暂无试题');location.href='company'</script>";
+				}else{
+		$data=DB::table('exam')->where('company_id',"$id")->paginate(1);
+		return view('company/college_exam',['arr'=>$data]);
+				     }
 	}
 }

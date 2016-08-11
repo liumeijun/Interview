@@ -37,8 +37,9 @@ class ArticleController extends Controller
     
     
     public function publish(){
+//        echo 1;die;
         $at_type=DB::table('ar_type')->get();
-	//print_r($at_type);die;
+//	print_r($at_type);die;
         $a_lei=DB::table('a_lei')->get();
         return view('article/publish',['ar_type'=>$at_type,'a_lei'=>$a_lei]);
     }

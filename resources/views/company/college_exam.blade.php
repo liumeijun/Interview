@@ -16,9 +16,7 @@
     <link rel="stylesheet" href="css/d79d81e9ab144c28aae8b073106e6881.css" type="text/css" />
     <link rel="stylesheet" href="css/nowcoder-ui.css">
 </head>
-@extends('layouts.master')
-@section('sidebar')
-    @parent
+@include('layouts.master')
 
 <body>
 	   <div style="width:72%; height:80%; background:#fff; border:1px solid #ccc; margin-left:15%; margin-top:10px; margin-bottom:5px;">
@@ -76,6 +74,7 @@
 	   	$("#sel_hide").show();
 	   })
 	   </script>
+	   @include('layouts.foot')
 </body>
-    @endsection
+
 </html>
