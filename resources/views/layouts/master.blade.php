@@ -39,9 +39,9 @@ session_start();
                     </div>
                 </li>
                 
-		<?php
-                    if(empty($_SESSION['username'])){
-                        ?>
+		    <?php
+                if(empty($_SESSION['username'])){
+            ?>
                 <li class="header-signin">
                     <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >登录</a>
                 </li>
@@ -50,7 +50,7 @@ session_start();
                 </li>
                     <?php
                     }else{
-                        ?>
+                    ?>
  
                 <li class="remind_warp">
                     <i class="msg_remind" style="display: none;"></i>
@@ -105,7 +105,7 @@ session_start();
                     </div>
                 </li>
  
-                    <?php
+                <?php
                     }
                 ?>
             </ul>

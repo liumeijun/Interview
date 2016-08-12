@@ -61,12 +61,12 @@ class LoginController extends Controller
         $arr=DB::table('users')->where('user_phone',"$u_name")->where('user_pwd',"$u_pwd")->get();
         //print_r($arr);die;
         if($arr){
-	$_SESSION['u_id']=$arr[0]['user_id'];
+	   $_SESSION['u_id']=$arr[0]['user_id'];
             echo 5;
         }else{
             echo 6;
         }
-    }
+    }  
     public function email_deng(){
         $u_name=$_POST['u_name'];
         $u_pwd=$_POST['u_pwd'];
@@ -96,23 +96,19 @@ class LoginController extends Controller
         }else{
 
             if(DB::table('users')->where('user_email',"$email")->first()){
-
                 echo "<script>alert('邮箱已存在');location.href='index'</script>";
             }else{
                 if(DB::table('users')->where('user_phone',"$phone")->first()){
                     echo "<script>alert('手机号已存在');location.href='index'</script>";
                 }else{
 
-                $arr=DB::insert("insert into users(user_name,user_pwd,user_email,user_phone) values('$name','$pwd','$email','$phone');");
+                    $arr=DB::insert("insert into users(user_name,user_pwd,user_email,user_phone) values('$name','$pwd','$email','$phone');");
                     if($arr){
-			$_SESSION['username']=$name;
+			            $_SESSION['username']=$name;
                         echo "<script>alert('注册成功');location.href='index'</script>";
                     }else{
                         echo "<script>alert('注册失败');location.href='index'</script>";
                     }
-
-
-
                 }
             }
         }
@@ -122,6 +118,7 @@ class LoginController extends Controller
 
     public function out(){
         unset($_SESSION['username']);
+        unset($_SESSION['u_id']);
         echo "<script>alert('退出成功');location.href='index'</script>";
     }
 
