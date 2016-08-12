@@ -75,6 +75,13 @@ Route::post('zhuanye', 'CourseController@zhuanye');
 Route::get('xiang', 'CourseController@xiang');
 Route::post('con', 'CourseController@con');
 Route::get('ping', 'CourseController@ping');
+// 个人历史观看试题
+Route::get('history', 'CourseController@History');
+// 最新试题
+Route::get('news', 'CourseController@News');
+// 最热试题
+Route::get('hot', 'CourseController@Hot');
+
 /*
  * 试题结束
  */

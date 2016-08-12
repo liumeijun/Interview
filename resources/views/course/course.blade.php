@@ -85,8 +85,9 @@
             </div>
             <div class="course-tool-bar clearfix">
                 <div class="tool-left l">
-                    <a href="/course/list?sort=last" class="sort-item">最新</a>
-                    <a href="/course/list?sort=pop" class="sort-item active">最热</a>
+                    <a href="news" class="sort-item">最新</a>
+                    <a href="hot" class="sort-item active">最热</a>
+                    <a href="history" class="sort-item active">历史试题</a>
                 </div>
                 <div class="l">
                     <span class="tool-item" style="display: none;">
@@ -176,7 +177,7 @@
 			    font-size:xx-large;
                         }
                     </style>
-             <?php echo $shi->appends(['zhuan'=>$search['zhuan'],'lei'=>$search['lei']])->render(); ?>
+             <?php echo $shi->render(); ?>
         </div>
     </div>
 
@@ -200,7 +201,7 @@
 <script>
     $(document).on("click",".leixing",function(){
         var leixing=$(this).attr('value');
-        $.post('s',{
+        $.get('s',{
             leixing:leixing
         },function(data){
             $("#list").html(data)
