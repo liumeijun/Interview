@@ -46,10 +46,10 @@
                 <li>
                     <a href="/user/setprofile">个人资料</a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/user/my_house">我的收藏</a>
                 </li>
-                <li >
+                <li class="active">
                     <a href="/user/my_ping">我的评价</a>
                 </li>
                 <li >
@@ -82,11 +82,14 @@
                 </ul>
 
                 @if(empty($_SESSION['username']))
-                    <br><br><br><br><br><br><center><h2 style="color: red">登录后可查看个人收藏</h2></center>
+                    <br><br><br><br><br><br><center><h2 style="color: red">登录后可查看个人评价</h2></center>
                 @else
-                        @foreach($college_questions as $key => $v)
+                        @foreach($shiti as $key => $v)
                             <br><span><h3 style="color: red">问题：<?php echo $v['c_name']?></h3></span><br><br>
                             <span><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $v['c_answer']?></h5></span><br><br>
+                        @endforeach
+                        @foreach($shiti_ping as $key => $v)
+                                <span><h5 style="color: #0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我的评论：<?php echo $v['p_con']?></h5></span><br><br>
                         @endforeach
                 @endif
 

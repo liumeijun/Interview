@@ -46,6 +46,9 @@ var is_choice = "";
         <li >
             <a href="/user/my_house">我的收藏</a>
         </li>
+        <li >
+            <a href="/user/my_ping">我的评价</a>
+        </li>
       <li class="active">
          <a href="/user/setavator" class="onactive">头像设置</a>
        </li>

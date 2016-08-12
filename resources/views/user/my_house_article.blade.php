@@ -50,6 +50,9 @@
                     <a href="/user/my_house">我的收藏</a>
                 </li>
                 <li >
+                    <a href="/user/my_ping">我的评价</a>
+                </li>
+                <li >
                     <a href="/user/setavator">头像设置</a>
                 </li>
 
@@ -82,7 +85,7 @@
                     <br><br><br><br><br><br><center><h2 style="color: red">登录后可查看个人收藏</h2></center>
                 @else
                         @foreach($article as $key => $v)
-                            <br><span><h3 style="color: red"><?php echo $v['a_title']?></h3></span><br><br>
+                            <br><span><h3 style="color: red">文章标题：<?php echo $v['a_title']?></h3></span><br><br>
                             <span><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $v['a_con']?></h5></span><br><br>
                         @endforeach
                 @endif

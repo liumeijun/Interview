@@ -41,6 +41,8 @@ Route::get('user/setbindsns', 'UserController@setbindsns');
 Route::get('user/my_house', 'UserController@my_house');
 //我的收藏->收藏的文章
 Route::get('user/my_house_article', 'UserController@my_house_article');
+//我的评价
+Route::get('user/my_ping', 'UserController@my_ping');
 
 
 //个人中心

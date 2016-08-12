@@ -71,4 +71,36 @@ class UserController extends Controller
             return view('user/my_house_article',['article' => $article]);
         }
     }
+
+    //我的评价
+    public function my_ping(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        if(empty($_SESSION['username'])){
+            return view('user/my_ping');
+        }else {
+            $user_name = $_SESSION['username'];
+            $users = DB::table('users')->where("user_name", $user_name)->get();
+            $user_id = $users[0]['user_id'];
+            $shiti = DB::table('e_ping')
+                ->join('users', 'e_ping.u_id', '=', 'users.user_id')
+                ->join('college_questions', 'e_ping.e_id', '=', 'college_questions.c_id')
+                ->select('c_name', 'c_answer')
+                ->distinct('c_name')
+                ->distinct('c_answer')
+                ->where('users.user_id', $user_id)
+                ->get();
+            $shiti_ping = DB::table('e_ping')
+                ->join('users', 'e_ping.u_id', '=', 'users.user_id')
+                ->join('college_questions', 'e_ping.e_id', '=', 'college_questions.c_id')
+                ->select('p_con')
+                ->where('users.user_id', $user_id)
+                ->get();
+            //print_r($shiti_ping);die;
+            //$shiti = array_unique($arr);
+            //print_r($shiti);die;
+            return view('user/my_ping', ['shiti' => $shiti,'shiti_ping' => $shiti_ping]);
+        }
+    }
 }
