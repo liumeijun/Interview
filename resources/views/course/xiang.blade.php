@@ -156,6 +156,18 @@ var GC = {
             <input type="hidden" id="s_id" value="<?php echo $arr['c_id']?>">
           <h3 class="ctit l">试题答案</h3>
 
+
+            @if(empty($_SESSION['username']))
+                <h4 id="house" style="float: right;color: #0000ff"><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height: 20px;"></a></h4>
+            @else
+                @if(empty($house))
+                    <h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['c_id']?>)">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>
+                @else
+                    <h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['c_id']?>)">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>
+                @endif
+            @endif
+
+
         </div>
         <div class="outline-list">
                       <ul>
@@ -433,4 +445,41 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
             }
         })
     })
+
+   function addhouse(id,data){
+       $.ajax({
+           type: "POST",
+           url: "addhouse",
+           data: "id="+id,
+           success: function(msg){
+               if(msg == 1){
+                   tr = '';
+                   tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['c_id']?>)">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>';
+                   $("#house").remove();
+                   $("#s1").html(tr);
+               }
+           }
+       });
+   }
+
+   function is_house(){
+       alert('<a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >登录</a>');
+       //location.href='index.php/login';
+   }
+
+   function delhouse(id){
+       $.ajax({
+           type: "POST",
+           url: "delhouse",
+           data: "id="+id,
+           success: function(msg){
+               if(msg == 1){
+                   tr = '';
+                   tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['c_id']?>)">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>';
+                   $("#house").remove();
+                   $("#s1").html(tr);
+               }
+           }
+       });
+   }
 </script>

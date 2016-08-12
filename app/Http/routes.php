@@ -75,6 +75,17 @@ Route::post('zhuanye', 'CourseController@zhuanye');
 Route::get('xiang', 'CourseController@xiang');
 Route::post('con', 'CourseController@con');
 Route::get('ping', 'CourseController@ping');
+
+//收藏试题
+Route::post('addhouse', 'CourseController@addhouse');
+//删除收藏的试题（取消关注）
+Route::post('delhouse', 'CourseController@delhouse');
+
+//收藏文章
+Route::post('addhouse_article', 'ArticleController@addhouse_article');
+//删除收藏的文章（取消关注）
+Route::post('delhouse_article', 'ArticleController@delhouse_article');
+
 /*
  * 试题结束
  */
@@ -87,6 +98,7 @@ Route::post('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
 Route::get('fangfa', 'ArticleController@wxiang');
 Route::post('wping', 'ArticleController@wping');
+
 //招聘
 Route::get('program', 'ProgramController@program');
 Route::get('etc', 'ProgramController@etc');
