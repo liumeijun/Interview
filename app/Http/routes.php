@@ -37,6 +37,11 @@ Route::get('user/setphone', 'UserController@setphone');
 Route::get('user/setverifyemail', 'UserController@setverifyemail');
 Route::get('user/setresetpwd', 'UserController@setresetpwd');
 Route::get('user/setbindsns', 'UserController@setbindsns');
+//我的收藏
+Route::get('user/my_house', 'UserController@my_house');
+//我的收藏->收藏的文章
+Route::get('user/my_house_article', 'UserController@my_house_article');
+
 
 //个人中心
 Route::get('sms/messages', 'SmsController@messages');

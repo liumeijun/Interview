@@ -12,7 +12,7 @@ session_start();
 
 <div id="header">
     <div class="page-container" id="nav" style="background:black;">
-        <a href="http://www.mianshibaodian.com/" target="_self"><img src="/images/login.png" style="float: left; padding-top:6px;"></a><a href="index" target="_self" class="hide-text"></a>
+        <a href="http://www.interview.com/" target="_self"><img src="/images/login.png" style="float: left; padding-top:6px;"></a><a href="index" target="_self" class="hide-text"></a>
         <div class="g-menu-mini l">
             <a href="#" class="menu-ctrl">
                 <i class="icon-menu"></i>
