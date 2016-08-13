@@ -135,7 +135,7 @@ class CourseController extends Controller
         if (empty($_SESSION['username'])) {
             return view('course/xiang',['arr'=>$arr,'ping'=>$ping]);
         } else {
-            $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
+            $is_house = DB::table("house_college_questions")->where(['user_id' => $u_id, 'college_questions_id' => $id])->get();
             return view('course/xiang',['arr'=>$arr,'ping'=>$ping,'house' => $is_house]);
         }
     }

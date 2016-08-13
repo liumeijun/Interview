@@ -158,12 +158,12 @@ var GC = {
 
 
             @if(empty($_SESSION['username']))
-                <h4 id="house" style="float: right;color: #0000ff"><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height: 20px;"></a></h4>
+                <h4 id="house" style="float: right;color: red"><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" style="color: red">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height: 20px;"></a></h4>
             @else
                 @if(empty($house))
-                    <h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['c_id']?>)">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>
+                    <h4 id="s1" style="float: right;color: red"><a onclick="addhouse(<?php echo $arr['c_id']?>)" style="color: red">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>
                 @else
-                    <h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['c_id']?>)">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>
+                    <h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['c_id']?>)" style="color: #0000ff">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>
                 @endif
             @endif
 
@@ -454,7 +454,7 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
            success: function(msg){
                if(msg == 1){
                    tr = '';
-                   tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['c_id']?>)">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>';
+                   tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['c_id']?>)" style = "color:blue">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>';
                    $("#house").remove();
                    $("#s1").html(tr);
                }
@@ -475,7 +475,7 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
            success: function(msg){
                if(msg == 1){
                    tr = '';
-                   tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['c_id']?>)">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>';
+                   tr += '<h4 id="s1" style="float: right;color: red"><a onclick="addhouse(<?php echo $arr['c_id']?>)" style="color:red">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>';
                    $("#house").remove();
                    $("#s1").html(tr);
                }
