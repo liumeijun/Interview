@@ -41,6 +41,9 @@ var is_choice = "";
       <li class="active">
         <a href="/user/setprofile" class="onactive">个人资料</a>
       </li>
+        <li >
+            <a href="/user/my_house">我的收藏</a>
+        </li>
       <li >
          <a href="/user/setavator">头像设置</a>
        </li>

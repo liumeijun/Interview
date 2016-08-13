@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
+use DB,Session,Redirect, Input,Request,Cache;
 class CourseController extends Controller
 {
     public function course(){
@@ -14,7 +14,7 @@ class CourseController extends Controller
         //类型
         $lei=DB::table('type')->get();
         //全部试题
-        $shi=DB::table('college_questions')->simplePaginate(12);
+        $shi=DB::table('college_questions')->orderBy('c_num','desc')->simplePaginate(12);
         return view('course/course',['arr'=>$arr,'zhuan'=>$zhuan,'shi'=>$shi,'lei'=>$lei]);
     }
     public function sou(){
@@ -41,6 +41,7 @@ class CourseController extends Controller
         return view('course/zhuan',['zhuan'=>$zhuan]);
     }
     public function s(){
+      
         if(!empty($_POST['leixing'])){
             $type= $_POST['leixing'];
         }else{
@@ -55,7 +56,7 @@ class CourseController extends Controller
             //类型的试题
             //$shi="select * from college_questions where c_college='".$college['c_name']."'";
             $college_name=$college['c_name'];
-            $shi=DB::table('college_questions')->where('c_college',"$college_name")->simplePaginate(12);
+            $shi=DB::table('college_questions')->where('c_college',"$college_name")->orderBy('c_num')->simplePaginate(12);
         }
 
         //$shi=DB::select($shi);
@@ -89,22 +90,28 @@ class CourseController extends Controller
     }
     public function xiang(){
         $id=$_GET['id'];
-	//echo $id;die;
-	$num=DB::table('college_questions')->where("c_id",$id)->first();
-        $num=$num['c_num']+=1;
-        $sq=DB::update("update college_questions set c_num='$num' where c_id=".$id);
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+	    //echo $id;die;
+        $sq=DB::table('college_questions')->where('c_id','=',$id)->increment('c_num');
         $arr=DB::table('college_questions')->where('c_id',$id)->first();
 //print_r($arr);die;
-	if(!isset($_SESSION)){
-		session_start();
-	}
+	
 	if(!empty($_SESSION['username'])){
-
+        $uid = $_SESSION['u_id'];
+        if(Cache::has($uid)){
+            $val = Cache::get($uid);
+            $val = $val.','.$id;
+            Cache::put($uid,$val,3600*24*7);
+        }else{
+            Cache::put($uid,$id,3600*24*7);
+        }
 		$username=$_SESSION['username'];
-
-	//$username=$_SESSION['username'];
-	$u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
-	$u_id=$u_id['user_id'];
+	    //$username=$_SESSION['username'];
+	    $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
+	    $u_id=$u_id['user_id'];
         $ping=DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$u_id order by p_id desc");
 	//print_r($ping);die;
 	}else{
@@ -129,10 +136,18 @@ class CourseController extends Controller
         }elseif($arr['c_college']=='传媒学院'){
             $arr['img']='http://123.56.249.121/api/logo/传媒.jpg';
         }
-      //  echo $arr['img'];die;
-        return view('course/xiang',['arr'=>$arr,'ping'=>$ping]);
+
+
+        //查询是否收藏
+        if (empty($_SESSION['username'])) {
+            return view('course/xiang',['arr'=>$arr,'ping'=>$ping]);
+        } else {
+            $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
+            return view('course/xiang',['arr'=>$arr,'ping'=>$ping,'house' => $is_house]);
+        }
     }
-	 public function con()
+
+	public function con()
     {
         $con = $_POST['con'];
         $c_id = $_POST['c_id'];
@@ -143,17 +158,89 @@ class CourseController extends Controller
             //$username=$_SESSION['username'];
             //$u_id=table('users')->where("user_phone","$username")->orwhere("user_email","$username")->pluck('user_id');
            // $u_id=1;
-		 if(!isset($_SESSION)){
+		  if(!isset($_SESSION)){
                   session_start();
-	         }
-         $username=$_SESSION['username'];
-         $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
-	$u_id=$u_id['user_id'];
+	      }
+            $username=$_SESSION['username'];
+            $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
+	        $u_id=$u_id['user_id'];
             $sql="insert into e_ping(p_con,u_id,e_id,e_addtime) values('$con',$u_id,'$c_id','$e_addtime')";
             $re=DB::insert($sql);
             $ping=DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$u_id order by p_id desc");
             return view('course/ping',['ping'=>$ping]);
         }
+    }
+
+    //试题收藏
+    public function addhouse(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $c_id = $_POST['id'];
+        //$user_name = Session::get('username');
+        $user_name=$_SESSION['username'];
+        $u_id=DB::table('users')->where("user_name","$user_name")->get();
+        $u_id=$u_id[0]['user_id'];
+        $arr = DB::insert("insert into house_college_questions(user_id,college_questions_id) values('$u_id','$c_id')");
+        if($arr){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public function delhouse(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $c_id = $_POST['id'];
+        //$user_name = Session::get('username');
+        $user_name=$_SESSION['username'];
+        $u_id=DB::table('users')->where("user_name","$user_name")->get();
+        $u_id=$u_id[0]['user_id'];
+        $arr = DB::delete("delete from house_college_questions where user_id = '$u_id' and college_questions_id = '$c_id'");
+        if($arr){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    //个人历史试题记录
+    public function History()
+    {
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        if(empty($_SESSION['u_id'])){
+            return "<script>alert('请先登录');location.href='login'</script>";
+        }
+        // 获取存在缓存中的用户浏览试题ID
+        $uId = Cache::get($_SESSION['u_id']);
+        // echo $uId;die;
+        // 转化为数组，方便时用laravel中自带的查询构造器方法
+        $arrId = explode(',',$uId);
+        $historyTest = DB::table('college_questions')->whereIn('c_id',$arrId)->simplePaginate(12);
+        // dd($historyTest);
+        if($historyTest){
+            return view('course/hcourse')->with('arr',$historyTest);
+        }
+    }
+
+    // 最新试题
+    public function News()
+    {
+        $new = DB::table('college_questions')->orderBy('c_id','desc')->simplePaginate(12);
+        return view('course/news')->with('arr',$new);
+    }
+
+    // 最热试题
+    public function Hot()
+    {
+        $hot = DB::table('college_questions')->orderBy('c_num','desc')->simplePaginate(12);
+        // dd($hot);
+        return view('course/hot')->with('arr',$hot);
+
     }
 
 }

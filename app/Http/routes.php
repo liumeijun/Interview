@@ -39,6 +39,11 @@ Route::get('user/setphone', 'UserController@setphone');
 Route::get('user/setverifyemail', 'UserController@setverifyemail');
 Route::get('user/setresetpwd', 'UserController@setresetpwd');
 Route::get('user/setbindsns', 'UserController@setbindsns');
+//我的收藏
+Route::get('user/my_house', 'UserController@my_house');
+//我的收藏->收藏的文章
+Route::get('user/my_house_article', 'UserController@my_house_article');
+
 
 //个人中心
 Route::get('sms/messages', 'SmsController@messages');
@@ -77,6 +82,22 @@ Route::post('zhuanye', 'CourseController@zhuanye');
 Route::get('xiang', 'CourseController@xiang');
 Route::post('con', 'CourseController@con');
 Route::get('ping', 'CourseController@ping');
+//收藏试题
+Route::post('addhouse', 'CourseController@addhouse');
+//删除收藏的试题（取消关注）
+Route::post('delhouse', 'CourseController@delhouse');
+
+//收藏文章
+Route::post('addhouse_article', 'ArticleController@addhouse_article');
+//删除收藏的文章（取消关注）
+Route::post('delhouse_article', 'ArticleController@delhouse_article');
+// 个人历史观看试题
+Route::get('history', 'CourseController@History');
+// 最新试题
+Route::get('news', 'CourseController@News');
+// 最热试题
+Route::get('hot', 'CourseController@Hot');
+
 /*
  * 试题结束
  */
@@ -89,6 +110,7 @@ Route::post('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
 Route::get('fangfa', 'ArticleController@wxiang');
 Route::post('wping', 'ArticleController@wping');
+
 //招聘
 Route::get('program', 'ProgramController@program');
 Route::get('etc', 'ProgramController@etc');

@@ -10,6 +10,8 @@ session_start();
     <div class="page-container" id="nav" style="background:black;">
 
         <a href="http://www.mianshibaodian.com/" target="_self"><img src="/images/login.png" style="float: left; padding-top:6px;"></a><a href="index" target="_self" class="hide-text"></a>
+<!--         <a href="http://www.interview.com/" target="_self"><img src="/images/login.png" style="float: left; padding-top:6px;"></a><a href="index" target="_self" class="hide-text"></a>
+>>>>>>> 9356d1f3d89c7ee42bed269cca20926e44221043 -->
         <div class="g-menu-mini l">
             <a href="#" class="menu-ctrl">
                 <i class="icon-menu"></i>
@@ -36,9 +38,9 @@ session_start();
                     </div>
                 </li>
                 
-		<?php
-                    if(empty($_SESSION['username'])){
-                        ?>
+		    <?php
+                if(empty($_SESSION['username'])){
+            ?>
                 <li class="header-signin">
                     <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >登录</a>
                 </li>
@@ -47,7 +49,7 @@ session_start();
                 </li>
                     <?php
                     }else{
-                        ?>
+                    ?>
  
                 <li class="remind_warp">
                     <i class="msg_remind" style="display: none;"></i>
@@ -102,7 +104,7 @@ session_start();
                     </div>
                 </li>
  
-                    <?php
+                <?php
                     }
                 ?>
             </ul>

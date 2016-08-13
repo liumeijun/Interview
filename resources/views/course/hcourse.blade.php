@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="css/d79d81e9ab144c28aae8b073106e6881.css" type="text/css" />
 </head>
 <body  id="List_courseId">
-@include('layouts.master')
+@extends('layouts.master')
+@section('sidebar')
+    @parent
 <div id="main">
     <div class="container">
         <div class="course-content">
@@ -25,67 +27,11 @@
                     <span>全部课程</span>
                     <a href="/about/recruit" class="for-teacher hide-text" title="应聘讲师" target="_blank">应聘讲师</a>
                 </div>
-                <div class="course-nav-row clearfix">
-                    <span class="hd l">学院：</span>
-                    <div class="bd">
-                        <ul class="">
-                            <li class="course-nav-item on" class="type" id="type">
-                               <a href="#" class="leixing" value="0"> 全部</a>
-                            </li>
-
-                            <?php foreach($arr as $k=>$v){?>
-
-                            <li class="course-nav-item"  class="type" id="type">
-                               <a href="#" class="leixing" value="<?php echo $v['c_id']?>">
-                               <?php echo $v['c_name']?></a>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
-                </div>
-                <div class="course-nav-row clearfix">
-                    <span class="hd l">专业：</span>
-                    <div class="bd">
-                        <ul class="">
-                            <div id="zhuanye">
-                            <li class="course-nav-item on" id="zhuan">
-                               <a href="#" class="zhuan" value="0"> 全部</a>
-                            </li>
-
-                        <?php foreach($zhuan as $k=>$v){?>
-                            <li class="course-nav-item " id="zhuan">
-                                <a href="#" class="zhuan" value="<?php echo $v['d_name']?>">
-                                <?php echo $v['d_name']?></a>
-                            </li>
-                        <?php } ?>
-                                </div>
-                        </ul>
-                    </div>
-                </div>
-              <div class="course-nav-row clearfix">
-                    <span class="hd l">类型：</span>
-                   <div class="bd">
-                        <ul class="">
-                            <div id="lei">
-                            <li class="course-nav-item  on" id='lei'>
-                                <a href="#" value="0" class="lei" value="0">全部</a>
-                            </li>
-                        <?php foreach($lei as $k=>$v){?>
-                            <li class="course-nav-item " id="lei">
-                                <a href="#" class="lei" value="<?php echo $v['t_name']?>">
-                                    <?php echo $v['t_name']?></a>
-                            </li>
-                        <?php } ?>
-                                </div>
-                        </ul>
-                    </div>
-                </div>
-            </div>
             <div class="course-tool-bar clearfix">
                 <div class="tool-left l">
-                    <a href="news" class="sort-item">最新</a>
+                    <a href="news" class="sort-item active">最新</a>
                     <a href="hot" class="sort-item active">最热</a>
-                    <a href="history" class="sort-item active">历史试题</a>
+                    <a href="history" class="sort-item">历史试题</a>
                 </div>
                 <div class="l">
                     <span class="tool-item" style="display: none;">
@@ -111,13 +57,13 @@
                     <ul>
 
 
-                    <?php foreach($shi as $k=>$v){?>
+                    <?php foreach($arr as $k=>$v){?>
                         <li class="course-one">
                             <a href="xiang?id=<?php echo $v['c_id']?>" target="_self">
 
 
 				<div class="course-list-img">
-                                    <img  width="240" height="135" alt="" class="lazy" data-original="<?php                                         if($v['c_college']=="软工学院"){
+                                    <img width="240" height="135" alt="" src="<?php                                         if($v['c_college']=="软工学院"){
                                         echo "/images/logo/软工.jpg";
                                     }elseif($v['c_college']=="移动通信学院"){
                                         echo "/images/logo/移动.jpg";
@@ -175,7 +121,7 @@
 			    font-size:xx-large;
                         }
                     </style>
-             <?php echo $shi->render(); ?>
+             <?php echo $arr->render(); ?>
         </div>
     </div>
 
@@ -202,9 +148,7 @@
         $.get('s',{
             leixing:leixing
         },function(data){
-
             $("#list").html(data)
-
         })
     })
 
@@ -216,6 +160,7 @@
         $.post('sou',{
             leixing:leixing
         },function(data){
+
             //alert(data)
             $("#zhuanye").html(data)
         })
@@ -248,14 +193,7 @@
        })
     })
 </script>
-<script src="js/jquery.lazyload.js"></script>
-<script charset="utf-8">
 
-    $(function($){
-        $(".lazy").show().lazyload({effect: "fadeIn",container: $("#List_courseId")});
-    })
-</script>
-@include('layouts.foot');
 </body>
-
+@endsection
 </html>
