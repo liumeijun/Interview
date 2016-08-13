@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 use DB;
+use open51094;
+use open,close,read,write,destroy,gc;
 
 session_start();
-
+header("content-type:text/html;charset=utf8");
 class LoginController extends Controller
 {
     public function login(){
@@ -125,7 +127,93 @@ class LoginController extends Controller
         echo "<script>alert('退出成功');location.href='index'</script>";
     }
 
+      //第三方qq登陆
+    public function qqlogin(){
+        $code=$_GET['code'];
+        //$state=$_GET['state'];
+        $client_id=101339184;
+        $client_secret='2b7b5c3cd25ab24d19315351727cae16';
+        $redirect_uri='http://www.baodian.com/qqlogin';
+        //print_r($redirect_uri);exit;
+        $url="https://graph.qq.com/oauth2.0/token?grant_type=authorization_code&client_id=$client_id&client_secret=$client_secret&code=$code&redirect_uri=$redirect_uri";
+        $data=file_get_contents($url);
+        // print_r($data);die;
+        $queryParts = explode('&',$data); 
+        // print_r($queryParts);exit;
+        $params = array(); 
+            foreach ($queryParts as $param) 
+            { 
+                $item = explode('=', $param); 
+               $params[$item[0]] = $item[1]; 
+            } 
+            // print_r($item);die;
+        $access_token=$params['access_token'];
+        // print_r($access_token);exit;
+        $url="https://graph.qq.com/oauth2.0/me?access_token=$access_token";
+        $data=file_get_contents($url);
+        // print_r($data);die;
+        $result = array();
+        preg_match_all("/(?:\{)(.*)(?:\})/i",$data, $result); 
+        $data=json_decode($result[0][0],true);
+        // print_r($data);exit;
+        $openid=$data['openid'];
+        // print_r($openid);exit;
+        $data = DB::table('users')->where('user_openid',$openid)->first();
+        $user_name=$data['user_name'];
+        // print_r($user_name);die; 
+        // Session::put('username',$data['user_name']);
+        if($data){
+                // session_start();
+                $_SESSION['username']=$user_name;
+                // echo "$_SESSION['user_name']";die;
+                // Session::put('username',$data['user_name']);
+            }else{
+                //rand随机函数
+                $user_name = rand(10000,9999);
+                $res = DB::table('users')->insert(['user_name'=>$user_name,'user_openid'=>$openid]);
+                // session_start();
+                $_SESSION['username']=$user_name;
+                // Session::put('username',$user_name);
+            }
+             // print_r($user_name);die; 
+        return redirect('/index');   
+    }  
+    //第三方
+    public function weibo(){
+        include 'disan/open51094.class.php';
 
+        $open = new open51094();
+        $code = $_GET['code'];
+        $data=$open->me($code);
+        // print_r($data);die();
+        
+        $uniq=$data['uniq'];
+        // echo "$name";
+        // echo "$img";
+        // echo "$uniq";die;
+        $data = DB::table('users')->where('user_openid',$uniq)->first();
+        $name=$data['user_nickname'];
+        $img=$data['img'];
+        // $uniq=$data['uniq'];
+        // print_r($name);die;
+        if ($data) {
+                 $_SESSION['username']=$name;
+                 $_SESSION['img']=$img;
+                 // $_SESSION['user_id']=$uniq;
+        }else{
+             // $name = rand(10000,9999);
+            $_SESSION['username']=$name;
+            $_SESSION['img']=$img;
+            // echo $_SESSION['username'];die();
+            // session_set_save_handler(open, close, read, write, destroy, gc);
+             $res = DB::table('users')->insert(['user_nickname'=> $name,'img'=> $img,'user_openid'=>$uniq]);
+            // print_r($res);die;
+                  $_SESSION['username']=$name;
+                  $_SESSION['img']=$img;
 
-
- }
+           
+        }
+          return redirect('/index');   
+    }
+}
+  

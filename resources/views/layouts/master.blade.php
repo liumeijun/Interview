@@ -1,8 +1,4 @@
-
-
-
-
-    <script src="../js/jquery.js" async="" charset="utf-8"></script>
+<script src="../js/jquery.js" async="" charset="utf-8"></script>
     <link rel="stylesheet" type="text/css" href="../static/css/ui2.css?2013032917">
 <?php 
 if(!isset($_SESSION)){
@@ -12,6 +8,7 @@ session_start();
 
 <div id="header">
     <div class="page-container" id="nav" style="background:black;">
+
         <a href="http://www.mianshibaodian.com/" target="_self"><img src="/images/login.png" style="float: left; padding-top:6px;"></a><a href="index" target="_self" class="hide-text"></a>
         <div class="g-menu-mini l">
             <a href="#" class="menu-ctrl">
@@ -73,7 +70,7 @@ session_start();
                         <div class="card-inner">
                             <div class="card-top">
                                 <a href="/u/3071208/courses"><img class="l" alt="凤颖" src="/images/unknow-160.png"></a>
-                                <a href="/u/3071208/courses"><span class="name text-ellipsis">凤颖</span></a>
+                                <a href="/u/3071208/courses"><span class="name text-ellipsis"><?php echo $_SESSION['username'] ?></span></a>
                                 <p class="meta">
 					<a href="/u/3071208/experience">经验<b id="js-user-mp">550</b></a>
 					<a href="/u/3071208/credit">积分<b id="js-user-credit">0</b></a>            </p>
@@ -130,7 +127,7 @@ session_start();
 
 
 <script src="/static/js/landing-min.js?2013032917"></script>
-
+<script type="text/javascript" src="http://open.51094.com/user/myscript/157ab219be5214.html "></script>
 <div style="text-align:center;clear:both"></div>
 
 <div id="js-index-video" class="video-container">
@@ -163,13 +160,13 @@ session_start();
             <input name="remember" type="checkbox" checked/>
             下次自动登录 </label>
         <a class="forgot">忘记密码？</a>
-        <div class="login-sns-wrap">
-            <div class="login-sns">
-                <a href="javascript:void(0)" hidefocus="true" data-sns="/user/loginweixin" class="sns-weixin"><i class="icon-weixin"></i>微信帐号直接登录</a>
-                <a href="javascript:void(0)" hidefocus="true" data-sns="/user/loginqq" class="sns-qq"><i class="icon-qq"></i>QQ  帐号直接登录</a>
-                <a href="javascript:void(0)" hidefocus="true" data-sns="/user/loginweibo" class="sns-weibo"><i class="icon-weibo"></i>新浪微博帐号登录</a>
-            </div>
-        </div>
+        <div>
+                <div>
+                   第三方:<span id="hzy_fast_login"></span>
+                </div>
+            <a href=""><p>还没有账号,立即注册</p></a><br>
+      </div>
+       
 
     </form>
 </div>
@@ -185,12 +182,13 @@ session_start();
         <input type="password" name="password"  class="ipt ipt-pwd js-pass-pwd" placeholder="6-16位密码，区分大小写，不能用空格" id="pwd"  style="background-image:url('');
    background-position:right bottom"><p class="tips" id="sp_pwd"><font color="red"></font></p>
 
-        <input type="text" name="email" data-validate="nick" class="ipt ipt-email" placeholder="邮箱格式:@ . com" id="email"><font color="red"><p class="tips" id="email_sp"></p></font>
+        <input type="text" name="email" data-validate="nick" class="ipt ipt-email" placeholder="邮箱格式:@ . com" id="email">
+        <font color="red"><p class="tips" id="email_sp"></p></font>
         <input type="text" name="phone" data-validate="nick" class="ipt ipt-nick" placeholder="手机号为11位 " id="phone" ><font color="red"><p class="tips" id="phone_sp"></p></font>
 
         <input type="submit" name="type"  class="button-blue reg" value="注册" data-category="UserAccount" data-action="regist">
 
-        <div class="wrap-right l">
+       <!--  <div class="wrap-right l">
             <div class="login-sns-wrap">
                 <h1 class="form-h1">
                     一键授权，快速登录
@@ -201,7 +199,7 @@ session_start();
                     <a href="javascript:void(0)" hidefocus="true" data-sns="/user/loginweibo" class="sns-weibo"><i class="icon-weibo"></i>新浪微博帐号登录</a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </form>
 </div>
 
@@ -387,6 +385,6 @@ session_start();
 
     <div  style="position:fixed;z-index: 100;right: 15px; top: 40%">
         <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=297973528&site=qq&menu=yes">
-            <img border="0"  src="http://wpa.qq.com/pa?p=2:297973528:53" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+            <img border="0"  src="http://wpa.qq.com/pa?p=2:297973528:53" alt="点击这里给我发消息" title="点击这里给我发消息" />
         </a>
     </div>

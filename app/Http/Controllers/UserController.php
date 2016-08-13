@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 class UserController extends Controller
 {
     //个人资料
     public function setprofile(){
+        
+        // $res=DB::table('region')->select();
+        // print_r($res);die;
         return view('user/setprofile');
     }
     //头像设置
