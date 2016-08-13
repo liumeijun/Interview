@@ -4,8 +4,11 @@
 if(!isset($_SESSION)){
 session_start(); 
 }
+
 ?>
 
+
+<?php echo $_SESSION['u_id'] ?>
 <div id="header">
     <div class="page-container" id="nav" style="background:black;">
 

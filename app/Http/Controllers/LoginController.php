@@ -191,11 +191,14 @@ class LoginController extends Controller
         $data = DB::table('users')->where('user_openid',$uniq)->first();
         $name=$data['user_nickname'];
         $img=$data['img'];
+        $user_id=$data['user_id'];
         // $uniq=$data['uniq'];
-        // print_r($name);die;
+        // print_r($user_id);die;
         if ($data) {
+                 $_SESSION['u_id']=$user_id;
                  $_SESSION['username']=$name;
                  $_SESSION['img']=$img;
+                 // echo $_SESSION['u_id'];die();
                  // $_SESSION['user_id']=$uniq;
         }else{
              // $name = rand(10000,9999);

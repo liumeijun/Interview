@@ -108,12 +108,8 @@ class CourseController extends Controller
         }else{
             Cache::put($uid,$id,3600*24*7);
         }
-		$username=$_SESSION['username'];
-	    //$username=$_SESSION['username'];
-	    $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
-	    $u_id=$u_id['user_id'];
-        $ping=DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$u_id order by p_id desc");
-	//print_r($ping);die;
+        $ping=DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$uid order by p_id desc");
+	   // print_r($ping);die;
 	}else{
 		$ping=array();
 	}
@@ -142,7 +138,7 @@ class CourseController extends Controller
         if (empty($_SESSION['username'])) {
             return view('course/xiang',['arr'=>$arr,'ping'=>$ping]);
         } else {
-            $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
+            $is_house = DB::table("house_article")->where(['user_id' => $uid, 'article_id' => $id])->get();
             return view('course/xiang',['arr'=>$arr,'ping'=>$ping,'house' => $is_house]);
         }
     }
