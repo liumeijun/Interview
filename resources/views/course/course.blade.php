@@ -174,6 +174,7 @@
 			    font-size:xx-large;
                         }
                     </style>
+
              <?php echo $shi->render(); ?>
         </div>
     </div>
