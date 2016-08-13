@@ -318,7 +318,7 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
               })
           })
 
-          function addhouse(id,data){
+          function addhouse(id){
               $.ajax({
                   type: "POST",
                   url: "addhouse_article",

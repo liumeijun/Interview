@@ -93,9 +93,16 @@ var GC = {
         <a title="分享到新浪微博" href="javascript:;" class="share sina js-share" data-cmd="tsina"></a>
       </div>
       <i class="split-line r"></i>
-            <a href="javascript:;" data-cmd="follow" class="follow-action r js-follow-action" data-cid="85">
-        关注
-      </a>
+
+        @if(empty($_SESSION['username']))
+            <span id="house2"><a href="#login-modal" data-category="UserAccount" data-action="login" data-toggle="modal" id="" data-cmd="follow" class="follow-action r js-follow-action" data-cid="85">关注</a></span>
+        @else
+            @if(empty($house))
+                <span id="s2"><a onclick="addhouse(<?php echo $arr['c_id']?>)" class="follow-action r js-follow-action" data-cid="85">关注</a></span>
+            @else
+                <span id="s2"><a onclick="delhouse(<?php echo $arr['c_id']?>)" class="follow-action r js-follow-action" data-cid="85" style="color:red">已关注</a></span>
+            @endif
+        @endif
           </div>
   </div>
   <div class="info-bg" id="js-info-bg">
@@ -446,7 +453,7 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
         })
     })
 
-   function addhouse(id,data){
+   function addhouse(id){
        $.ajax({
            type: "POST",
            url: "addhouse",
@@ -455,6 +462,10 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
                if(msg == 1){
                    tr = '';
                    tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['c_id']?>)" style = "color:blue">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>';
+                   tr2 = '';
+                   tr2 += '<span id="s2"><a onclick="delhouse(<?php echo $arr['c_id']?>)" class="follow-action r js-follow-action" data-cid="85" style="color:red">已关注</a></span>';
+                   $("#house2").remove();
+                   $("#s2").html(tr2);
                    $("#house").remove();
                    $("#s1").html(tr);
                }
@@ -476,6 +487,10 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
                if(msg == 1){
                    tr = '';
                    tr += '<h4 id="s1" style="float: right;color: red"><a onclick="addhouse(<?php echo $arr['c_id']?>)" style="color:red">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>';
+                   tr2 = '';
+                   tr2 += '<span id="s2"><a onclick="addhouse(<?php echo $arr['c_id']?>)" class="follow-action r js-follow-action" data-cid="85">关注</a></span>';
+                   $("#house2").remove();
+                   $("#s2").html(tr2);
                    $("#house").remove();
                    $("#s1").html(tr);
                }
