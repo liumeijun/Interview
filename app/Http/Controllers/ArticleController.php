@@ -113,13 +113,12 @@ class ArticleController extends Controller
             $username = 0;
         } else {
             $username = $_SESSION['username'];
-<<<<<<< HEAD
+
         }
         $id = $_GET['id'];
         $arr = DB::table("article")
             ->join("ar_type", "article.a_type", "=", "ar_type.at_id")
             ->where("article.a_id", $id)->get();
-        //
 
         $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->limit(3)->get();
 //        return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
@@ -133,28 +132,7 @@ class ArticleController extends Controller
             $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
             return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping, 'house' => $is_house]);
         }
-=======
-        }
-        $id = $_GET['id'];
-        $arr = DB::table("article")
-            ->join("ar_type", "article.a_type", "=", "ar_type.at_id")
-            ->where("article.a_id", $id)->get();
-        //
-
-        $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->limit(3)->get();
-        return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
-
-        //查询是否收藏
-//        if (empty($_SESSION['username'])) {
-//            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
-//        } else {
-//            $user_id = DB::table('users')->where("user_name", "$username")->get();
-//            $u_id = $user_id[0]['user_id'];
-//            $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
-//            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping, 'house' => $is_house]);
-//        }
->>>>>>> shiqingqing
-    }
+      }
 
     public function wping(){
         if(!isset($_SESSION)){
