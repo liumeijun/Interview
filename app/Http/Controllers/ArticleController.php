@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 use DB;
 class ArticleController extends Controller
@@ -103,36 +104,25 @@ class ArticleController extends Controller
     }
 
 
-    public function wxiang()
-    {
-        if (!isset($_SESSION)) {
+    public function wxiang(){
+        if(!isset($_SESSION)){
             session_start();
         }
-        if (empty($_SESSION['username'])) {
-            $username = 0;
-        } else {
-            $username = $_SESSION['username'];
+        if(empty($_SESSION['username'])){
+            $username=0;
+        }else{
+            $username=$_SESSION['username'];
         }
-        $id = $_GET['id'];
-        $arr = DB::table("article")
-            ->join("ar_type", "article.a_type", "=", "ar_type.at_id")
-            ->where("article.a_id", $id)->get();
-        //
-
-        $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->limit(3)->get();
-//        return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
-
-        //查询是否收藏
-        if (empty($_SESSION['username'])) {
-            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
-        } else {
-            $user_id = DB::table('users')->where("user_name", "$username")->get();
-            $u_id = $user_id[0]['user_id'];
-            $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
-            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping, 'house' => $is_house]);
-        }
+        $id=$_GET['id'];
+        $arr=DB::table("article")
+            ->join("ar_type","article.a_type","=","ar_type.at_id")
+            ->where("article.a_id",$id)->get();
+        //var_dump($arr);exit();
+        $aping=DB::table('aping')->join("users","aping.u_id","=","users.user_id")->join("article","aping.a_id","=","article.a_id")->orderBy("aping.ap_id","desc")->limit(3)->get();
+       //print_r($aping);die;
+        return view('article/wxiang',['arr'=>$arr[0],'username'=>$username,'aping'=>$aping]);
     }
-
+    
     public function wping(){
         if(!isset($_SESSION)){
             session_start();
@@ -145,6 +135,7 @@ class ArticleController extends Controller
             $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
             $u_id=$u_id['user_id'];
         }
+        echo $u_id;die;
         $a_id=$_POST['a_id'];
         $ping=$_POST['ping'];
         $sql="insert into aping(u_id,ap_con,a_id) values('$u_id','$ping','$a_id')";
@@ -154,41 +145,5 @@ class ArticleController extends Controller
         //print_r($aping);die;
         return json_encode($aping);
         //return view('article/aping',['aping'=>$aping]);
-    }
-
-
-    //文章收藏
-    public function addhouse_article(){
-        if(!isset($_SESSION)){
-            session_start();
-        }
-        $c_id = $_POST['id'];
-        //$user_name = Session::get('username');
-        $user_name=$_SESSION['username'];
-        $u_id=DB::table('users')->where("user_name","$user_name")->get();
-        $u_id=$u_id[0]['user_id'];
-        $arr = DB::insert("insert into house_article(user_id,article_id) values('$u_id','$c_id')");
-        if($arr){
-            return 1;
-        }else{
-            return 0;
-        }
-    }
-
-    public function delhouse_article(){
-        if(!isset($_SESSION)){
-            session_start();
-        }
-        $c_id = $_POST['id'];
-        //$user_name = Session::get('username');
-        $user_name=$_SESSION['username'];
-        $u_id=DB::table('users')->where("user_name","$user_name")->get();
-        $u_id=$u_id[0]['user_id'];
-        $arr = DB::delete("delete from house_article where user_id = '$u_id' and article_id = '$c_id'");
-        if($arr){
-            return 1;
-        }else{
-            return 0;
-        }
     }
 }

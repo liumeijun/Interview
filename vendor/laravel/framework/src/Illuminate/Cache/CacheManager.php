@@ -32,17 +32,6 @@ class CacheManager implements FactoryContract
     protected $customCreators = [];
 
     /**
-    * Create an instance of the Memcache cache driver.
-    * 
-    * @return IlluminateCacheMemcachedStore
-    */
-    protected function createMemcacheDriver()
-    {
-         $servers = $this->app['config']['cache.memcached'];
-         $memcache = $this->app['memcache.connector']->connect($servers);
-         return $this->repository(new MemcacheStore($memcache, $this->getPrefix()));
-    } 
-    /**
      * Create a new Cache manager instance.
      *
      * @param  \Illuminate\Foundation\Application  $app

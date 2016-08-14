@@ -83,9 +83,8 @@
             </div>
             <div class="course-tool-bar clearfix">
                 <div class="tool-left l">
-                    <a href="news" class="sort-item">最新</a>
-                    <a href="hot" class="sort-item active">最热</a>
-                    <a href="history" class="sort-item active">历史试题</a>
+                    <a href="/course/list?sort=last" class="sort-item">最新</a>
+                    <a href="/course/list?sort=pop" class="sort-item active">最热</a>
                 </div>
                 <div class="l">
                     <span class="tool-item" style="display: none;">
@@ -199,7 +198,7 @@
 <script>
     $(document).on("click",".leixing",function(){
         var leixing=$(this).attr('value');
-        $.get('s',{
+        $.post('s',{
             leixing:leixing
         },function(data){
 

@@ -1,24 +1,16 @@
-<script src="../js/jquery.js" async="" charset="utf-8"></script>
+    <script src="../js/jquery.js"></script>
+    <link rel="stylesheet" href="css/muke.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../static/css/ui2.css?2013032917">
 <?php 
 if(!isset($_SESSION)){
 session_start(); 
 }
-
 ?>
 
-
-<?php echo $_SESSION['u_id'] ?>
 <div id="header">
     <div class="page-container" id="nav" style="background:black;">
-
         <a href="http://www.mianshibaodian.com/" target="_self"><img src="/images/login.png" style="float: left; padding-top:6px;"></a><a href="index" target="_self" class="hide-text"></a>
-<!--         <a href="http://www.interview.com/" target="_self"><img src="/images/login.png" style="float: left; padding-top:6px;"></a><a href="index" target="_self" class="hide-text"></a>
->>>>>>> 9356d1f3d89c7ee42bed269cca20926e44221043 -->
         <div class="g-menu-mini l">
-            <a href="#" class="menu-ctrl">
-                <i class="icon-menu"></i>
-            </a>
             <ul class="nav-item l">
                 <li><a href="shiti"  target="_self">试题</a></li>
                 <li><a href="program"  target="_self">招聘</a></li>
@@ -29,10 +21,10 @@ session_start();
                             </ul>
         </div>
         <div id="login-area">
-            <ul    <?php if(empty($_SESSION['username'])){ ?> class="header-unlogin clearfix" <?php }else{ ?> class="clearfix logined" <?php }?>>
+            <ul   <?php if(empty($_SESSION['username'])){ ?> class="header-unlogin clearfix" <?php }else{ ?> class="clearfix logined" <?php }?>>
                 <li class="header-app">
                     <a>
-                        <span class="icon-appdownload"></span>
+                       <span class="icon-appdownload"></span>
                     </a>
                     <div class="QR-download">
                         <p id="app-text">面试宝典APP下载</p>
@@ -40,10 +32,10 @@ session_start();
                         <img src="/images/erweima.png">
                     </div>
                 </li>
-                
-		    <?php
-                if(empty($_SESSION['username'])){
-            ?>
+
+		<?php
+                    if(empty($_SESSION['username'])){
+                        ?>
                 <li class="header-signin">
                     <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >登录</a>
                 </li>
@@ -52,8 +44,8 @@ session_start();
                 </li>
                     <?php
                     }else{
-                    ?>
- 
+                        ?>
+
                 <li class="remind_warp">
                     <i class="msg_remind" style="display: none;"></i>
                     <a href="/sms/messagesone" target="_blank"><i class="icon-notifi"></i></a>
@@ -75,11 +67,11 @@ session_start();
                         <div class="card-inner">
                             <div class="card-top">
                                 <a href="/u/3071208/courses"><img class="l" alt="凤颖" src="/images/unknow-160.png"></a>
-                                <a href="/u/3071208/courses"><span class="name text-ellipsis"><?php echo $_SESSION['username'] ?></span></a>
+                                <a href="/u/3071208/courses"><span class="name text-ellipsis">凤颖</span></a>
                                 <p class="meta">
 					<a href="/u/3071208/experience">经验<b id="js-user-mp">550</b></a>
 					<a href="/u/3071208/credit">积分<b id="js-user-credit">0</b></a>            </p>
-                    
+
                                 <a class="icon-set setup" href="/user/setprofile"></a>
                             </div>
                             <!--
@@ -106,33 +98,33 @@ session_start();
                         <i class="card-arr"></i>
                     </div>
                 </li>
- 
-                <?php
+
+                    <?php
                     }
                 ?>
             </ul>
         </div>
 
         <div class='search-warp clearfix' style='min-width: 32px; height: 60px;'>
-            <div class="search-area min" data-search="top-banner">
-                <input class="search-input" data-suggest-trigger="suggest-trigger" placeholder="请输入想搜索的内容..." type="text" autocomplete="off">
 
+            <div class="search-area" data-search="top-banner">
+                <input class="search-input" data-suggest-trigger="suggest-trigger"   placeholder="请输入想搜索的内容..."   type="text" autocomplete="off">
                 <input type='hidden' class='btn_search' data-search-btn="search-btn" />
-
                 <ul class="search-area-result" data-suggest-result="suggest-result">
-                </ul
-                >
+                </ul>
             </div>
             <div class='showhide-search' data-show='no'><i class='icon-search'></i></div>
         </div>
+    </div>
 
     </div>
+
 </div>
 <div class="footer bg-white idx-minwidth">
 
 
 <script src="/static/js/landing-min.js?2013032917"></script>
-<script type="text/javascript" src="http://open.51094.com/user/myscript/157ab219be5214.html "></script>
+
 <div style="text-align:center;clear:both"></div>
 
 <div id="js-index-video" class="video-container">
@@ -165,13 +157,13 @@ session_start();
             <input name="remember" type="checkbox" checked/>
             下次自动登录 </label>
         <a class="forgot">忘记密码？</a>
-        <div>
-                <div>
-                   第三方:<span id="hzy_fast_login"></span>
-                </div>
-            <a href=""><p>还没有账号,立即注册</p></a><br>
-      </div>
-       
+        <div class="login-sns-wrap">
+            <div class="login-sns">
+                <a href="javascript:void(0)" hidefocus="true" data-sns="/user/loginweixin" class="sns-weixin"><i class="icon-weixin"></i>微信帐号直接登录</a>
+                <a href="javascript:void(0)" hidefocus="true" data-sns="/user/loginqq" class="sns-qq"><i class="icon-qq"></i>QQ  帐号直接登录</a>
+                <a href="javascript:void(0)" hidefocus="true" data-sns="/user/loginweibo" class="sns-weibo"><i class="icon-weibo"></i>新浪微博帐号登录</a>
+            </div>
+        </div>
 
     </form>
 </div>
@@ -185,15 +177,13 @@ session_start();
         <p class="error"></p>
         <input type="text" name="username" id="username" data-validate="email" autocomplete="off" class="ipt ipt-email" placeholder="请输入名称 "><font color="red"><p class="tips" id="name_sp"></p></font>
         <input type="password" name="password"  class="ipt ipt-pwd js-pass-pwd" placeholder="6-16位密码，区分大小写，不能用空格" id="pwd"  style="background-image:url('');
-   background-position:right bottom"><p class="tips" id="sp_pwd"><font color="red"></font></p>
-
-        <input type="text" name="email" data-validate="nick" class="ipt ipt-email" placeholder="邮箱格式:@ . com" id="email">
-        <font color="red"><p class="tips" id="email_sp"></p></font>
+   background-position:right bottom"><span id="box3"><a href="javascript:void(0)"  onclick='show();'>显示密码</a></span><p class="tips" id="sp_pwd"><font color="red"></font></p>
+        <input type="text" name="email" data-validate="nick" class="ipt ipt-email" placeholder="邮箱格式:@ . com" id="email"><font color="red"><p class="tips" id="email_sp"></p></font>
         <input type="text" name="phone" data-validate="nick" class="ipt ipt-nick" placeholder="手机号为11位 " id="phone" ><font color="red"><p class="tips" id="phone_sp"></p></font>
 
         <input type="submit" name="type"  class="button-blue reg" value="注册" data-category="UserAccount" data-action="regist">
 
-       <!--  <div class="wrap-right l">
+        <div class="wrap-right l">
             <div class="login-sns-wrap">
                 <h1 class="form-h1">
                     一键授权，快速登录
@@ -204,7 +194,7 @@ session_start();
                     <a href="javascript:void(0)" hidefocus="true" data-sns="/user/loginweibo" class="sns-weibo"><i class="icon-weibo"></i>新浪微博帐号登录</a>
                 </div>
             </div>
-        </div> -->
+        </div>
     </form>
 </div>
 
@@ -336,6 +326,7 @@ session_start();
         }
     })
     $("#sub").click(function(){
+        var url="<?php   $re=Request::fullurl(); echo substr($re,(strripos($re,'/')+1))  ?>"
         var sp_name=$("#sp_name").html();
         var sp_pwd=$("#sp_pwd").html();
         var u_name=$("#u_name").val();
@@ -350,7 +341,7 @@ session_start();
                     u_pwd:u_pwd
                 },function(data){
                     if(data==5){
-                        alert('登陆成功');location.href='index';
+                        alert('登陆成功');location.href=url;
                     }else if(data==6){
                         alert('登陆失败');location.href='login';
                     }
@@ -361,7 +352,7 @@ session_start();
                     u_pwd:u_pwd
                 },function(data){
                     if(data==5){
-                        alert('登陆成功');location.href='index';
+                        alert('登陆成功');location.href=url;
                     }else if(data==6){
                         alert('登陆失败');location.href='login';
                     }
@@ -390,6 +381,6 @@ session_start();
 
     <div  style="position:fixed;z-index: 100;right: 15px; top: 40%">
         <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=297973528&site=qq&menu=yes">
-            <img border="0"  src="http://wpa.qq.com/pa?p=2:297973528:53" alt="点击这里给我发消息" title="点击这里给我发消息" />
+            <img border="0"  src="http://wpa.qq.com/pa?p=2:297973528:53" alt="点击这里给我发消息" title="点击这里给我发消息"/>
         </a>
     </div>
