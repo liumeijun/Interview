@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+header("content-type:text/html;charset=UTF-8");
 use DB;
 class ArticleController extends Controller
 {
@@ -26,13 +27,21 @@ class ArticleController extends Controller
             }else{
                 $article[$key]['zan']="0";
             }
-
         }
-        //print_r($article);die;
 
-
-        //print_r($arr);die;
-        return view('article/article',['at_type'=>$at_type,'article'=>$article]);
+        //文章推荐
+        $groom = DB::select("select * from article join ar_type on article.a_type=ar_type.at_id join a_lei on article.a_lei=a_lei.al_id order by article.a_num
+desc limit 10");
+        //print_r($groom);die;
+        //查询一周达人
+        $people = DB::table('aping')
+            ->join('users', 'aping.u_id', '=', 'users.user_id')
+            ->groupBy('aping.u_id')
+            ->select(count('aping.u_id'))
+            ->count('aping.u_id');
+        //$people = DB::table('users')->select(count(*))->groupBy('u_id');
+        print_r($people);die;
+        return view('article/article',['at_type'=>$at_type,'article'=>$article,'groom' => $groom]);
     }
     
     
@@ -74,7 +83,7 @@ class ArticleController extends Controller
 
         }
         $u_id=empty($u_id['user_id'])?$u_id['user_id']:1;
-       echo $u_id;die;
+       //echo $u_id;die;
         $arr=DB::table('article_zan')->where("u_id",$u_id)->where("article_id",$a_id)->get();
         if($arr){
             $zan=DB::table('article')->where('a_id',$a_id)->first();

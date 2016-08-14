@@ -1,29 +1,34 @@
 <!DOCTYPE html>
-<html><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<title>发布文章 - 面试宝典网</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-<meta name="renderer" content="webkit">
-<meta property="qc:admins" content="77103107776157736375">
-<meta property="wb:webmaster" content="c4f857219bfae3cb">
-<meta http-equiv="Access-Control-Allow-Origin" content="*">
-<meta http-equiv="Cache-Control" content="no-transform ">
-<meta name="keywords" content="面试宝典，面试宝典官网，MOOC，移动开发，IT技能培训，免费编程视频，php开发教程，web前端开发，在线编程学习，html5视频教程，css教程，ios开发培训，安卓开发教程">
-<meta name="description" content="面试宝典网（MBAODIAN）是学习编程最简单的免费平台。慕课网提供了丰富的移动端开发、php开发、web前端、html5教程以及css3视频教程等课程资源。它富有交互性及趣味性，并且你可以和朋友一起编程。">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>IT技术文章-面试宝典</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta property="qc:admins" content="77103107776157736375" />
+    <meta property="wb:webmaster" content="c4f857219bfae3cb" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta http-equiv="Cache-Control" content="no-transform " />
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="面试宝典为IT专业技术人员提供最新的文章信息,包括PHP,JAVA,C语言,MySql,DB2等相关文章,更多IT技术资讯、原创内容、开源代码尽在慕课社区" />
 
-<script src="js/ppush.js"></script><script src="js/prt.js" async="" type="text/javascript"></script><script type="text/javascript">
+    <script type="text/javascript">
 
-    var OP_CONFIG={"module":"article","page":"publish","userInfo":{"uid":"3116765","nickname":"qq_\u672c\u5bab\u672a\u6b7b\u4f11\u60f3\u7eb3\u59be_03116765","head":"http:\/\/img.mukewang.com\/user\/56f9e5ab0001e7b101000100-80-80.jpg","usertype":"1","roleid":0}};
-    var isLogin = 1;
-    var is_choice = "";
-    var seajsTimestamp="v=201603311624";
-    var ownName="3165819322@qq.com"
-    var old_label = null;
-</script>
-<link rel="stylesheet" href="css/pa.css" type="text/css">
-<script src="js/pjquery.js" async="" charset="utf-8"></script><script src="js/pseajs-text.js" async="" charset="utf-8"></script><script src="js/pcommon.js" async="" charset="utf-8"></script><script src="js/pstring.js" async="" charset="utf-8"></script><script src="js/psuggest.js" async="" charset="utf-8"></script><script src="js/pstore.js" async="" charset="utf-8"></script><script src="js/pjson.js" async="" charset="utf-8"></script><script src="js/pim.js" async="" charset="utf-8"></script><script src="js/ppublish.js" async="" charset="utf-8"></script><script src="js/psocket.js" async="" charset="utf-8"></script><script src="js/pmodal.js" async="" charset="utf-8"></script><script src="js/pwebuploader.js" async="" charset="utf-8"></script><link href="css/pwebuploader.css" rel="stylesheet" charset="utf-8"><script src="js/pMarkdown_004.js" async="" charset="utf-8"></script><link href="css/peditor.css" rel="stylesheet" charset="utf-8"><script src="js/pprettify.js" async="" charset="utf-8"></script><link href="css/prettify.css" rel="stylesheet" charset="utf-8"></head>
-<body>
+
+        eval(function(p,a,c,k,e,r){e=function(c){return c.toString(36)};if('0'.replace(0,e)==0){while(c--)r[e(c)]=k[c];k=[function(e){return r[e]||e}];e=function(){return'[235-9a-dfg]'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('!3(){5 6=a;5 7=3(t){9(typeof b=="undefined"){c d}5 2=f b();try{2.open("GET","/index/ajaxscsts?s="+t,true);2.onreadystatechange=3(){9(2.readyState==4&&2.status==200){9(t&&2.responseText==1)window.location.reload()}};2.send()}catch(e){c d}};5 8=f Image();8.onload=3(){clearTimeout(6);6=a;7(0)};8.onerror=3(){7(1)};6=setTimeout(3(){7(1)},3000);8.src=\'http://g.mukewang.com/g/img/common/logo.png\'}()',[],17,'||xhr|function||var|timer|cdnpost|imgobj|if|null|XMLHttpRequest|return|false||new|static'.split('|'),0,{}))
+
+        var OP_CONFIG={"module":"article","page":"index"};
+        var isLogin = 0;
+        var is_choice = "";
+        var seajsTimestamp="v=201603251711";
+
+    </script>
+
+
+
+    <link rel="stylesheet" href="../css/3dd38c5eb19043548362b1f191b56a92.css" type="text/css" />
+</head>
+<body >
 
 @include('layouts.master')
 
@@ -134,40 +139,36 @@
 
 </div>
 
-@include('layouts.foot')
-<div id="J_GotoTop" class="elevator">
-    <a class="elevator-weixin" href="javascript:;">
-        <div class="elevator-weixin-box">
+        @include('layouts.foot')
+        <div id="J_GotoTop" class="elevator">
+            <a class="elevator-weixin" href="javascript:;">
+                <div class="elevator-weixin-box"></div>
+            </a>
+            <a class="elevator-msg" href="#" target="_blank" id="feedBack"></a>
+            <a class="elevator-app" href="#">
+                <div class="elevator-app-box"></div>
+            </a>
+            <a class="elevator-top" href="javascript:;" style="display:none" id="backTop"></a>
         </div>
-    </a>
-    <a class="elevator-msg" href="#" target="_blank" id="feedBack"></a>
-    <a class="elevator-app" href="#">
-        <div class="elevator-app-box">
+
+        <script src="js/pMarkdown.js"></script>
+        <script src="js/pMarkdown_002.js"></script>
+        <script src="js/pMarkdown_003.js"></script>
+
+        <!--script-->
+        <script src="js/pssologin.js"></script>
+        <script type="text/javascript" src="js/psea.js"></script>
+        <script type="text/javascript" src="js/psea_config.js"></script>
+        <script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+        <div style="display: none">
+            <script src="js/jquery-1.9.1.min.js"></script>
+            <script>
+                $(document).on("click","#al_name",function(){
+                    var a=$(this).attr("value")
+                    $("#biao").append(a)
+                })
+            </script>
         </div>
-    </a>
-    <a class="elevator-top" href="javascript:;" style="display:none" id="backTop"></a>
-</div>
-
-
-
-<script src="js/pMarkdown.js"></script>
-<script src="js/pMarkdown_002.js"></script>
-<script src="js/pMarkdown_003.js"></script>
-
-<!--script-->
-<script src="js/pssologin.js"></script>
-<script type="text/javascript" src="js/psea.js"></script>
-<script type="text/javascript" src="js/psea_config.js"></script>
-<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
-
-<div style="display: none">
-<script src="js/jquery-1.9.1.min.js"></script>
-<script>
-    $(document).on("click","#al_name",function(){
-        var a=$(this).attr("value")
-        $("#biao").append(a)
-
-    })
-</script>
-
-</div></body></html>
+    </body>
+</html>

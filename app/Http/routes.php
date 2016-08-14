@@ -100,7 +100,7 @@ Route::post('delhouse_article', 'ArticleController@delhouse_article');
 //文章
 Route::get('article', 'ArticleController@article');
 Route::get('article/publish', 'ArticleController@publish');
-Route::post('add', 'ArticleController@add');
+Route::post('article/add', 'ArticleController@add');
 Route::post('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
 Route::get('fangfa', 'ArticleController@wxiang');
