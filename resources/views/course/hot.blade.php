@@ -25,6 +25,7 @@
                     <span>最热试题</span>
                     <a href="/about/recruit" class="for-teacher hide-text" title="应聘讲师" target="_blank">应聘讲师</a>
                 </div>
+                
             <div class="course-tool-bar clearfix">
                 <div class="tool-left l">
                     <a href="news" class="sort-item active">最新</a>

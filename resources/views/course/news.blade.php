@@ -25,6 +25,7 @@
                     <span>最新试题</span>
                     <a href="/about/recruit" class="for-teacher hide-text" title="应聘讲师" target="_blank">应聘讲师</a>
                 </div>
+                
             <div class="course-tool-bar clearfix">
                 <div class="tool-left l">
                     <a href="/course/new" class="sort-item">最新</a>
