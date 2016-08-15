@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 
 
 session_start();
-header("content-type:text/html;charset=utf8");
+
 class LoginController extends Controller
 {
     public function login(){
@@ -15,7 +15,7 @@ class LoginController extends Controller
     }
     public function name(){
         $u_phone=$_POST['u_name'];
-       // echo $u_phone;die;
+        // echo $u_phone;die;
         $arr=DB::table('users')->where('user_phone',"$u_phone")->first();
         if($arr){
             echo 1;
@@ -37,7 +37,7 @@ class LoginController extends Controller
         $u_pwd=$_POST['u_pwd'];
         //echo $u_name,$u_pwd;die;
         $arr=DB::table('users')->where('user_phone',"$u_name")->where('user_pwd',"$u_pwd")->get();
-       //print_r($arr);die;
+        //print_r($arr);die;
         if($arr){
             echo 3;
         }else{
@@ -59,25 +59,25 @@ class LoginController extends Controller
     public function name_deng(){
         $u_name=$_POST['u_name'];
         $u_pwd=$_POST['u_pwd'];
-	$_SESSION['username']=$u_name;
-//	echo $_SESSION['username'];die;
         $arr=DB::table('users')->where('user_phone',"$u_name")->where('user_pwd',"$u_pwd")->get();
         //print_r($arr);die;
         if($arr){
-	   $_SESSION['u_id']=$arr[0]['user_id'];
+            $_SESSION['u_id']=$arr[0]['user_id'];
+            $_SESSION['username']=$arr[0]['user_name'];
             echo 5;
         }else{
             echo 6;
         }
-    }  
+    }
     public function email_deng(){
         $u_name=$_POST['u_name'];
         $u_pwd=$_POST['u_pwd'];
-	$_SESSION['username']=$u_name;
+        $_SESSION['username']=$u_name;
         $arr=DB::table('users')->where('user_email',"$u_name")->where('user_pwd',"$u_pwd")->get();
         //print_r($arr);die;
         if($arr){
-	 $_SESSION['u_id']=$arr[0]['user_id'];
+            $_SESSION['u_id']=$arr[0]['user_id'];
+            $_SESSION['username']=$arr[0]['user_name'];
             echo 5;
         }else{
             echo 6;
@@ -100,6 +100,7 @@ class LoginController extends Controller
         }else{
 
             if(DB::table('users')->where('user_email',"$email")->first()){
+
                 echo "<script>alert('邮箱已存在');location.href='index'</script>";
             }else{
                 if(DB::table('users')->where('user_phone',"$phone")->first()){
@@ -124,8 +125,11 @@ class LoginController extends Controller
 
                         // echo "<script>alert('注册成功');location.href='#'</script>";
                     }else{
-                        echo "<script>alert('注册失败');location.href='index'</script>";
+                        echo "<script>alert('注册失败');location.href='".$url."'</script>";
                     }
+
+
+
                 }
             }
         }
@@ -149,6 +153,7 @@ class LoginController extends Controller
         unset($_SESSION['username']);
         unset($_SESSION['u_id']);
         unset($_SESSION['img']);
+        
         echo "<script>alert('退出成功');location.href='index'</script>";
     }
 
@@ -244,6 +249,4 @@ class LoginController extends Controller
         
           return redirect('/index');   
     }
-    
 }
-  
