@@ -127,9 +127,6 @@ class LoginController extends Controller
                     }else{
                         echo "<script>alert('注册失败');location.href='".$url."'</script>";
                     }
-
-
-
                 }
             }
         }
@@ -150,11 +147,17 @@ class LoginController extends Controller
     }
 
     public function out(){
+
+        $url=Request::get('url');
+        if ($url=='setprofile'||$url=='setavator'||$url=='setphone'||$url=='setverifyemail'||$url=='setresetpwd'||$url=='setbindsns') {
+            $url='index';
+        }
+        // print_r($url);die;
         unset($_SESSION['username']);
         unset($_SESSION['u_id']);
         unset($_SESSION['img']);
-        
-        echo "<script>alert('退出成功');location.href='index'</script>";
+     
+        echo "<script>alert('退出成功');location.href='".$url."'</script>";
     }
 
       //第三方qq登陆
