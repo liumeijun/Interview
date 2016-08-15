@@ -38,9 +38,9 @@
         var seajsTimestamp="v=2016081011958";
     </script>
 
-    <link rel="stylesheet" href="../css/ahx.css" type="text/css">
+    <link rel="stylesheet" href="css/ahx.css" type="text/css">
     <link rel="stylesheet" href="css/muke3.css" type="text/css" />
-    <link rel="stylesheet" href="css/muke2.css" type="text/css" />
+    {{--<link rel="stylesheet" href="css/muke2.css" type="text/css" />--}}
 
 
     <script>
@@ -51,8 +51,7 @@
         }
     </script>
 
-  {{--<script src="js/jquery.js" async="" charset="utf-8"></script><script src="js/seajs-text.js" async="" charset="utf-8"></script><script src="js/common.js" async="" charset="utf-8"></script><script src="js/string.js" async="" charset="utf-8"></script><script src="js/suggest.js" async="" charset="utf-8"></script><script src="js/store.js" async="" charset="utf-8"></script><script src="js/json.js" async="" charset="utf-8"></script><script src="js/im.js" async="" charset="utf-8"></script><script src="js/save.js" async="" charset="utf-8"></script><script src="js/socket.js" async="" charset="utf-8"></script><script src="js/autocomplete.js" async="" charset="utf-8"></script><script src="js/verify-code.js" async="" charset="utf-8"></script><link rel="stylesheet" type="text/css" href="../css/ueditorhx.css"><script defer="defer" type="text/javascript" src="js/codemirror.js"></script><link href="../css/codemirrorhx.css" type="text/css" rel="stylesheet"><script defer="defer" type="text/javascript" src="js/ZeroClipboard.js"></script></head>--}}{{--
---}}
+    {{--<script src="js/jquery.js" async="" charset="utf-8"></script><script src="js/seajs-text.js" async="" charset="utf-8"></script><script src="js/common.js" async="" charset="utf-8"></script><script src="js/string.js" async="" charset="utf-8"></script><script src="js/suggest.js" async="" charset="utf-8"></script><script src="js/store.js" async="" charset="utf-8"></script><script src="js/json.js" async="" charset="utf-8"></script><script src="js/im.js" async="" charset="utf-8"></script><script src="js/save.js" async="" charset="utf-8"></script><script src="js/socket.js" async="" charset="utf-8"></script><script src="js/autocomplete.js" async="" charset="utf-8"></script><script src="js/verify-code.js" async="" charset="utf-8"></script><link rel="stylesheet" type="text/css" href="../css/ueditorhx.css"><script defer="defer" type="text/javascript" src="js/codemirror.js"></script><link href="../css/codemirrorhx.css" type="text/css" rel="stylesheet"><script defer="defer" type="text/javascript" src="js/ZeroClipboard.js"></script></head>--}}
 
 </head>
 <body style="background:#FFFFFF" >
@@ -253,7 +252,7 @@
 
 
             </div>
-<?php } else{?>
+            <?php } else{?>
             {{--登录后可以评价--}}
             <div id="js-qa-comment-input" class="detail-comment-input js-msg-context clearfix">
 
@@ -264,91 +263,91 @@
 
                 {{--添加回答--}}
                 <form action="hui" method="post">
-                <div id="avator-wrap" class="detail-ci-avator answer-hidden">
-                    <img src="http://img.mukewang.com/user/573422b30001668001000100-80-80.jpg" alt="" />
-                    <div class="detail-r clearfix">
+                    <div id="avator-wrap" class="detail-ci-avator answer-hidden">
+                        <img src="http://img.mukewang.com/user/573422b30001668001000100-80-80.jpg" alt="" />
+                        <div class="detail-r clearfix">
 
-                        {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
-                        <input type="hidden" name="url" value="<?php echo Request::fullurl() ?>">
-                        {{--题id--}}
-                        <input type="hidden" id="tid" name="tid" value="<?php echo $arr['0']['t_id']?>">
-                        {{--回答者的名字--}}
-                        <input type="hidden" value="<?php echo $_SESSION['username'];?>" name="user_name">
+                            {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
+                            <input type="hidden" name="url" value="<?php echo Request::fullurl() ?>">
+                            {{--题id--}}
+                            <input type="hidden" id="tid" name="tid" value="<?php echo $arr['0']['t_id']?>">
+                            {{--回答者的名字--}}
+                            <input type="hidden" value="<?php echo $_SESSION['username'];?>" name="user_name">
 
-                        <span class="detail-name"><?php echo $_SESSION['username'];?></span>
-                        <p class="detail-signal"></p>
-                    </div>
-                </div>
-                <div id="js-reply-wrap" class="answer-hidden">
-                    {{--百度编辑器--}}
-                    <textarea  name="account" id="editor"></textarea>
-                    <div id="js-qa-ci-footer" class="qa-ci-footer clearfix">
-                        <span class="qa-tips l"></span>
-                        <div class="qa-ci-footright">
-                            <input type="submit" class="btn btn-red detail-ans " value="回答" >
+                            <span class="detail-name"><?php echo $_SESSION['username'];?></span>
+                            <p class="detail-signal"></p>
                         </div>
                     </div>
-                </div>
-            </form>
+                    <div id="js-reply-wrap" class="answer-hidden">
+                        {{--百度编辑器--}}
+                        <textarea  name="account" id="editor"></textarea>
+                        <div id="js-qa-ci-footer" class="qa-ci-footer clearfix">
+                            <span class="qa-tips l"></span>
+                            <div class="qa-ci-footright">
+                                <input type="submit" class="btn btn-red detail-ans " value="回答" >
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
 
             </div>
 
             <?php } ?>
 
-            <!-- 回答数 -->
+                    <!-- 回答数 -->
             <div class="ans_num">共<?php echo count($arr_com);?>条回答</div>
             <?php foreach ($arr_com as $key => $val) {
 
-    ?>
+            ?>
 
 
-    <div id="aa">
-        <div class="ques-answer">
-            <div class="answer-con first" id="id_156829">
-                <div class="user-pic l">
-                    <a href="http://www.imooc.com/u/1044131/bbs" target="_blank">
-                        <img src="<?= substr(public_path(),17);?>/detail_files/567b7d9a0001eadd01000100-100-100.jpg" alt="?" width="40" height="40">
-                    </a>
-                </div><!--.user end-->
-                <div class="detail-r">
-                    <span class="time"><?php echo $val['com_addtime'];?></span>
-                    <a class="detail-name" href="http://www.imooc.com/u/1044131/bbs" target="_blank"><?php echo $val['user_name'];?></a>
-                </div>
+            <div id="aa">
+                <div class="ques-answer">
+                    <div class="answer-con first" id="id_156829">
+                        <div class="user-pic l">
+                            <a href="http://www.imooc.com/u/1044131/bbs" target="_blank">
+                                <img src="<?= substr(public_path(),17);?>/detail_files/567b7d9a0001eadd01000100-100-100.jpg" alt="?" width="40" height="40">
+                            </a>
+                        </div><!--.user end-->
+                        <div class="detail-r">
+                            <span class="time"><?php echo $val['com_addtime'];?></span>
+                            <a class="detail-name" href="http://www.imooc.com/u/1044131/bbs" target="_blank"><?php echo $val['user_name'];?></a>
+                        </div>
 
 
-                <div class="answer-content rich-text imgPreview"><p><?php echo $val['com_content'];?><br></p></div>
+                        <div class="answer-content rich-text imgPreview"><p><?php echo $val['com_content'];?><br></p></div>
 
-                <div class="ctrl-bar clearfix js-wenda-tool">
-                    {{--判断是否登录,进行对回复的支持与反对--}}
+                        <div class="ctrl-bar clearfix js-wenda-tool">
+                            {{--判断是否登录,进行对回复的支持与反对--}}
 
-                        @if(empty($_SESSION['username']))
+                            @if(empty($_SESSION['username']))
                                 <span class="agree-with " data-ques-id="313011" data-answer-id="156829" data-hasop="">
                                 <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" ><b>赞同</b></a>
                                 </span>
-                        <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" ><span class="oppose " data-ques-id="313011" data-answer-id="156829" data-hasop="">反对</span></a>
-                        <span class="reply" data-replynum="0" data-reply-id="156829" data-ques-uid="2965295"><em><?php echo $val['count(comments_replay.status)'] ?></em>个回复</span>
-                        @else
-                        <span class="agree-with " data-ques-id="313011" data-answer-id="156829" data-hasop="">
+                                <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" ><span class="oppose " data-ques-id="313011" data-answer-id="156829" data-hasop="">反对</span></a>
+                                <span class="reply" data-replynum="0" data-reply-id="156829" data-ques-uid="2965295"><em><?php echo $val['count(comments_replay.status)'] ?></em>个回复</span>
+                            @else
+                                <span class="agree-with " data-ques-id="313011" data-answer-id="156829" data-hasop="">
                             @if($arr_com['0']['status']==0)
-                            <b class="agree" >赞同</b>
-                             @else
-                                <b class="noagree" >取消赞同</b>
-                             @endif
+                                        <b class="agree" >赞同</b>
+                                    @else
+                                        <b class="noagree" >取消赞同</b>
+                                    @endif
                                 </span>
-                        <span class="oppose " data-ques-id="313011" data-answer-id="156829" data-hasop="" id="disagree">反对</span>
-                        <span class="reply" data-replynum="0" data-reply-id="156829" data-ques-uid="2965295"><em><?php echo $val['count(comments_replay.status)'] ?></em>个回复</span>
+                                <span class="oppose " data-ques-id="313011" data-answer-id="156829" data-hasop="" id="disagree">反对</span>
+                                <span class="reply" data-replynum="0" data-reply-id="156829" data-ques-uid="2965295"><em><?php echo $val['count(comments_replay.status)'] ?></em>个回复</span>
 
-                    @endif
-                </div><!--.ctrl-bar end-->
+                            @endif
+                        </div><!--.ctrl-bar end-->
 
 
-            </div><!--.answer-con end-->
-         <!--.reply-con end-->
+                    </div><!--.answer-con end-->
+                    <!--.reply-con end-->
 
-        </div>
-    </div>
-    <!-- 回答回复 end --><?php } ?>
+                </div>
+            </div>
+            <!-- 回答回复 end --><?php } ?>
             <div class="qa-comment-page">
             </div>
 

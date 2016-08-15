@@ -29,7 +29,9 @@ Route::post('name_pwd','LoginController@name_pwd');
 Route::post('email_pwd','LoginController@email_pwd');
 Route::post('name_deng', 'LoginController@name_deng');
 Route::post('email_deng','LoginController@email_deng');
-
+//第三方登陆
+Route::get('qqlogin','LoginController@qqlogin'); 
+Route::get('weibo','LoginController@weibo'); 
 //个人中心
 Route::get('user/setprofile', 'UserController@setprofile');
 Route::get('user/setavator', 'UserController@setavator');
@@ -37,6 +39,11 @@ Route::get('user/setphone', 'UserController@setphone');
 Route::get('user/setverifyemail', 'UserController@setverifyemail');
 Route::get('user/setresetpwd', 'UserController@setresetpwd');
 Route::get('user/setbindsns', 'UserController@setbindsns');
+//我的收藏
+Route::get('user/my_house', 'UserController@my_house');
+//我的收藏->收藏的文章
+Route::get('user/my_house_article', 'UserController@my_house_article');
+
 
 //个人中心
 Route::get('sms/messages', 'SmsController@messages');
@@ -54,13 +61,9 @@ Route::get('save', 'WendaController@save');
 //提交提问
 Route::post('tiwen', 'WendaController@tiwen');
 //点击标题后进入的详情页面
-Route::any('detail', 'WendaController@detail');
+Route::get('detail', 'WendaController@detail');
 //评论
-Route::any('hui', 'WendaController@hui');
-//Route::any('hui', function(){
-//   $re= \Illuminate\Support\Facades\Request::all();
-//    print_r($re);
-//});
+Route::post('hui', 'WendaController@hui');
 //点赞
 Route::get('zid', 'WendaController@zid');
 /*
@@ -79,6 +82,22 @@ Route::post('zhuanye', 'CourseController@zhuanye');
 Route::get('xiang', 'CourseController@xiang');
 Route::post('con', 'CourseController@con');
 Route::get('ping', 'CourseController@ping');
+//收藏试题
+Route::post('addhouse', 'CourseController@addhouse');
+//删除收藏的试题（取消关注）
+Route::post('delhouse', 'CourseController@delhouse');
+
+//收藏文章
+Route::post('addhouse_article', 'ArticleController@addhouse_article');
+//删除收藏的文章（取消关注）
+Route::post('delhouse_article', 'ArticleController@delhouse_article');
+// 个人历史观看试题
+Route::get('history', 'CourseController@History');
+// 最新试题
+Route::get('news', 'CourseController@News');
+// 最热试题
+Route::get('hot', 'CourseController@Hot');
+
 /*
  * 试题结束
  */
@@ -91,6 +110,7 @@ Route::post('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
 Route::get('fangfa', 'ArticleController@wxiang');
 Route::post('wping', 'ArticleController@wping');
+
 //招聘
 Route::get('program', 'ProgramController@program');
 Route::get('etc', 'ProgramController@etc');
@@ -101,7 +121,6 @@ Route::get('position', 'ProgramController@position');
 //注册
 //Route::post('register', 'CommonController@register');
 Route::post('reg','LoginController@reg');
-
 Route::get('register','LoginController@register');
 //登陆
 Route::post('login', 'CommonController@login');

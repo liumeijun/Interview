@@ -33,6 +33,11 @@ class CacheServiceProvider extends ServiceProvider
             return new MemcachedConnector;
         });
 
+        $this->app['memcache.connector'] = $this->app->share(function()
+        {
+            return new MemcacheConnector;
+        }); 
+
         $this->registerCommands();
     }
 

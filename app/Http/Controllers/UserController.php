@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use DB;
 
 class UserController extends Controller
 {
     //个人资料
     public function setprofile(){
+        
+        // $res=DB::table('region')->select();
+        // print_r($res);die;
         return view('user/setprofile');
     }
     //头像设置
@@ -27,5 +31,47 @@ class UserController extends Controller
     //绑定账号
     public function setbindsns(){
         return view('user/setbindsns');
+    }
+
+    //我的收藏
+    public function my_house(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        if(empty($_SESSION['username'])){
+            return view('user/my_house');
+        }else {
+            $user_name = $_SESSION['username'];
+            $users = DB::table('users')->where("user_name",$user_name)->get();
+            $user_id = $users[0]['user_id'];
+            $college_questions = DB::table('college_questions')
+                ->join('house_college_questions', 'college_questions.c_id', '=', 'house_college_questions.college_questions_id')
+                ->join('users', 'users.user_id', '=', 'house_college_questions.user_id')
+                ->select('c_name','c_answer')
+                ->where('users.user_id',$user_id)
+                ->get();
+            return view('user/my_house',['college_questions' => $college_questions]);
+        }
+    }
+
+    //我的收藏->收藏的文章
+    public function my_house_article(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        if(empty($_SESSION['username'])){
+            return view('user/my_house_article');
+        }else {
+            $user_name = $_SESSION['username'];
+            $users = DB::table('users')->where("user_name",$user_name)->get();
+            $user_id = $users[0]['user_id'];
+            $article = DB::table('article')
+                ->join('house_article', 'article.a_id', '=', 'house_article.article_id')
+                ->join('users', 'users.user_id', '=', 'house_article.user_id')
+                ->select('a_title','a_con')
+                ->where('users.user_id',$user_id)
+                ->get();
+            return view('user/my_house_article',['article' => $article]);
+        }
     }
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html><head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -73,8 +73,7 @@
 <div class="icourse">
 
     <div class="incourse-wrap idx-width">
-        <h2 class="xunhuan" >试题
-        </h2>
+        <h2 class="xunhuan" >试题</h2>
         <ul class="icourse-course clearfix">
             <?php foreach($shi as $k=>$v){?>
             <li>
@@ -255,7 +254,6 @@
         </div>
 <!--script-->
 <script src="js/jquery.lazyload.js"></script>
-{{--延时加载--}}
 <script charset="utf-8">
 
     $(function($){

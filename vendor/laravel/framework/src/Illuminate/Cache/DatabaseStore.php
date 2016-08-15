@@ -128,7 +128,7 @@ class DatabaseStore implements Store
     }
 
     /**
-     * Decrement the value of an item in the cache.
+     * Increment the value of an item in the cache.
      *
      * @param  string  $key
      * @param  mixed   $value

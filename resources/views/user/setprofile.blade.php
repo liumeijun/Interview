@@ -41,6 +41,9 @@ var is_choice = "";
       <li class="active">
         <a href="/user/setprofile" class="onactive">个人资料</a>
       </li>
+        <li >
+            <a href="/user/my_house">我的收藏</a>
+        </li>
       <li >
          <a href="/user/setavator">头像设置</a>
        </li>
@@ -72,11 +75,11 @@ var is_choice = "";
         <div class="wlfg-wrap clearfix">
             <label class="label-name" for="nick" >昵称</label>
             <div class="rlf-group">
-                <input type="text" name="nickname" id="nick"  autocomplete="off"  data-validate="nick"  class="input rlf-input rlf-input-nick" value="凤颖" placeholder="请输入昵称."/>
+                <input type="text" name="nickname" id="nick"  autocomplete="off"  data-validate="nick"  class="input rlf-input rlf-input-nick" value="<?php echo $_SESSION['username'] ?>" placeholder="请输入昵称."/>
                 <p class="rlf-tip-wrap"></p>
             </div>
         </div>
-        
+          
         <div class="wlfg-wrap clearfix">
             <label class="label-name" for="job">职位</label>
             <div class="rlf-group">
@@ -102,6 +105,7 @@ var is_choice = "";
         <div class="wlfg-wrap clearfix">
             <label class="label-name" for="province-select">城市</label>
             <div class="rlf-group profile-address">
+            
                 <select id="province-select" class='input' hidefocus="true">
                     <option value="0">选择省份</option>
                                             <option value="1">北京</option>
