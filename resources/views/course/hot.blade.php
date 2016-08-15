@@ -30,7 +30,15 @@
                 <div class="tool-left l">
                     <a href="news" class="sort-item active">最新</a>
                     <a href="hot" class="sort-item">最热</a>
+                    <?php
+                if(empty($_SESSION['username'])){
+            ?>
+             <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" class="sort-item active" >历史试题</a>
+            <?php
+                }else{
+            ?>
                     <a href="history" class="sort-item active">历史试题</a>
+            <?php } ?>
                 </div>
                 <div class="l">
                     <span class="tool-item" style="display: none;">

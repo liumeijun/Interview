@@ -53,11 +53,11 @@
                 <div class="tool-left l">
 
                     <a href="articleNew" class="sort-item ">最新</a>
-                    <a href="articleHot" class="sort-item ">热门</a>
+                    <a href="articleHot" class="sort-item active">热门</a>
                 </div>
             </div>
             <div id="lie">
-            <?php foreach($article as $k=>$v){?>
+            <?php foreach($new as $k=>$v){?>
             <div class="article-lwrap ">
                 <!-- text -->
                 <input type="hidden" id="a_id" value="<?php echo $v['a_id']?>">

@@ -80,7 +80,7 @@ var isLogin=1
                     <span class="praise l">推荐</span>
                 </span>
                 <var class="cutoff l">|</var>
-                <span class="praise-num">7</span>
+                <span class="praise-num"><?php echo $arr['a_num']?></span>
             </div>  
                         <!-- 推荐end -->
 
@@ -95,7 +95,7 @@ var isLogin=1
                         <div class="bdsharebuttonbox weichat-style">
                             <a href="#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
                             <a href="#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
-                            <a href="#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                            <a href="" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
                         </div>
                     </li>
                 </ul>
@@ -283,7 +283,9 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
 <script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
 
 <!--script-->
-<script src="/js/jquery-1.9.1.min.js"></script>
+<script src="/js/jquery-1.9.1.min.js">
+    
+</script>
       <script>
           $(document).on("click","#ping",function(){
               use=$("#user").val();
@@ -359,6 +361,29 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
 
 
       </script>
+       <script>
+    $(".praise").click(function(){
+        var id="<?php echo $arr['a_id'] ?>";
+        var zan = $('.praise-num').html();
+        var nzan = parseInt(zan)+1;
+        $.ajax({
+            url:'zan',
+            type:'POST',
+            data:{id:id},
+            success:function(msg){
+               if(msg==1){
+                 alert('请先登录');
+                 location.href='login';
+               }else if(msg==2){
+                alert('您已经推荐过该文章，无需再次推荐');
+               }else{
+                alert('您的推荐是对作者最大的鼓励');
+                $('.praise-num').html(nzan);
+               }
+            }
+        })
+    })
+    </script>
 <div style="display: none">
 </div>
 </body>

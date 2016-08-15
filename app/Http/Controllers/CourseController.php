@@ -108,12 +108,8 @@ class CourseController extends Controller
         }else{
             Cache::put($uid,$id,3600*24*7);
         }
-		$username=$_SESSION['username'];
-	    //$username=$_SESSION['username'];
-	    $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
-	    $u_id=$u_id['user_id'];
-        $ping=DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$u_id order by p_id desc");
-	//print_r($ping);die;
+        $ping=DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where e_id=$id order by e_addtime desc");
+	    // print_r($ping);die;
 	}else{
 		$ping=array();
 	}
@@ -142,7 +138,7 @@ class CourseController extends Controller
         if (empty($_SESSION['username'])) {
             return view('course/xiang',['arr'=>$arr,'ping'=>$ping]);
         } else {
-            $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
+            $is_house = DB::table("house_article")->where(['user_id' => $uid, 'article_id' => $id])->get();
             return view('course/xiang',['arr'=>$arr,'ping'=>$ping,'house' => $is_house]);
         }
     }
@@ -212,14 +208,13 @@ class CourseController extends Controller
         if(!isset($_SESSION)){
             session_start();
         }
-        if(empty($_SESSION['u_id'])){
-            return "<script>alert('请先登录');location.href='login'</script>";
-        }
         // 获取存在缓存中的用户浏览试题ID
         $uId = Cache::get($_SESSION['u_id']);
         // echo $uId;die;
         // 转化为数组，方便时用laravel中自带的查询构造器方法
         $arrId = explode(',',$uId);
+        $arrId = array_unique($arrId);
+        // dd($arrId);
         $historyTest = DB::table('college_questions')->whereIn('c_id',$arrId)->simplePaginate(12);
         // dd($historyTest);
         if($historyTest){
