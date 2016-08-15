@@ -12,7 +12,7 @@ class LoginController extends Controller
     }
     public function name(){
         $u_phone=$_POST['u_name'];
-       // echo $u_phone;die;
+        // echo $u_phone;die;
         $arr=DB::table('users')->where('user_phone',"$u_phone")->first();
         if($arr){
             echo 1;
@@ -34,7 +34,7 @@ class LoginController extends Controller
         $u_pwd=$_POST['u_pwd'];
         //echo $u_name,$u_pwd;die;
         $arr=DB::table('users')->where('user_phone',"$u_name")->where('user_pwd',"$u_pwd")->get();
-       //print_r($arr);die;
+        //print_r($arr);die;
         if($arr){
             echo 3;
         }else{
@@ -59,8 +59,8 @@ class LoginController extends Controller
         $arr=DB::table('users')->where('user_phone',"$u_name")->where('user_pwd',"$u_pwd")->get();
         //print_r($arr);die;
         if($arr){
-	        $_SESSION['u_id']=$arr[0]['user_id'];
-	        $_SESSION['username']=$arr[0]['user_name'];
+            $_SESSION['u_id']=$arr[0]['user_id'];
+            $_SESSION['username']=$arr[0]['user_name'];
             echo 5;
         }else{
             echo 6;
@@ -69,11 +69,11 @@ class LoginController extends Controller
     public function email_deng(){
         $u_name=$_POST['u_name'];
         $u_pwd=$_POST['u_pwd'];
-	$_SESSION['username']=$u_name;
+        $_SESSION['username']=$u_name;
         $arr=DB::table('users')->where('user_email',"$u_name")->where('user_pwd',"$u_pwd")->get();
         //print_r($arr);die;
         if($arr){
-	 $_SESSION['u_id']=$arr[0]['user_id'];
+            $_SESSION['u_id']=$arr[0]['user_id'];
             $_SESSION['username']=$arr[0]['user_name'];
             echo 5;
         }else{
@@ -85,7 +85,8 @@ class LoginController extends Controller
         return view('login/register');
     }
     public function reg(){
-//	echo "ssssss";die;
+        $url=$_POST['url'];
+//        print_r($url);die;
         $name=$_POST['username'];
         $pwd=$_POST['password'];
         $email=$_POST['email'];
@@ -103,12 +104,12 @@ class LoginController extends Controller
                     echo "<script>alert('手机号已存在');location.href='index'</script>";
                 }else{
 
-                $arr=DB::insert("insert into users(user_name,user_pwd,user_email,user_phone) values('$name','$pwd','$email','$phone');");
+                    $arr=DB::insert("insert into users(user_name,user_pwd,user_email,user_phone) values('$name','$pwd','$email','$phone');");
                     if($arr){
-			$_SESSION['username']=$name;
-                        echo "<script>alert('注册成功');location.href='index'</script>";
+                        $_SESSION['username']=$name;
+                        echo "<script>alert('注册成功');location.href='".$url."'</script>";
                     }else{
-                        echo "<script>alert('注册失败');location.href='index'</script>";
+                        echo "<script>alert('注册失败');location.href='".$url."'</script>";
                     }
 
 
@@ -122,10 +123,12 @@ class LoginController extends Controller
 
     public function out(){
         unset($_SESSION['username']);
-        echo "<script>alert('退出成功');location.href='index'</script>";
+        $url=$_GET['url'];
+
+        echo "<script>alert('退出成功');location.href='".$url."'</script>";
     }
 
 
 
 
- }
+}
