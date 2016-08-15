@@ -35,6 +35,7 @@ var is_choice = "";
 <div style="" id="main">
 
 <div style="" class="container clearfix">
+    <form action="tiwen" method="post">
     <div style="" class="l bbs-main">
       <div style="" class="sucesspage">
         <h2 class="new-save-title">提问标题</h2>
@@ -51,37 +52,25 @@ var is_choice = "";
                   <h4 class="new-save-title">     &nbsp;&nbsp;&nbsp;&nbsp;提问内容:</h4>
 
 
-                 <script src="js/jquery-1.9.1.js"></script>
-                    <script src="ckeditor/ckeditor.js"></script>
 
-                 <body>
-                    <textarea name="t_content" row="5" col="6"></textarea>
-                </body>
+
+
+                 <div style="width: 97%;float: right" >
+                     {{--百度编辑器--}}
+                     <textarea name="aa" id="editor"></textarea>
+                 </div>
+
                 </div>
                 <div class="mbottom">
                 <h4 class="new-save-title">     &nbsp;&nbsp;&nbsp;&nbsp;所属学院:</h4>
                   <div id="tag-title" class="new-tags ques-tag defaultbox">
-                    
                     <div id="js-tags" class="taglist clearfix">
-                          
-
-
-
-
-
                 <select name="pro" id="pro" class="select">
                     <option value="0">请选择</option>
                         @foreach($pro as $k=>$v)
                             <option value="<?php echo $v['d_id'];?>"><?php echo $v['d_name']?></option>
                         @endforeach
-                </select>  
-
-
-
-
-
-
-
+                </select>
                    </div>
                     
                   </div>
@@ -92,11 +81,12 @@ var is_choice = "";
           <div class="verify-code"></div>
         </div>
         <div class="saveques-bottom">
-          <a href="javascript:void(0)" id="ques-submit-btn" class="btn btn-red link-btn publishbtn" >发布提问</a>
+            <input type="submit" class="btn btn-red link-btn publishbtn" value="发布提问">
           <p class="global-errortip js-global-error"></p>
         </div>
       </div>
      </div>
+    </form>
     <div class="r bbs-slide">
       <div class="panel bbs-sendques">
         <div class="panel-body">
@@ -185,7 +175,13 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
         ) }
     })
 </script>
+<script type="text/javascript" charset="utf-8" src="baidu/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="baidu/ueditor.all.min.js"> </script>
+<script type="text/javascript">
+    var ue = UE.getEditor('editor');
+</script>
 @include('layouts.foot')
+
 
 
 
