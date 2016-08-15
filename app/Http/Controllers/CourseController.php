@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB,Cache;
+
+use DB,View,Cache;
 use Illuminate\Support\Facades\Session;
 
 header("content-type:text/html;charset=UTF-8");
@@ -18,8 +19,11 @@ class CourseController extends Controller
         //类型
         $lei = DB::table('type')->get();
         //全部试题
-        $shi = DB::table('college_questions')->simplePaginate(12);
-        return view('course/course', ['arr' => $arr, 'zhuan' => $zhuan, 'shi' => $shi, 'lei' => $lei]);
+        $shi=DB::table('college_questions')->simplePaginate(12);
+        View::share('zhuan',$zhuan);
+        View::share('shi',$shi);
+        View::share('lei',$lei);
+        return view('course/course',['arr'=>$arr]);
     }
 
     public function sou()

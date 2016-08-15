@@ -92,6 +92,10 @@ Route::post('con', 'CourseController@con');
 Route::get('ping', 'CourseController@ping');
 Route::post('addhouse', 'CourseController@addhouse');
 Route::post('delhouse', 'CourseController@delhouse');
+Route::get('hot', 'CourseController@Hot');
+Route::get('news', 'CourseController@News');
+Route::get('history', 'CourseController@History');
+
 /*
  * 试题结束
  */

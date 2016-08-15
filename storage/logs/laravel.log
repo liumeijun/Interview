@@ -6935,3 +6935,6 @@ Stack trace:
 [2016-08-15 08:53:05] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected 'as' (T_AS), expecting ';'' in D:\phpStudy\WWW\Interview\storage\framework\views\7846cef4f6eca3f64961875ed663bb06443166f1.php:2
 Stack trace:
 #0 {main}  
+[2016-08-15 09:19:18] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected '<<' (T_SL)' in D:\phpStudy\WWW\Interview\app\Http\Controllers\CourseController.php:4
+Stack trace:
+#0 {main}  
