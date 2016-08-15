@@ -29,7 +29,7 @@ class CourseController extends Controller
             $sql="select d_id,d_name from direction";
         }else {
             $sql = "select d_id,d_name from direction where college_id=".$type;
-        }
+        }   
         $zhuan=DB::select($sql);
         //print_r($zhuan);die;
         //根据学院的id查询学院的名称

@@ -72,7 +72,7 @@ var is_choice = "";
         <div class="wlfg-wrap clearfix">
             <label class="label-name" for="nick" >昵称</label>
             <div class="rlf-group">
-                <input type="text" name="nickname" id="nick"  autocomplete="off"  data-validate="nick"  class="input rlf-input rlf-input-nick" value="凤颖" placeholder="请输入昵称."/>
+                <input type="text" name="nickname" id="nick"  autocomplete="off"  data-validate="nick"  class="input rlf-input rlf-input-nick" value="<?php echo $_SESSION['username']; ?>" placeholder="请输入昵称."/>
                 <p class="rlf-tip-wrap"></p>
             </div>
         </div>
