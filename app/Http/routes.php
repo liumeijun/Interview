@@ -31,12 +31,15 @@ Route::post('name_deng', 'LoginController@name_deng');
 Route::post('email_deng','LoginController@email_deng');
 
 //个人中心
-Route::get('user/setprofile', 'UserController@setprofile');
+Route::any('user/setprofile', 'UserController@setprofile');
 Route::get('user/setavator', 'UserController@setavator');
 Route::get('user/setphone', 'UserController@setphone');
 Route::get('user/setverifyemail', 'UserController@setverifyemail');
 Route::get('user/setresetpwd', 'UserController@setresetpwd');
 Route::get('user/setbindsns', 'UserController@setbindsns');
+//保存个人资料
+Route::post('user/my_message', 'UserController@my_message');
+
 //我的收藏
 Route::get('user/my_house', 'UserController@my_house');
 //我的收藏->收藏的文章

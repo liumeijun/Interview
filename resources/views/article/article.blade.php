@@ -148,60 +148,17 @@
                 <h2 class="panel-hd">一周达人</h2>
                 <div class="article-weekly clearfix">
                     <ol class="weekly-top">
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/554ce69d0001044101000100-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                夜叉L</a>
+                        @foreach($people as $key => $v)
+                            <li>
+                                <a href="#" class="l hot-head" target="_blank" title="">
+                                    <img src="<?= $v['img'];?>" alt="" width="40" height="40" />
+                                </a>
+                                <a href="#" target="_blank" class="hot-name">
+                                    <?= $v['user_name'];?></a>
 
-                            <i class="rank-num weektop-first">1</i>
-                        </li>
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/5572a2ef00017bfa01000100-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                哈哈哈_3</a>
-
-                            <i class="rank-num weektop-two">2</i>
-                        </li>
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/5333a0d9000196ff02000200-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                果果爱吃苹果</a>
-
-                            <i class="rank-num ">3</i>
-                        </li>
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/56b0c3df0001fbd501000100-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                汪洋拾贝</a>
-
-                            <i class="rank-num ">4</i>
-                        </li>
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/56dc2ac40001583301000100-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                围城之java</a>
-
-                            <i class="rank-num ">5</i>
-                        </li>
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/56eff52a0001d07401000100-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                缄默蜀黍ONE</a>
-
-                            <i class="rank-num ">6</i>
-                        </li>
+                                <i class="rank-num weektop-first">第<?= $key+1;?>名</i>
+                            </li>
+                        @endforeach
                     </ol>
                 </div>
             </div>

@@ -34,17 +34,17 @@ class ArticleController extends Controller
 desc limit 10");
         //print_r($groom);die;
         //查询一周达人
-        $people = DB::table('aping')
-            ->join('users', 'aping.u_id', '=', 'users.user_id')
-            ->groupBy('aping.u_id')
-            ->select(count('aping.u_id'))
-            ->count('aping.u_id');
-        //$people = DB::table('users')->select(count(*))->groupBy('u_id');
-        print_r($people);die;
-        return view('article/article',['at_type'=>$at_type,'article'=>$article,'groom' => $groom]);
+//        $people = DB::table('aping')
+//            ->join('users', 'aping.u_id', '=', 'users.user_id')
+//            ->groupBy('aping.u_id')
+//            ->select(count('aping.u_id'))
+//            ->count('aping.u_id');
+        $people = DB::select("select user_name,img from aping join users on aping.u_id = users.user_id group by aping.u_id order by count(aping.u_id) desc limit 10");
+        return view('article/article',['at_type'=>$at_type,'article'=>$article,'groom' => $groom,'people' => $people]);
     }
     
-    
+
+    //发表文章展示页面
     public function publish(){
 //        echo 1;die;
         $at_type=DB::table('ar_type')->get();
@@ -53,7 +53,8 @@ desc limit 10");
         return view('article/publish',['ar_type'=>$at_type,'a_lei'=>$a_lei]);
     }
     
-    
+
+    //添加文章
     public function add(){
         $a_title=$_POST['a_title'];
         $a_type=$_POST['a_type'];
@@ -185,6 +186,8 @@ desc limit 10");
         }
     }
 
+
+    //取消收藏
     public function delhouse_article(){
         if(!isset($_SESSION)){
             session_start();
