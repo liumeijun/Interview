@@ -79,6 +79,9 @@ Route::post('zhuanye', 'CourseController@zhuanye');
 Route::get('xiang', 'CourseController@xiang');
 Route::post('con', 'CourseController@con');
 Route::get('ping', 'CourseController@ping');
+Route::get('hot', 'CourseController@Hot');
+Route::get('news', 'CourseController@News');
+Route::get('history', 'CourseController@History');
 /*
  * 试题结束
  */
