@@ -71,7 +71,6 @@ if(!isset($_SESSION)){
                     <div class="g-user-card">
                         <div class="card-inner">
                             <div class="card-top">
-<<<<<<< HEAD
                                 <a href="/u/3071208/courses"><img class="l" alt="凤颖" src=""></a>
                                 <a href="/u/3071208/courses"><span class="name text-ellipsis">
                                 <img width="40" style="" height="40" src="<?php if (empty($_SESSION['img'])) {
@@ -80,10 +79,6 @@ if(!isset($_SESSION)){
                                     echo $_SESSION['img'];
                                 } ?> ">
                                 </span></a>
-=======
-                                <a href="/u/3071208/courses"><img class="l" alt="凤颖" src="/images/unknow-160.png"></a>
-                                <a href="/u/3071208/courses"><span class="name text-ellipsis">凤颖</span></a>
->>>>>>> ff38c3b8a7e96fd898764ff446dc88ce84a6e44e
                                 <p class="meta">
                                     <a href="/u/3071208/experience">经验<b id="js-user-mp">550</b></a>
                                     <a href="/u/3071208/credit">积分<b id="js-user-credit">0</b></a>            </p>
@@ -139,13 +134,10 @@ if(!isset($_SESSION)){
 <div class="footer bg-white idx-minwidth">
 
 
-<<<<<<< HEAD
 <script src="/static/js/landing-min.js?2013032917"></script>
 <script type="text/javascript" src="http://open.51094.com/user/myscript/157ab219be5214.html"></script>
 <div style="text-align:center;clear:both"></div>
-=======
-    <script src="/static/js/landing-min.js?2013032917"></script>
->>>>>>> ff38c3b8a7e96fd898764ff446dc88ce84a6e44e
+
 
     <div style="text-align:center;clear:both"></div>
 
