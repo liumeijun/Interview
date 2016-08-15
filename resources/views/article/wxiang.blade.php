@@ -106,25 +106,15 @@ var isLogin=1
 
 
                     @if(empty($_SESSION['username']))
-
                         <h4 id="house" style="float: right;color: #0000ff"><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" style="color: red" >加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height: 20px;"></a></h4>
                     @else
                         @if(empty($house))
                              <h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['a_id']?>)" style="color: red">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>
                         @else
                              <h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['a_id']?>)" style="color:#0000ff">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>
-
-                        <h4 id="house" style="float: right;color: #0000ff"><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height: 20px;"></a></h4>
-                    @else
-                        @if(empty($house))
-                             <h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['a_id']?>)">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>
-                        @else
-                             <h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['a_id']?>)">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>
+                        @endif
                     @endif
-              @endif
-
-                        <span>收藏</span>
-                    </span>
+                                                                    </span>
                                                             </div>
             <!-- 收藏&举报end -->
 
@@ -328,8 +318,6 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
                   $("#aping").html(rp);
               })
           })
-
-
           function addhouse(id){
               $.ajax({
                   type: "POST",
@@ -339,7 +327,6 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
                       if(msg == 1){
                           tr = '';
                           tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['a_id']?>)" style="color:blue">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>';
-                          tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['a_id']?>)">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>';
                           $("#house").remove();
                           $("#s1").html(tr);
                       }
@@ -360,9 +347,7 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
                   success: function(msg){
                       if(msg == 1){
                           tr = '';
-
                           tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['a_id']?>)" style="color:red">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>';
-                          tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['a_id']?>)">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>';
                           $("#house").remove();
                           $("#s1").html(tr);
                       }

@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
+use DB,Cache;
 use Illuminate\Support\Facades\Session;
 
+header("content-type:text/html;charset=UTF-8");
 class CourseController extends Controller
 {
-    public function course()
-    {
+    public function course(){
 
         //学院
         $sql = "select c_id,c_name from college where c_del=0";
@@ -98,105 +98,60 @@ class CourseController extends Controller
         return view('course/shi', ['shi' => $arr]);
     }
 
-    public function xiang()
-    {
-        $id = $_GET['id'];
+    public function xiang(){
+        $id=$_GET['id'];
         //echo $id;die;
-        $num = DB::table('college_questions')->where("c_id", $id)->first();
-        $num = $num['c_num'] += 1;
-        $sq = DB::update("update college_questions set c_num='$num' where c_id=" . $id);
-        $arr = DB::table('college_questions')->where('c_id', $id)->first();
+        $num=DB::table('college_questions')->where("c_id",$id)->first();
+        $num=$num['c_num']+=1;
+        $sq=DB::update("update college_questions set c_num='$num' where c_id=".$id);
+        $arr=DB::table('college_questions')->where('c_id',$id)->first();
 //print_r($arr);die;
-
-        if (!isset($_SESSION)) {
+        if(!isset($_SESSION)){
             session_start();
         }
-        if (!empty($_SESSION['username'])) {
-
-            $username = $_SESSION['username'];
-
-            //$username=$_SESSION['username'];
-            $u_id = DB::table('users')->where("user_phone", "$username")->orwhere("user_email", "$username")->first();
-            $u_id = $u_id['user_id'];
-            $ping = DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$u_id order by p_id desc");
-            //print_r($ping);die;
-        } else {
-            $ping = array();
+        if(!empty($_SESSION['username'])){
+            $uid = $_SESSION['u_id'];
+            if(Cache::has($uid)){
+                $val = Cache::get($uid);
+                $val = $val.','.$id;
+                Cache::put($uid,$val,3600*24*7);
+            }else{
+                Cache::put($uid,$id,3600*24*7);
+            }
+            $ping=DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$uid order by p_id desc");
+        }else{
+            $ping=array();
         }
-        if ($arr['c_college'] == '软工学院') {
-            $arr['img'] = 'http://123.56.249.121/api/logo/软工.jpg';
-        } elseif ($arr['c_college'] == '移动通信学院') {
-            $arr['img'] = 'http://123.56.249.121/api/logo/移动.jpg';
-        } elseif ($arr['c_college'] == '云计算学院') {
-            $arr['img'] = 'http://123.56.249.121/api/logo/云计算.jpg';
-        } elseif ($arr['c_college'] == '高翻学院') {
-            $arr['img'] = 'http://123.56.249.121/api/logo/高翻.jpg';
-        } elseif ($arr['c_college'] == '国际经贸学院') {
-            $arr['img'] = 'http://123.56.249.121/api/logo/经贸.jpg';
-        } elseif ($arr['c_college'] == '建筑学院') {
-            $arr['img'] = 'http://123.56.249.121/api/logo/建筑.jpg';
-        } elseif ($arr['c_college'] == '游戏学院') {
-            $arr['img'] = 'http://123.56.249.121/api/logo/游戏.jpg';
-        } elseif ($arr['c_college'] == '网工学院') {
-            $arr['img'] = 'http://123.56.249.121/api/logo/网工.jpg';
-        } elseif ($arr['c_college'] == '传媒学院') {
-            $arr['img'] = 'http://123.56.249.121/api/logo/传媒.jpg';
-            if (!isset($_SESSION)) {
-                session_start();
-            }
-            if (!empty($_SESSION['username'])) {
-                $uid = $_SESSION['u_id'];
-                if (Cache::has($uid)) {
-                    $val = Cache::get($uid);
-                    $val = $val . ',' . $id;
-                    Cache::put($uid, $val, 3600 * 24 * 7);
-                } else {
-                    Cache::put($uid, $id, 3600 * 24 * 7);
-                }
-                $ping = DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$uid order by p_id desc");
-            } else {
-                $ping = array();
-            }
-            if ($arr['c_college'] == '软工学院') {
-                $arr['img'] = 'http://123.56.249.121/api/logo/软工.jpg';
-            } elseif ($arr['c_college'] == '移动通信学院') {
-                $arr['img'] = 'http://123.56.249.121/api/logo/移动.jpg';
-            } elseif ($arr['c_college'] == '云计算学院') {
-                $arr['img'] = 'http://123.56.249.121/api/logo/云计算.jpg';
-            } elseif ($arr['c_college'] == '高翻学院') {
-                $arr['img'] = 'http://123.56.249.121/api/logo/高翻.jpg';
-            } elseif ($arr['c_college'] == '国际经贸学院') {
-                $arr['img'] = 'http://123.56.249.121/api/logo/经贸.jpg';
-            } elseif ($arr['c_college'] == '建筑学院') {
-                $arr['img'] = 'http://123.56.249.121/api/logo/建筑.jpg';
-            } elseif ($arr['c_college'] == '游戏学院') {
-                $arr['img'] = 'http://123.56.249.121/api/logo/游戏.jpg';
-            } elseif ($arr['c_college'] == '网工学院') {
-                $arr['img'] = 'http://123.56.249.121/api/logo/网工.jpg';
-            } elseif ($arr['c_college'] == '传媒学院') {
-                $arr['img'] = 'http://123.56.249.121/api/logo/传媒.jpg';
-            }
+        if($arr['c_college']=='软工学院'){
+            $arr['img']='http://123.56.249.121/api/logo/软工.jpg';
+        }elseif($arr['c_college']=='移动通信学院'){
+            $arr['img']='http://123.56.249.121/api/logo/移动.jpg';
+        }elseif($arr['c_college']=='云计算学院'){
+            $arr['img']='http://123.56.249.121/api/logo/云计算.jpg';
+        }elseif($arr['c_college']=='高翻学院'){
+            $arr['img']='http://123.56.249.121/api/logo/高翻.jpg';
+        }elseif($arr['c_college']=='国际经贸学院'){
+            $arr['img']='http://123.56.249.121/api/logo/经贸.jpg';
+        }elseif($arr['c_college']=='建筑学院'){
+            $arr['img']='http://123.56.249.121/api/logo/建筑.jpg';
+        }elseif($arr['c_college']=='游戏学院'){
+            $arr['img']='http://123.56.249.121/api/logo/游戏.jpg';
+        }elseif($arr['c_college']=='网工学院'){
+            $arr['img']='http://123.56.249.121/api/logo/网工.jpg';
+        }elseif($arr['c_college']=='传媒学院'){
+            $arr['img']='http://123.56.249.121/api/logo/传媒.jpg';
+        }
 
-            //查询是否收藏
-            if (empty($_SESSION['username'])) {
-                return view('course/xiang', ['arr' => $arr, 'ping' => $ping]);
-            } else {
-
-                $is_house = DB::table("house_college_questions")->where(['user_id' => $u_id, 'college_questions_id' => $id])->get();
-                //  echo $arr['img'];die;
-
-                //查询是否收藏
-                if (empty($_SESSION['username'])) {
-                    return view('course/xiang', ['arr' => $arr, 'ping' => $ping]);
-                } else {
-                    $is_house = DB::table("house_college_questions")->where(['user_id' => $u_id, 'college_questions_id' => $id])->get();
-                    return view('course/xiang', ['arr' => $arr, 'ping' => $ping, 'house' => $is_house]);
-                }
-                $is_house = DB::table("house_article")->where(['user_id' => $uid, 'article_id' => $id])->get();
-                return view('course/xiang', ['arr' => $arr, 'ping' => $ping, 'house' => $is_house]);
-            }
+        //查询是否收藏
+        if (empty($_SESSION['username'])) {
+            return view('course/xiang',['arr'=>$arr,'ping'=>$ping]);
+        } else {
+            $is_house = DB::table("house_article")->where(['user_id' => $uid, 'article_id' => $id])->get();
+            return view('course/xiang',['arr'=>$arr,'ping'=>$ping,'house' => $is_house]);
         }
     }
+
+
 
     public function con()
     {
@@ -221,8 +176,6 @@ class CourseController extends Controller
             return view('course/ping', ['ping' => $ping]);
         }
     }
-
-    //试题收藏
 
     //收藏试题
     public function addhouse(){

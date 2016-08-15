@@ -31,12 +31,15 @@ Route::post('name_deng', 'LoginController@name_deng');
 Route::post('email_deng','LoginController@email_deng');
 
 //个人中心
-Route::get('user/setprofile', 'UserController@setprofile');
+Route::any('user/setprofile', 'UserController@setprofile');
 Route::get('user/setavator', 'UserController@setavator');
 Route::get('user/setphone', 'UserController@setphone');
 Route::get('user/setverifyemail', 'UserController@setverifyemail');
 Route::get('user/setresetpwd', 'UserController@setresetpwd');
 Route::get('user/setbindsns', 'UserController@setbindsns');
+//保存个人资料
+Route::post('user/my_message', 'UserController@my_message');
+
 //我的收藏
 Route::get('user/my_house', 'UserController@my_house');
 //我的收藏->收藏的文章
@@ -79,6 +82,7 @@ Route::get('zid', 'WendaController@zid');
  */
 //试题首页
 Route::get('shiti', 'CourseController@course');
+
 //试题搜索
 Route::post('sou', 'CourseController@sou');
 Route::post('s', 'CourseController@s');
@@ -86,12 +90,16 @@ Route::post('zhuanye', 'CourseController@zhuanye');
 Route::get('xiang', 'CourseController@xiang');
 Route::post('con', 'CourseController@con');
 Route::get('ping', 'CourseController@ping');
+Route::post('addhouse', 'CourseController@addhouse');
+Route::post('delhouse', 'CourseController@delhouse');
 /*
  * 试题结束
  */
 
 //文章
 Route::get('article', 'ArticleController@article');
+Route::post('delhouse_article', 'ArticleController@delhouse_article');
+Route::post('addhouse_article', 'ArticleController@addhouse_article');
 Route::get('article/publish', 'ArticleController@publish');
 Route::post('add', 'ArticleController@add');
 Route::any('zan', 'ArticleController@zan');

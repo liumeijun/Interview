@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 use DB;
 
+
 class UserController extends Controller
 {
     //个人资料
     public function setprofile(){
-        return view('user/setprofile');
+        if(empty($_POST['p_id'])){
+            $direction = DB::table('direction')->select('d_id','d_name')->get();
+            $region1 = DB::table('region')->where('parent_id','1')->get();
+            return view('user/setprofile',['region1' => $region1,'direction' => $direction]);
+        }else{
+                $p_id = $_POST['p_id'];
+                $region2 = DB::table('region')->where('parent_id',$p_id)->get();
+                echo json_encode($region2);
+        }
+
     }
     //头像设置
     public function setavator(){
@@ -103,5 +113,4 @@ class UserController extends Controller
             return view('user/my_ping', ['shiti' => $shiti,'shiti_ping' => $shiti_ping]);
         }
     }
-
 }

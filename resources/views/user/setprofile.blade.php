@@ -75,111 +75,80 @@ var is_choice = "";
         
 
 <div id="setting-profile" class="setting-wrap setting-profile">
-    <form id="profile" >
-    
+    <form id="profile" method="post" action="user/my_message">
         <div class="wlfg-wrap clearfix">
             <label class="label-name" for="nick" >昵称</label>
             <div class="rlf-group">
-                <input type="text" name="nickname" id="nick"  autocomplete="off"  data-validate="nick"  class="input rlf-input rlf-input-nick" value="凤颖" placeholder="请输入昵称."/>
-                <p class="rlf-tip-wrap"></p>
+                <input type="text" name="nickname" id="nick"  autocomplete="off"  data-validate="nick"  class="input rlf-input rlf-input-nick" placeholder="请输入昵称."/>
+                <p class="rlf-tip-wrap" style="color: red"></p>
             </div>
         </div>
         
         <div class="wlfg-wrap clearfix">
-            <label class="label-name" for="job">职位</label>
+            <label class="label-name" for="job">方向</label>
             <div class="rlf-group">
                 <select class="input rlf-select" name="job" hidefocus="true" id="job">
-                    <option value="">请选择职位</option>
-                                            <option value="1" >页面重构设计</option>
-                                            <option value="6" >Web前端工程师</option>
-                                            <option value="5" >JS工程师</option>
-                                            <option value="8" >PHP开发工程师</option>
-                                            <option value="11" >JAVA开发工程师</option>
-                                            <option value="7" >移动开发工程师</option>
-                                            <option value="9" >软件测试工程师</option>
-                                            <option value="10" >Linux系统工程师</option>
-                                            <option value="2" >交互设计师</option>
-                                            <option value="3" >产品经理</option>
-                                            <option value="4" >UI设计师</option>
-                                            <option value="13" >学生</option>
-                                    </select>
-                <p class="rlf-tip-wrap"></p>
+                    <option value="">请选择方向</option>
+                    @foreach($direction as $v)
+                        <option value="<?= $v['d_id'];?>" ><?= $v['d_name'];?></option>
+                    @endforeach
+                           {{--<option value="6" >Web前端工程师</option>--}}
+                           {{--<option value="5" >JS工程师</option>--}}
+                           {{--<option value="8" >PHP开发工程师</option>--}}
+                           {{--<option value="11" >JAVA开发工程师</option>--}}
+                           {{--<option value="7" >移动开发工程师</option>--}}
+                           {{--<option value="9" >软件测试工程师</option>--}}
+                           {{--<option value="10" >Linux系统工程师</option>--}}
+                           {{--<option value="2" >交互设计师</option>--}}
+                           {{--<option value="3" >产品经理</option>--}}
+                           {{--<option value="4" >UI设计师</option>--}}
+                           {{--<option value="13" >学生</option>--}}
+                    </select>
+                <p class="rlf-tip" style="color:red"></p>
             </div>
         </div>
         
         <div class="wlfg-wrap clearfix">
             <label class="label-name" for="province-select">城市</label>
             <div class="rlf-group profile-address">
-                <select id="province-select" class='input' hidefocus="true">
+                <select id="province" class='input' hidefocus="true" style="float: left">
                     <option value="0">选择省份</option>
-                                            <option value="1">北京</option>
-                                            <option value="2">天津</option>
-                                            <option value="3">河北</option>
-                                            <option value="4">山西</option>
-                                            <option value="5">内蒙古</option>
-                                            <option value="6">辽宁</option>
-                                            <option value="7">吉林</option>
-                                            <option value="8">黑龙江</option>
-                                            <option value="9">上海</option>
-                                            <option value="10">江苏</option>
-                                            <option value="11">浙江</option>
-                                            <option value="12">安徽</option>
-                                            <option value="13">福建</option>
-                                            <option value="14">江西</option>
-                                            <option value="15">山东</option>
-                                            <option value="16">河南</option>
-                                            <option value="17">湖北</option>
-                                            <option value="18">湖南</option>
-                                            <option value="19">广东</option>
-                                            <option value="20">海南</option>
-                                            <option value="21">广西</option>
-                                            <option value="22">甘肃</option>
-                                            <option value="23">陕西</option>
-                                            <option value="24">新疆</option>
-                                            <option value="25">青海</option>
-                                            <option value="26">宁夏</option>
-                                            <option value="27">重庆</option>
-                                            <option value="28">四川</option>
-                                            <option value="29">贵州</option>
-                                            <option value="30">云南</option>
-                                            <option value="31">西藏</option>
-                                            <option value="32">台湾</option>
-                                            <option value="33">澳门</option>
-                                            <option value="34">香港</option>
-                                            <option value="100">其他</option>
-                                    </select>
-                <select class='input' id="city-select" hidefocus="true">
-                    <option value="0">选择城市</option>
-                                    </select>
-                <select class='input mr0' id="area-select" hidefocus="true">
-                    <option value="0">选择区县</option>
-                                    </select>
+                    @foreach($region1 as $v)
+                                            <option value="<?= $v['region_id']?>"><?= $v['region_name']?></option>
+                    @endforeach
+                </select>
+                <span id="city-select" style="margin:0;padding:0;border: none;with:124px"></span>
+                <span id="county" style="margin:0;padding:0;border: none;with:124px"></span>
+
+                {{--<select class='input mr0' id="area-select" hidefocus="true">--}}
+                    {{--<option value="0">选择区县</option>--}}
+                                    {{--</select>--}}
                 <p class="rlf-tip-wrap"></p>
             </div>
         </div>
         
-        <div class="wlfg-wrap clearfix">
-            <label class="label-name" >性别</label>
-            <div class="rlf-group rlf-radio-group">
-                <label ><input type="radio" hidefocus="true" value="0" checked="checked"  name="sex">保密</label>
-                <label ><input type="radio" hidefocus="true" value="1"  name="sex">男</label>
-                <label ><input type="radio" hidefocus="true" value="2"  name="sex">女</label>
-            </div>
-            <p class="rlf-tip-wrap"></p>
-        </div>
+        {{--<div class="wlfg-wrap clearfix">--}}
+            {{--<label class="label-name" >性别</label>--}}
+            {{--<div class="rlf-group rlf-radio-group">--}}
+                {{--<label ><input type="radio" hidefocus="true" class="sex" value="0" checked="checked" name="sex">保密</label>--}}
+                {{--<label ><input type="radio" hidefocus="true" class="sex" value="1"  name="sex">男</label>--}}
+                {{--<label ><input type="radio" hidefocus="true" class="sex" value="2"  name="sex">女</label>--}}
+            {{--</div>--}}
+            {{--<p class="rlf-tip-wrap"></p>--}}
+        {{--</div>--}}
         
-        <div class="wlfg-wrap clearfix">
-            <label class="label-name" for="aboutme">个性签名</label>
-            <div class="rlf-group">
-                <textarea name="aboutme" id="aboutme" cols="30" rows="5" class="textarea"></textarea>
-                <p class="rlf-tip-wrap"></p>
-            </div>
-        </div>
+        {{--<div class="wlfg-wrap clearfix">--}}
+            {{--<label class="label-name" for="aboutme">个性签名</label>--}}
+            {{--<div class="rlf-group">--}}
+                {{--<textarea name="aboutme" id="aboutme" cols="30" rows="5" class="textarea"></textarea>--}}
+                {{--<p class="rlf-tip-wrap"></p>--}}
+            {{--</div>--}}
+        {{--</div>--}}
         
         <div class="wlfg-wrap clearfix">
             <label class="label-name" for=""></label>
             <div class="rlf-group">
-                <span id="profile-submit"  hidefocus="true"  aria-role="button" class="rlf-btn-green btn-block profile-btn">保存</span>
+                <input type="button" value="保存" id="profile-submit"   class="rlf-btn-green btn-block profile-btn">
             </div>
         </div>
     </form>
@@ -222,3 +191,66 @@ var is_choice = "";
 </div>
 </body>
 </html>
+
+<script src="/js/jquery-1.9.1.min.js"></script>
+<script>
+    $("#province").change(function() {
+        var pro_id = $(this).val();
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "setprofile",
+            data: "p_id=" + pro_id,
+            success: function (msg) {
+                tr = '';
+                tr += '<select id="city" class="input" hidefocus="true"><option value="0">选择城市</option>';
+                for(var i=0; i<msg.length; i++) {
+                    tr += "<option value='"+msg[i]['region_id']+"'>"+ msg[i]['region_name']+"</option>";
+                }
+                tr += '</select>';
+                $("#city-select").html(tr);
+                $("#county").hide();
+            }
+        });
+    })
+    $("#city-select").change(function(){
+        var pro_id = $("#city").val();
+        //alert(pro_id)
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "setprofile",
+            data: "p_id=" + pro_id,
+            success: function (msg) {
+                tr = '';
+                tr += '<select id="county-select" class="input" hidefocus="true"><option value="0">选择区县</option>';
+                for(var i=0; i<msg.length; i++) {
+                    tr += "<option  value='"+msg[i]['region_id']+"'>"+ msg[i]['region_name']+"</option>";
+                }
+                tr += '</select>';
+                $("#county").html(tr);
+                $("#county").show();
+            }
+        });
+    })
+
+    $("#profile-submit").click(function(){
+        var nickname = $("#nick").val();
+        var job = $("#job").val();
+        var province = $("#province").val();
+        var city_select = $("#city").val();
+        var county = $("#county-select").val();
+        if(nickname == '' || job == '' || province == '' || city_select == '' || county == ''){
+            alert('昵称不能为空、请选择方向，城市')
+        }else{
+            $.ajax({
+                type: "POST",
+                url: "my_message",
+                data: "nickname="+nickname+"&job="+job+"&province="+province+"&city_select="+city_select+"&county="+county,
+                success: function(msg){
+
+                }
+            });
+        }
+    })
+</script>

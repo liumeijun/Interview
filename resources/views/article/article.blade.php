@@ -107,7 +107,7 @@
 
 
             <div class="new-ques">
-                <a class="write-ques" href="publish">写文章</a>
+                <a class="write-ques" href="article/publish">写文章</a>
                 <div class="ques-bd">
             </div>
                 </div>
@@ -117,50 +117,30 @@
                 <h2 class="panel-hd">推荐文章</h2>
                 <div class="remon-main">
                     <ul>
-                        <li>
-                            <h3 class="remon-title">
-                                <a href="#" class="title-detail">什么才算是真正的编程能力？</a>
-                            </h3>
-                            <p class="remon-bd">知乎上看到一题主的发问： 还在读书，也在实验室帮忙做了些东西，自己也搭过几个网站。在周围人看来似乎好...</p>
-                            <div class="arti-info clearfix">
-                                <ul>
-                                    <li class="hd-pic">
-                                        <a class="publisher-hd" href="#" target="_blank">
-                                            <img src="" alt="" width="20" height="20" />
-                                        </a>
-                                        <a class="publisher-name" href="#" target="_blank">奋斗在路上</a>
-                                    </li>
-                                    <li class="now-tag">
-                                        <a class="item-tag" href="#" target="_blank">职场/生活</a>
-                                    </li>
-                                    <li class="now-tag">
-                                        <span class="viewed-num">20038浏览</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>
-                            <h3 class="remon-title">
-                                <a href="#" class="title-detail">C语言知识点大汇总</a>
-                            </h3>
-                            <p class="remon-bd">【前言】 看到有读者说想要一些IOS开发前需要学习哪些知识，今天就把我再CSDN上的C语言博客拿过来分享给大...</p>
-                            <div class="arti-info clearfix">
-                                <ul>
-                                    <li class="hd-pic">
-                                        <a class="publisher-hd" href="#" target="_blank">
-                                            <img src="picture/545861d500015cc602200220-100-100.jpg" alt="" width="20" height="20" />
-                                        </a>
-                                        <a class="publisher-name" href="#" target="_blank">i爱慕客</a>
-                                    </li>
-                                    <li class="now-tag">
-                                        <a class="item-tag" href="#" target="_blank">后端开发</a>
-                                    </li>
-                                    <li class="now-tag">
-                                        <span class="viewed-num">10288浏览</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        @foreach($groom as $key => $v)
+                            <li>
+                                <h3 class="remon-title">
+                                    <a href="#" class="title-detail"><?php echo $v['a_title']?></a>
+                                </h3>
+                                <p class="remon-bd"><?php echo $v['a_con']?></p>
+                                <div class="arti-info clearfix">
+                                    <ul>
+                                        <li class="hd-pic">
+                                            <a class="publisher-hd" href="#" target="_blank">
+                                                <img src="" alt="" width="20" height="20" />
+                                            </a>
+                                            <a class="publisher-name" href="#" target="_blank"><?php echo $v['at_type']?></a>
+                                        </li>
+                                        <li class="now-tag">
+                                            <a class="item-tag" href="#" target="_blank"><?php echo $v['al_name']?></a>
+                                        </li>
+                                        <li class="now-tag">
+                                            <span class="viewed-num"><?php echo $v['a_num']?>浏览</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -169,60 +149,17 @@
                 <h2 class="panel-hd">一周达人</h2>
                 <div class="article-weekly clearfix">
                     <ol class="weekly-top">
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/554ce69d0001044101000100-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                夜叉L</a>
+                        @foreach($people as $key => $v)
+                            <li>
+                                <a href="#" class="l hot-head" target="_blank" title="">
+                                    <img src="<?= $v['img'];?>" alt="" width="40" height="40" />
+                                </a>
+                                <a href="#" target="_blank" class="hot-name">
+                                    <?= $v['user_name'];?></a>
 
-                            <i class="rank-num weektop-first">1</i>
-                        </li>
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/5572a2ef00017bfa01000100-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                哈哈哈_3</a>
-
-                            <i class="rank-num weektop-two">2</i>
-                        </li>
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/5333a0d9000196ff02000200-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                果果爱吃苹果</a>
-
-                            <i class="rank-num ">3</i>
-                        </li>
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/56b0c3df0001fbd501000100-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                汪洋拾贝</a>
-
-                            <i class="rank-num ">4</i>
-                        </li>
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/56dc2ac40001583301000100-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                围城之java</a>
-
-                            <i class="rank-num ">5</i>
-                        </li>
-                        <li>
-                            <a href="#" class="l hot-head" target="_blank" title="">
-                                <img src="picture/56eff52a0001d07401000100-100-100.jpg" alt="" width="40" height="40" />
-                            </a>
-                            <a href="#" target="_blank" class="hot-name">
-                                缄默蜀黍ONE</a>
-
-                            <i class="rank-num ">6</i>
-                        </li>
+                                <i class="rank-num weektop-first">第<?= $key+1;?>名</i>
+                            </li>
+                        @endforeach
                     </ol>
                 </div>
             </div>
