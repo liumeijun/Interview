@@ -1,9 +1,10 @@
-<script src="../js/jquery.js"></script>
-<link rel="stylesheet" href="css/muke.css" type="text/css" />
-<link rel="stylesheet" type="text/css" href="../static/css/ui2.css?2013032917">
-<?php
+    <script src="../js/jquery.js"></script>
+    <link rel="stylesheet" href="css/muke.css" type="text/css" />
+    <script type="text/javascript" src="http://open.51094.com/user/myscript/157ab219be5214.html"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/ui2.css?2013032917">
+<?php 
 if(!isset($_SESSION)){
-    session_start();
+session_start(); 
 }
 ?>
 
@@ -16,15 +17,15 @@ if(!isset($_SESSION)){
                 <li><a href="program"  target="_self">招聘</a></li>
                 <li><a href="article"  target="_self">方法</a></li>
                 <li><a href="company"  target="_self">简历</a></li>
-                <li><a href="wenda" target="_self">答疑</a></li>
-                <!--         <li><a href="/wiki"  target="_self">WIKI</a></li> -->
-            </ul>
+		<li><a href="wenda" target="_self">答疑</a></li>
+        <!--         <li><a href="/wiki"  target="_self">WIKI</a></li> -->
+                            </ul>
         </div>
         <div id="login-area">
             <ul   <?php if(empty($_SESSION['username'])){ ?> class="header-unlogin clearfix" <?php }else{ ?> class="clearfix logined" <?php }?>>
                 <li class="header-app">
                     <a>
-                        <span class="icon-appdownload"></span>
+                       <span class="icon-appdownload"></span>
                     </a>
                     <div class="QR-download">
                         <p id="app-text">面试宝典APP下载</p>
@@ -33,24 +34,24 @@ if(!isset($_SESSION)){
                     </div>
                 </li>
 
-                <?php
-                if(empty($_SESSION['username'])){
-                ?>
+		<?php
+                    if(empty($_SESSION['username'])){
+                        ?>
                 <li class="header-signin">
                     <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >登录</a>
                 </li>
                 <li class="header-signup">
                     <a href="#signup-modal" id="js-signup-btn" data-category="UserAccount" data-action="login" data-toggle="modal" >注册</a>
                 </li>
-                <?php
-                }else{
-                ?>
+                    <?php
+                    }else{
+                        ?>
 
                 <li class="remind_warp">
                     <i class="msg_remind" style="display: none;"></i>
                     <a href="/sms/messagesone" target="_blank"><i class="icon-notifi"></i></a>
                 </li>
-                <li class="my_message">
+        	    <li class="my_message">
                     <a target="_blank" title="我的消息" href="/sms/messages">
                         <span style="display: inline;" class="msg_icon">3</span>
                         <i class="icon-mail"></i>
@@ -69,8 +70,8 @@ if(!isset($_SESSION)){
                                 <a href="/u/3071208/courses"><img class="l" alt="凤颖" src="/images/unknow-160.png"></a>
                                 <a href="/u/3071208/courses"><span class="name text-ellipsis">凤颖</span></a>
                                 <p class="meta">
-                                    <a href="/u/3071208/experience">经验<b id="js-user-mp">550</b></a>
-                                    <a href="/u/3071208/credit">积分<b id="js-user-credit">0</b></a>            </p>
+					<a href="/u/3071208/experience">经验<b id="js-user-mp">550</b></a>
+					<a href="/u/3071208/credit">积分<b id="js-user-credit">0</b></a>            </p>
 
                                 <a class="icon-set setup" href="/user/setprofile"></a>
                             </div>
@@ -99,8 +100,8 @@ if(!isset($_SESSION)){
                     </div>
                 </li>
 
-                <?php
-                }
+                    <?php
+                    }
                 ?>
             </ul>
         </div>
@@ -117,23 +118,23 @@ if(!isset($_SESSION)){
         </div>
     </div>
 
-</div>
+    </div>
 
 </div>
 <div class="footer bg-white idx-minwidth">
 
 
-    <script src="/static/js/landing-min.js?2013032917"></script>
+<script src="/static/js/landing-min.js?2013032917"></script>
 
-    <div style="text-align:center;clear:both"></div>
+<div style="text-align:center;clear:both"></div>
 
-    <div id="js-index-video" class="video-container">
-        <div class="video-wrap" id="js-video-wrap">
-            <div id="js-video"></div>
-        </div>
-        <div class="video-mask"></div>
-        <div id="js-video-close" class="video-close"></div>
+<div id="js-index-video" class="video-container">
+    <div class="video-wrap" id="js-video-wrap">
+        <div id="js-video"></div>
     </div>
+    <div class="video-mask"></div>
+    <div id="js-video-close" class="video-close"></div>
+</div>
 
     <div class="modal in" id="login-modal"> <a class="close" data-dismiss="modal">×</a>
         <h1>登录</h1>
@@ -200,178 +201,178 @@ if(!isset($_SESSION)){
     </div>
 
 
-    <SCRIPT src="../js/jquery-1.9.1.min.js" type="text/javascript"></SCRIPT>
-    <script>
+<SCRIPT src="../js/jquery-1.9.1.min.js" type="text/javascript"></SCRIPT>
+<script>
 
-        var flag=false;
-        $('#username').blur(function(){
-            // alert(123);
-            var username=$(this).val();
-            if(username=='') {
-                $('#name_sp').html('用户名非空');
+    var flag=false;
+    $('#username').blur(function(){
+        // alert(123);
+        var username=$(this).val();
+        if(username=='') {
+            $('#name_sp').html('用户名非空');
 //            alert(123);
 
-                return flag;
-            }else{
-                $('#name_sp').html('');
-                flag = true;
-                return flag;
-            }
-        })
-        var emailflag=false;
-        $('#email').blur(function(){
-            var email=$("#email").val();
-            var reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-            if(reg.test(email)){
-                // alert(123)
-                $("#email_sp").html('')
-                emailflag=true;
-                return emailflag;
-            }else{
-                // alert(456)
-                // alert(456)
-                $("#email_sp").html('格式错误')
-                return emailflag;
-            }
-        })
-        var phoneflag=false;
-        $("#phone").blur(function(){
-            var phone=$("#phone").val();
-            var reg = /^1\d{10}$/;
-            if(reg.test(phone)){
-                $("#phone_sp").html('')
-                phoneflag=true;
-                return phoneflag;
-            }else{
-                $("#phone_sp").html('格式错误');
-                return phoneflag;
-            }
-        })
-
-
-
-        function show(){
-            if(this.aa.password.type='password'){
-                box.innerHTML = "<input type='text' name='password'  value="+this.aa.password.value+">";
-                box3.innerHTML = "<a href='javascript:void(0)' onclick='hid();'>隐藏密码</a>";
-            }
+            return flag;
+        }else{
+            $('#name_sp').html('');
+            flag = true;
+            return flag;
         }
-        function hid(){
-            if(this.aa.password.type='text'){
-                box.innerHTML = "<input type='password' name='password'  value="+this.aa.password.value+">";
-                box3.innerHTML = "<a href='javascript:void(0)' onclick='show();'>显示密码</a>";
-            }
+    })
+    var emailflag=false;
+    $('#email').blur(function(){
+        var email=$("#email").val();
+        var reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        if(reg.test(email)){
+            // alert(123)
+            $("#email_sp").html('')
+            emailflag=true;
+            return emailflag;
+        }else{
+            // alert(456)
+            // alert(456)
+            $("#email_sp").html('格式错误')
+            return emailflag;
         }
+    })
+    var phoneflag=false;
+    $("#phone").blur(function(){
+        var phone=$("#phone").val();
+        var reg = /^1\d{10}$/;
+        if(reg.test(phone)){
+            $("#phone_sp").html('')
+            phoneflag=true;
+            return phoneflag;
+        }else{
+            $("#phone_sp").html('格式错误');
+            return phoneflag;
+        }
+    })
 
 
 
-        $("#u_name").blur(function() {
-            var u_name = $("#u_name").val();
-            var reg = /^1\d{10}$/;
-            var email_reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-            if (reg.test(u_name)) {
-                // alert(u_name)
-                $.post('name', {
-                    u_name: u_name
-                }, function (data) {
-                    //alert(data)
-                    if (data == 1) {
-                        $("#sp_name").html('')
-                    } else if (data == 2) {
-                        $("#sp_name").html('不存在')
-                    }
-                })
+    function show(){
+        if(this.aa.password.type='password'){
+            box.innerHTML = "<input type='text' name='password'  value="+this.aa.password.value+">";
+            box3.innerHTML = "<a href='javascript:void(0)' onclick='hid();'>隐藏密码</a>";
+        }
+    }
+    function hid(){
+        if(this.aa.password.type='text'){
+            box.innerHTML = "<input type='password' name='password'  value="+this.aa.password.value+">";
+            box3.innerHTML = "<a href='javascript:void(0)' onclick='show();'>显示密码</a>";
+        }
+    }
 
-            } else if (email_reg.test(u_name)) {
-                $.post('email', {
-                    u_name: u_name
-                }, function (data) {
-                    if (data == 1) {
-                        $("#sp_name").html('')
-                    } else if (data == 2) {
-                        $("#sp_name").html('不存在')
-                    }
-                })
-            } else {
-                $("#sp_name").html('格式错误')
-            }
-        })
-        $("#password").keyup(function() {
 
-            var u_name = $("#u_name").val()
-            var u_pwd = $("#password").val()
-            var reg = /^1\d{10}$/;
-            var email_reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-            if (reg.test(u_name)) {
-                $.post('name_pwd', {
-                    u_name: u_name,
-                    u_pwd: u_pwd
-                }, function (data) {
-                    if (data == 3) {
-                        $("#sp_pwd").html('')
-                    } else if (data == 4) {
-                        $("#sp_pwd").html('密码错误');
-                    }
-                })
-            } else if (email_reg.test(u_name)) {
-                $.post('email_pwd', {
-                    u_name: u_name,
-                    u_pwd: u_pwd
-                }, function (data) {
-                    if (data == 3) {
-                        $("#sp_pwd").html('')
-                    } else if (data == 4) {
-                        $("#sp_pwd").html('密码错误');
-                    }
-                })
-            }
-        })
-        $("#sub").click(function(){
-            var url="<?php   $re=Request::fullurl(); echo substr($re,(strripos($re,'/')+1))  ?>"
-            var sp_name=$("#sp_name").html();
-            var sp_pwd=$("#sp_pwd").html();
-            var u_name=$("#u_name").val();
-            var u_pwd=$("#password").val();
 
-            if(sp_name=='' && sp_pwd==''){
-                var reg = /^1\d{10}$/;
-                var email_reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-                if (reg.test(u_name)) {
-                    $.post('name_deng',{
-                        u_name:u_name,
-                        u_pwd:u_pwd
-                    },function(data){
-                        if(data==5){
-                            alert('登陆成功');location.href=url;
-                        }else if(data==6){
-                            alert('登陆失败');location.href='login';
-                        }
-                    })
-                }else if(email_reg.test(u_name)){
-                    $.post('email_deng',{
-                        u_name:u_name,
-                        u_pwd:u_pwd
-                    },function(data){
-                        if(data==5){
-                            alert('登陆成功');location.href=url;
-                        }else if(data==6){
-                            alert('登陆失败');location.href='login';
-                        }
-                    })
+    $("#u_name").blur(function() {
+        var u_name = $("#u_name").val();
+        var reg = /^1\d{10}$/;
+        var email_reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        if (reg.test(u_name)) {
+            // alert(u_name)
+            $.post('name', {
+                u_name: u_name
+            }, function (data) {
+                //alert(data)
+                if (data == 1) {
+                    $("#sp_name").html('')
+                } else if (data == 2) {
+                    $("#sp_name").html('不存在')
                 }
-            }else{
-                alert("条件不成立");
-            }
-        })
-        function zhu(){
-            if(flag && emailflag && phoneflag ){
-                return true;
-            }else{
-//            alert(flag)
-                return false;
-            }
+            })
+
+        } else if (email_reg.test(u_name)) {
+            $.post('email', {
+                u_name: u_name
+            }, function (data) {
+                if (data == 1) {
+                    $("#sp_name").html('')
+                } else if (data == 2) {
+                    $("#sp_name").html('不存在')
+                }
+            })
+        } else {
+            $("#sp_name").html('格式错误')
         }
-    </script>
+    })
+    $("#password").keyup(function() {
+
+        var u_name = $("#u_name").val()
+        var u_pwd = $("#password").val()
+        var reg = /^1\d{10}$/;
+        var email_reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        if (reg.test(u_name)) {
+            $.post('name_pwd', {
+                u_name: u_name,
+                u_pwd: u_pwd
+            }, function (data) {
+                if (data == 3) {
+                    $("#sp_pwd").html('')
+                } else if (data == 4) {
+                    $("#sp_pwd").html('密码错误');
+                }
+            })
+        } else if (email_reg.test(u_name)) {
+            $.post('email_pwd', {
+                u_name: u_name,
+                u_pwd: u_pwd
+            }, function (data) {
+                if (data == 3) {
+                    $("#sp_pwd").html('')
+                } else if (data == 4) {
+                    $("#sp_pwd").html('密码错误');
+                }
+            })
+        }
+    })
+    $("#sub").click(function(){
+        var url="<?php   $re=Request::fullurl(); echo substr($re,(strripos($re,'/')+1))  ?>"
+        var sp_name=$("#sp_name").html();
+        var sp_pwd=$("#sp_pwd").html();
+        var u_name=$("#u_name").val();
+        var u_pwd=$("#password").val();
+
+        if(sp_name=='' && sp_pwd==''){
+            var reg = /^1\d{10}$/;
+            var email_reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+            if (reg.test(u_name)) {
+                $.post('name_deng',{
+                    u_name:u_name,
+                    u_pwd:u_pwd
+                },function(data){
+                    if(data==5){
+                        alert('登陆成功');location.href=url;
+                    }else if(data==6){
+                        alert('登陆失败');location.href='login';
+                    }
+                })
+            }else if(email_reg.test(u_name)){
+                $.post('email_deng',{
+                    u_name:u_name,
+                    u_pwd:u_pwd
+                },function(data){
+                    if(data==5){
+                        alert('登陆成功');location.href=url;
+                    }else if(data==6){
+                        alert('登陆失败');location.href='login';
+                    }
+                })
+            }
+        }else{
+            alert("条件不成立");
+        }
+    })
+    function zhu(){
+        if(flag && emailflag && phoneflag ){
+            return true;
+        }else{
+//            alert(flag)
+            return false;
+        }
+    }
+</script>
 
     {{--
        QQ咨询
@@ -380,8 +381,8 @@ if(!isset($_SESSION)){
 
 </div>
 
-<div  style="position:fixed;z-index: 100;right: 15px; top: 40%">
-    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=297973528&site=qq&menu=yes">
-        <img border="0"  src="http://wpa.qq.com/pa?p=2:297973528:53" alt="点击这里给我发消息" title="点击这里给我发消息"/>
-    </a>
-</div>
+    <div  style="position:fixed;z-index: 100;right: 15px; top: 40%">
+        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=297973528&site=qq&menu=yes">
+            <img border="0"  src="http://wpa.qq.com/pa?p=2:297973528:53" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+        </a>
+    </div>

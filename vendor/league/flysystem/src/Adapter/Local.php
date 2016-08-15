@@ -7,11 +7,9 @@ use FilesystemIterator;
 use finfo as Finfo;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
-use League\Flysystem\Exception;
 use League\Flysystem\NotSupportedException;
 use League\Flysystem\UnreadableFileException;
 use League\Flysystem\Util;
-use LogicException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
@@ -33,8 +31,8 @@ class Local extends AbstractAdapter
      */
     protected static $permissions = [
         'file' => [
-            'public' => 0644,
-            'private' => 0600,
+            'public' => 0744,
+            'private' => 0700,
         ],
         'dir' => [
             'public' => 0755,
@@ -71,12 +69,12 @@ class Local extends AbstractAdapter
      */
     public function __construct($root, $writeFlags = LOCK_EX, $linkHandling = self::DISALLOW_LINKS, array $permissions = [])
     {
-        $root = is_link($root) ? realpath($root) : $root;
+        // permissionMap needs to be set before ensureDirectory() is called.
         $this->permissionMap = array_replace_recursive(static::$permissions, $permissions);
         $realRoot = $this->ensureDirectory($root);
 
         if ( ! is_dir($realRoot) || ! is_readable($realRoot)) {
-            throw new LogicException('The root path ' . $root . ' is not readable.');
+            throw new \LogicException('The root path ' . $root . ' is not readable.');
         }
 
         $this->setPathPrefix($realRoot);
@@ -90,19 +88,13 @@ class Local extends AbstractAdapter
      * @param string $root root directory path
      *
      * @return string real path to root
-     *
-     * @throws Exception in case the root directory can not be created
      */
     protected function ensureDirectory($root)
     {
         if ( ! is_dir($root)) {
             $umask = umask(0);
-            @mkdir($root, $this->permissionMap['dir']['public'], true);
+            mkdir($root, $this->permissionMap['dir']['public'], true);
             umask($umask);
-
-            if ( ! is_dir($root)) {
-                throw new Exception(sprintf('Impossible to create the root directory "%s".', $root));
-            }
         }
 
         return realpath($root);
@@ -148,7 +140,7 @@ class Local extends AbstractAdapter
     {
         $location = $this->applyPathPrefix($path);
         $this->ensureDirectory(dirname($location));
-        $stream = fopen($location, 'w+b');
+        $stream = fopen($location, 'w+');
 
         if ( ! $stream) {
             return false;
@@ -173,7 +165,7 @@ class Local extends AbstractAdapter
     public function readStream($path)
     {
         $location = $this->applyPathPrefix($path);
-        $stream = fopen($location, 'rb');
+        $stream = fopen($location, 'r');
 
         return compact('stream', 'path');
     }
@@ -389,9 +381,9 @@ class Local extends AbstractAdapter
     }
 
     /**
-     * @param SplFileInfo $file
+     * @param $file
      */
-    protected function deleteFileInfoObject(SplFileInfo $file)
+    protected function deleteFileInfoObject($file)
     {
         switch ($file->getType()) {
             case 'dir':

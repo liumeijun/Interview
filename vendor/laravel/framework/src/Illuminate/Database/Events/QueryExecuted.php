@@ -35,7 +35,7 @@ class QueryExecuted
     /**
      * The database connection name.
      *
-     * @var string
+     * @var \Illuminate\Database\Connection
      */
     public $connectionName;
 

@@ -238,7 +238,8 @@ var is_choice = "0";
             <div class="ranking first">1</div>
             <div class="user-pic">
                 <a target="_blank" href="/u/1088132/bbs">
-                    <img src="picture/5485bdcf00015df201000100-100-100.jpg" title="Caballarii"/>
+                    5241654156
+                    {{--<img src="picture/5485bdcf00015df201000100-100-100.jpg" title="Caballarii"/>--}}
                 </a>
             </div><!--.user-pic end-->
             <div class="user-name">

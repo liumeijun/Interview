@@ -19,6 +19,15 @@ class SessionManager extends Manager
     }
 
     /**
+    * Create an instance of the Memcached session driver.
+    * @return IlluminateSessionStore
+    */
+    protected function createMemcacheDriver()
+    {
+        return $this->createCacheBased('memcache');
+    } 
+
+    /**
      * Create an instance of the "array" session driver.
      *
      * @return \Illuminate\Session\Store
@@ -59,9 +68,7 @@ class SessionManager extends Manager
     {
         $path = $this->app['config']['session.files'];
 
-        $lifetime = $this->app['config']['session.lifetime'];
-
-        return $this->buildSession(new FileSessionHandler($this->app['files'], $path, $lifetime));
+        return $this->buildSession(new FileSessionHandler($this->app['files'], $path));
     }
 
     /**
@@ -75,9 +82,7 @@ class SessionManager extends Manager
 
         $table = $this->app['config']['session.table'];
 
-        $lifetime = $this->app['config']['session.lifetime'];
-
-        return $this->buildSession(new DatabaseSessionHandler($connection, $table, $lifetime, $this->app));
+        return $this->buildSession(new DatabaseSessionHandler($connection, $table, $this->app));
     }
 
     /**
@@ -93,9 +98,7 @@ class SessionManager extends Manager
 
         $table = $this->app['config']['session.table'];
 
-        $lifetime = $this->app['config']['session.lifetime'];
-
-        return $this->buildSession(new LegacyDatabaseSessionHandler($connection, $table, $lifetime));
+        return $this->buildSession(new LegacyDatabaseSessionHandler($connection, $table));
     }
 
     /**

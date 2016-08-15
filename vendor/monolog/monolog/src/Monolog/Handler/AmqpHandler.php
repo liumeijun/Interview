@@ -64,7 +64,7 @@ class AmqpHandler extends AbstractProcessingHandler
                 0,
                 array(
                     'delivery_mode' => 2,
-                    'content_type' => 'application/json',
+                    'Content-type' => 'application/json',
                 )
             );
         } else {

@@ -14,7 +14,6 @@ namespace Psy\ExecutionLoop;
 use Psy\Configuration;
 use Psy\Exception\BreakException;
 use Psy\Exception\ThrowUpException;
-use Psy\Exception\TypeErrorException;
 use Psy\Shell;
 
 /**
@@ -98,12 +97,6 @@ class Loop
                     $__psysh__->writeException($_e);
 
                     throw $_e;
-                } catch (\TypeError $_e) {
-                    restore_error_handler();
-                    if (ob_get_level() > 0) {
-                        ob_end_clean();
-                    }
-                    $__psysh__->writeException(TypeErrorException::fromTypeError($_e));
                 } catch (\Exception $_e) {
                     restore_error_handler();
                     if (ob_get_level() > 0) {

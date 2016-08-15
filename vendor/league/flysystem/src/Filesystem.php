@@ -8,8 +8,6 @@ use League\Flysystem\Util\ContentListingFormatter;
 
 /**
  * @method array getWithMetadata(string $path, array $metadata)
- * @method bool  forceCopy(string $path, string $newpath)
- * @method bool  forceRename(string $path, string $newpath)
  * @method array listFiles(string $path = '', boolean $recursive = false)
  * @method array listPaths(string $path = '', boolean $recursive = false)
  * @method array listWith(array $keys = [], $directory = '', $recursive = false)
@@ -53,7 +51,7 @@ class Filesystem implements FilesystemInterface
     {
         $path = Util::normalizePath($path);
 
-        return strlen($path) === 0 ? false : (bool) $this->getAdapter()->has($path);
+        return (bool) $this->getAdapter()->has($path);
     }
 
     /**

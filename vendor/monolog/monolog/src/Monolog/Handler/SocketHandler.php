@@ -30,7 +30,6 @@ class SocketHandler extends AbstractProcessingHandler
     private $persistent = false;
     private $errno;
     private $errstr;
-    private $lastWritingAt;
 
     /**
      * @param string  $connectionString Socket connection string
@@ -254,14 +253,6 @@ class SocketHandler extends AbstractProcessingHandler
     protected function generateDataStream($record)
     {
         return (string) $record['formatted'];
-    }
-
-    /**
-     * @return resource|null
-     */
-    protected function getResource()
-    {
-        return $this->resource;
     }
 
     private function connect()
