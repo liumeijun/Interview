@@ -52,6 +52,7 @@ var is_choice = "";
         <li >
             <a href="/user/my_ping">我的评价</a>
         </li>
+
       <li >
          <a href="/user/setavator">头像设置</a>
        </li>

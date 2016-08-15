@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html xmlns:wb="http://open.weibo.com/wb">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
@@ -10,13 +9,14 @@
 <meta http-equiv="Access-Control-Allow-Origin" content="*">
 <meta http-equiv="Cache-Control" content="no-transform ">
 <meta name="Description" content="面试也用的到的：面向对象特点+作用+用法！ 刚学面向对象时，不知道什么是面向对象，只知道跟着讲师的例子走，最后了解了，会用了，却在面试时对其定义、特点、其有什么作用却一脸懵比，都知道有度娘，却搜的资料比较凌乱，小编在这就为初学面向对象的童鞋们带来了福利，从网上整理的精华。在这有什么没整理到的，希望能够">
-<script src="js/wpush.js"></script><script src="js/wrt.js" async="" type="text/javascript"></script><script type="text/javascript">
+<script src="js/wpush.js"></script><script src="js/wrt.js" async="" type="text/javascript"></script>
+<script type="text/javascript">
 
       var OP_CONFIG={"module":"article","page":"details"};
   var isLogin = 0;
 var is_choice = "";
   var seajsTimestamp="v=201603311625";
-  
+
 </script>
 
 
@@ -44,8 +44,8 @@ var user = {
 <script>
 var isLogin=0
 </script>
-
 <div class="opus-wrap clearfix">
+
 
 <div class="detail-left l">
   <div class="detail-path">
@@ -242,4 +242,6 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
 </script><script src="wen_files/h.js" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=f0cfcccd7b1393990c78efdeebff3968" target="_blank"><img src="wen_files/21.gif" height="20" width="20" border="0"></a>
 
 </div><script src="wen_files/user.htm" type="text/javascript"></script><script src="  _files/iplookup.php" type="text/javascript"></script>
+      </div>
+    </div>
 </body></html>

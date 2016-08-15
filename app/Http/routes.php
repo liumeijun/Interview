@@ -61,9 +61,13 @@ Route::get('save', 'WendaController@save');
 //提交提问
 Route::post('tiwen', 'WendaController@tiwen');
 //点击标题后进入的详情页面
-Route::get('detail', 'WendaController@detail');
+Route::any('detail', 'WendaController@detail');
 //评论
-Route::post('hui', 'WendaController@hui');
+Route::any('hui', 'WendaController@hui');
+//Route::any('hui', function(){
+//   $re= \Illuminate\Support\Facades\Request::all();
+//    print_r($re);
+//});
 //点赞
 Route::get('zid', 'WendaController@zid');
 /*
@@ -82,17 +86,6 @@ Route::post('zhuanye', 'CourseController@zhuanye');
 Route::get('xiang', 'CourseController@xiang');
 Route::post('con', 'CourseController@con');
 Route::get('ping', 'CourseController@ping');
-
-//收藏试题
-Route::post('addhouse', 'CourseController@addhouse');
-//删除收藏的试题（取消关注）
-Route::post('delhouse', 'CourseController@delhouse');
-
-//收藏文章
-Route::post('addhouse_article', 'ArticleController@addhouse_article');
-//删除收藏的文章（取消关注）
-Route::post('delhouse_article', 'ArticleController@delhouse_article');
-
 /*
  * 试题结束
  */
@@ -101,11 +94,12 @@ Route::post('delhouse_article', 'ArticleController@delhouse_article');
 Route::get('article', 'ArticleController@article');
 Route::get('article/publish', 'ArticleController@publish');
 Route::post('add', 'ArticleController@add');
-Route::post('zan', 'ArticleController@zan');
+Route::any('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
 Route::get('fangfa', 'ArticleController@wxiang');
 Route::post('wping', 'ArticleController@wping');
-
+Route::get('articleNew', 'ArticleController@articleNew');
+Route::get('articleHot', 'ArticleController@articleHot');
 //招聘
 Route::get('program', 'ProgramController@program');
 Route::get('etc', 'ProgramController@etc');
@@ -116,7 +110,10 @@ Route::get('position', 'ProgramController@position');
 //注册
 //Route::post('register', 'CommonController@register');
 Route::post('reg','LoginController@reg');
+
 Route::get('register','LoginController@register');
+//发送回邮件
+Route::get('send','LoginController@sendemail');
 //登陆
 Route::post('login', 'CommonController@login');
 //公司试题

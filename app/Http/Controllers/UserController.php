@@ -103,4 +103,5 @@ class UserController extends Controller
             return view('user/my_ping', ['shiti' => $shiti,'shiti_ping' => $shiti_ping]);
         }
     }
+
 }
