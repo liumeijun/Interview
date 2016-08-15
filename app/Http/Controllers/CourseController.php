@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB,Session,Redirect, Input,Request,Cache;
+use DB;
+use Illuminate\Support\Facades\Session;
+
 class CourseController extends Controller
 {
     public function course(){
@@ -14,7 +16,7 @@ class CourseController extends Controller
         //类型
         $lei=DB::table('type')->get();
         //全部试题
-        $shi=DB::table('college_questions')->orderBy('c_num','desc')->simplePaginate(12);
+        $shi=DB::table('college_questions')->simplePaginate(12);
         return view('course/course',['arr'=>$arr,'zhuan'=>$zhuan,'shi'=>$shi,'lei'=>$lei]);
     }
     public function sou(){
@@ -41,7 +43,6 @@ class CourseController extends Controller
         return view('course/zhuan',['zhuan'=>$zhuan]);
     }
     public function s(){
-      
         if(!empty($_POST['leixing'])){
             $type= $_POST['leixing'];
         }else{
@@ -56,7 +57,7 @@ class CourseController extends Controller
             //类型的试题
             //$shi="select * from college_questions where c_college='".$college['c_name']."'";
             $college_name=$college['c_name'];
-            $shi=DB::table('college_questions')->where('c_college',"$college_name")->orderBy('c_num')->simplePaginate(12);
+            $shi=DB::table('college_questions')->where('c_college',"$college_name")->simplePaginate(12);
         }
 
         //$shi=DB::select($shi);
@@ -90,15 +91,15 @@ class CourseController extends Controller
     }
     public function xiang(){
         $id=$_GET['id'];
-        if(!isset($_SESSION)){
-            session_start();
-        }
-
-	    //echo $id;die;
-        $sq=DB::table('college_questions')->where('c_id','=',$id)->increment('c_num');
+	//echo $id;die;
+	$num=DB::table('college_questions')->where("c_id",$id)->first();
+        $num=$num['c_num']+=1;
+        $sq=DB::update("update college_questions set c_num='$num' where c_id=".$id);
         $arr=DB::table('college_questions')->where('c_id',$id)->first();
 //print_r($arr);die;
-	
+	if(!isset($_SESSION)){
+		session_start();
+	}
 	if(!empty($_SESSION['username'])){
         $uid = $_SESSION['u_id'];
         if(Cache::has($uid)){
@@ -108,8 +109,7 @@ class CourseController extends Controller
         }else{
             Cache::put($uid,$id,3600*24*7);
         }
-        $ping=DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where e_id=$id order by e_addtime desc");
-	    // print_r($ping);die;
+        $ping=DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$uid order by p_id desc");
 	}else{
 		$ping=array();
 	}
@@ -133,7 +133,6 @@ class CourseController extends Controller
             $arr['img']='http://123.56.249.121/api/logo/传媒.jpg';
         }
 
-
         //查询是否收藏
         if (empty($_SESSION['username'])) {
             return view('course/xiang',['arr'=>$arr,'ping'=>$ping]);
@@ -142,8 +141,7 @@ class CourseController extends Controller
             return view('course/xiang',['arr'=>$arr,'ping'=>$ping,'house' => $is_house]);
         }
     }
-
-	public function con()
+	 public function con()
     {
         $con = $_POST['con'];
         $c_id = $_POST['c_id'];
@@ -154,12 +152,12 @@ class CourseController extends Controller
             //$username=$_SESSION['username'];
             //$u_id=table('users')->where("user_phone","$username")->orwhere("user_email","$username")->pluck('user_id');
            // $u_id=1;
-		  if(!isset($_SESSION)){
+		 if(!isset($_SESSION)){
                   session_start();
-	      }
-            $username=$_SESSION['username'];
-            $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
-	        $u_id=$u_id['user_id'];
+	         }
+         $username=$_SESSION['username'];
+         $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
+	$u_id=$u_id['user_id'];
             $sql="insert into e_ping(p_con,u_id,e_id,e_addtime) values('$con',$u_id,'$c_id','$e_addtime')";
             $re=DB::insert($sql);
             $ping=DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$u_id order by p_id desc");
@@ -237,5 +235,4 @@ class CourseController extends Controller
         return view('course/hot')->with('arr',$hot);
 
     }
-
 }

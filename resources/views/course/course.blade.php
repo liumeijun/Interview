@@ -208,7 +208,7 @@
 <script>
     $(document).on("click",".leixing",function(){
         var leixing=$(this).attr('value');
-        $.get('s',{
+        $.post('s',{
             leixing:leixing
         },function(data){
 

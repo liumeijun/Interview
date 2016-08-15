@@ -2,9 +2,6 @@
         @foreach($data as $q=>$w)
             <li class="position_list_item" data-jobid="1621796" data-positionid="1621796" data-salary="25k-40k" data-company="51Talk 无忧英语" data-positionname="运营总监" data-companyid="119153">
 
-
-            
-
                 <div class="pli_top">
                     <div class="fl pli_top_l">
                         <div class="position_name">
@@ -36,9 +33,6 @@
                           <span>{{$w['r_type']}}</span>                                    
                                                                         </div>
                 </div>
-
-            
-
 
 
             </li>

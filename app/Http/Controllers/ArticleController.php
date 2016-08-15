@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 use DB;
 class ArticleController extends Controller
@@ -95,9 +96,8 @@ class ArticleController extends Controller
     }
 
 
-    public function wxiang()
-    {
-        if (!isset($_SESSION)) {
+    public function wxiang(){
+        if(!isset($_SESSION)){
             session_start();
         }
         if (empty($_SESSION['username'])) {
@@ -129,8 +129,16 @@ class ArticleController extends Controller
              // dd($arr);die;
             return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping, 'house' => $is_house]);
         }
+        $id=$_GET['id'];
+        $arr=DB::table("article")
+            ->join("ar_type","article.a_type","=","ar_type.at_id")
+            ->where("article.a_id",$id)->get();
+        //var_dump($arr);exit();
+        $aping=DB::table('aping')->join("users","aping.u_id","=","users.user_id")->join("article","aping.a_id","=","article.a_id")->orderBy("aping.ap_id","desc")->limit(3)->get();
+       //print_r($aping);die;
+        return view('article/wxiang',['arr'=>$arr[0],'username'=>$username,'aping'=>$aping]);
     }
-
+    
     public function wping(){
         if(!isset($_SESSION)){
             session_start();
@@ -143,6 +151,7 @@ class ArticleController extends Controller
             $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
             $u_id=$u_id['user_id'];
         }
+        echo $u_id;die;
         $a_id=$_POST['a_id'];
         $ping=$_POST['ping'];
         $sql="insert into aping(u_id,ap_con,a_id) values('$u_id','$ping','$a_id')";
@@ -153,7 +162,6 @@ class ArticleController extends Controller
         return json_encode($aping);
         //return view('article/aping',['aping'=>$aping]);
     }
-
     //最新文章
     public function articleNew()
     {

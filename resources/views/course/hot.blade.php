@@ -17,7 +17,6 @@
 </head>
 <body  id="List_courseId">
 @include('layouts.master')
-
 <div id="main">
     <div class="container">
         <div class="course-content">
