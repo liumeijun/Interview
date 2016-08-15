@@ -110,6 +110,7 @@ class CourseController extends Controller
         }
         $ping=DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$uid order by p_id desc");
 	   // print_r($ping);die;
+       
 	}else{
 		$ping=array();
 	}

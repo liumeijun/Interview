@@ -122,6 +122,8 @@ Route::get('position', 'ProgramController@position');
 //Route::post('register', 'CommonController@register');
 Route::post('reg','LoginController@reg');
 Route::get('register','LoginController@register');
+//发送回邮件
+Route::get('send','LoginController@sendemail');
 //登陆
 Route::post('login', 'CommonController@login');
 //公司试题
