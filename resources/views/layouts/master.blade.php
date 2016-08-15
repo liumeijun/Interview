@@ -77,6 +77,7 @@ if(!isset($_SESSION)){
                                     echo $_SESSION['img'];
                                 } ?> "></a>
                                <a href="/u/3071208/courses"><span class="name text-ellipsis"><?php echo $_SESSION['username'] ?></span></a>
+
                                 <p class="meta">
                                     <a href="/u/3071208/experience">经验<b id="js-user-mp">550</b></a>
                                     <a href="/u/3071208/credit">积分<b id="js-user-credit">0</b></a>            </p>
@@ -133,6 +134,7 @@ if(!isset($_SESSION)){
 
 <script src="/static/js/landing-min.js?2013032917"></script>
 <div style="text-align:center;clear:both"></div>
+
 
     <div style="text-align:center;clear:both"></div>
 
