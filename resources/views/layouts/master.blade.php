@@ -71,24 +71,17 @@ if(!isset($_SESSION)){
                     <div class="g-user-card">
                         <div class="card-inner">
                             <div class="card-top">
-<<<<<<< HEAD
-                                <a href="/u/3071208/courses"><img class="l" alt="凤颖" src=""></a>
-                                <a href="/u/3071208/courses"><span class="name text-ellipsis">
-                                <img width="40" style="" height="40" src="<?php if (empty($_SESSION['img'])) {
+                                <a href="/u/3071208/courses"><img class="l" alt="凤颖" src="<?php if (empty($_SESSION['img'])) {
                                     echo "/images/unknow-220.png";
                                  } else{
                                     echo $_SESSION['img'];
-                                } ?> ">
-                                </span></a>
-=======
-                                <a href="/u/3071208/courses"><img class="l" alt="凤颖" src="/images/unknow-160.png"></a>
-                                <a href="/u/3071208/courses"><span class="name text-ellipsis">凤颖</span></a>
->>>>>>> ff38c3b8a7e96fd898764ff446dc88ce84a6e44e
+                                } ?> "></a>
+                               <a href="/u/3071208/courses"><span class="name text-ellipsis"><?php echo $_SESSION['username'] ?></span></a>
                                 <p class="meta">
                                     <a href="/u/3071208/experience">经验<b id="js-user-mp">550</b></a>
                                     <a href="/u/3071208/credit">积分<b id="js-user-credit">0</b></a>            </p>
 
-                                <a class="icon-set setup" href="/user/setprofile"></a>
+                                <a class="icon-set setup" href="/setprofile"></a>
                             </div>
                             <!--
                             <div class="card-links">
@@ -108,7 +101,7 @@ if(!isset($_SESSION)){
                             <div class="card-sets clearfix">
                                 <a class="l mr30" target="_blank" href="/wenda/save">发问题</a>
                                 <a class="l" target="_blank" href="/article/publish">写文章</a>
-                                <a class="r" href="out/?url=<?php   $re=Request::fullurl(); echo substr($re,(strripos($re,'/')+1))  ?>">退出</a>
+                                <a class="r" href="out?url=<?php   $re=Request::fullurl(); echo substr($re,(strripos($re,'/')+1))  ?>">退出</a>
                             </div>
                         </div>
                         <i class="card-arr"></i>
@@ -138,14 +131,8 @@ if(!isset($_SESSION)){
 </div>
 <div class="footer bg-white idx-minwidth">
 
-
-<<<<<<< HEAD
 <script src="/static/js/landing-min.js?2013032917"></script>
-<script type="text/javascript" src="http://open.51094.com/user/myscript/157ab219be5214.html"></script>
 <div style="text-align:center;clear:both"></div>
-=======
-    <script src="/static/js/landing-min.js?2013032917"></script>
->>>>>>> ff38c3b8a7e96fd898764ff446dc88ce84a6e44e
 
     <div style="text-align:center;clear:both"></div>
 
@@ -179,9 +166,9 @@ if(!isset($_SESSION)){
                 下次自动登录 </label>
             <a class="forgot">忘记密码？</a>
             <div>
-                <div>
+               
                     第三方:<span id="hzy_fast_login"></span>
-                </div>
+                
                 <a href=""><p>还没有账号,立即注册</p></a><br>
             </div>
 
