@@ -134,7 +134,7 @@ class LoginController extends Controller
     }
     //邮件激活
     public function sendemail(){
-        // echo "sda";die;
+        echo "sda";die;
         $email = Request::input('email');
          $select  = DB::table('users')->where('user_md5','=',$email)->update(['user_state'=>'1']);
          // Session::put('u_id',$user_id);
