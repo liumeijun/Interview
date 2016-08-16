@@ -31,12 +31,22 @@ Route::post('name_deng', 'LoginController@name_deng');
 Route::post('email_deng','LoginController@email_deng');
 
 //个人中心
-Route::get('user/setprofile', 'UserController@setprofile');
+Route::any('user/setprofile', 'UserController@setprofile');
 Route::get('user/setavator', 'UserController@setavator');
 Route::get('user/setphone', 'UserController@setphone');
 Route::get('user/setverifyemail', 'UserController@setverifyemail');
 Route::get('user/setresetpwd', 'UserController@setresetpwd');
 Route::get('user/setbindsns', 'UserController@setbindsns');
+//保存个人资料
+Route::post('user/my_message', 'UserController@my_message');
+
+//我的收藏
+Route::get('user/my_house', 'UserController@my_house');
+//我的收藏->收藏的文章
+Route::get('user/my_house_article', 'UserController@my_house_article');
+//我的评价
+Route::get('user/my_ping', 'UserController@my_ping');
+
 
 //个人中心
 Route::get('sms/messages', 'SmsController@messages');
@@ -72,6 +82,7 @@ Route::get('zid', 'WendaController@zid');
  */
 //试题首页
 Route::get('shiti', 'CourseController@course');
+
 //试题搜索
 Route::post('sou', 'CourseController@sou');
 Route::post('s', 'CourseController@s');
@@ -79,18 +90,28 @@ Route::post('zhuanye', 'CourseController@zhuanye');
 Route::get('xiang', 'CourseController@xiang');
 Route::post('con', 'CourseController@con');
 Route::get('ping', 'CourseController@ping');
+Route::post('addhouse', 'CourseController@addhouse');
+Route::post('delhouse', 'CourseController@delhouse');
+Route::get('hot', 'CourseController@Hot');
+Route::get('news', 'CourseController@News');
+Route::get('history', 'CourseController@History');
+
 /*
  * 试题结束
  */
 
 //文章
 Route::get('article', 'ArticleController@article');
+Route::post('delhouse_article', 'ArticleController@delhouse_article');
+Route::post('addhouse_article', 'ArticleController@addhouse_article');
 Route::get('article/publish', 'ArticleController@publish');
 Route::post('add', 'ArticleController@add');
-Route::post('zan', 'ArticleController@zan');
+Route::any('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
 Route::get('fangfa', 'ArticleController@wxiang');
 Route::post('wping', 'ArticleController@wping');
+Route::get('articleNew', 'ArticleController@articleNew');
+Route::get('articleHot', 'ArticleController@articleHot');
 //招聘
 Route::get('program', 'ProgramController@program');
 Route::get('etc', 'ProgramController@etc');
@@ -103,6 +124,8 @@ Route::get('position', 'ProgramController@position');
 Route::post('reg','LoginController@reg');
 
 Route::get('register','LoginController@register');
+//发送回邮件
+Route::get('send','LoginController@sendemail');
 //登陆
 Route::post('login', 'CommonController@login');
 //公司试题

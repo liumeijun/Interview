@@ -43,6 +43,13 @@ var is_choice = "";
       <li >
         <a href="/user/setprofile">个人资料</a>
       </li>
+        <li >
+            <a href="/user/my_house">我的收藏</a>
+        </li>
+        <li >
+            <a href="/user/my_ping">我的评价</a>
+        </li>
+
       <li class="active">
          <a href="/user/setavator" class="onactive">头像设置</a>
        </li>
@@ -69,7 +76,13 @@ var is_choice = "";
         
 <div class="setting-wrap setting-avator clearfix" id="setting-avator">
 	<div class="avator-img l">
-		<div><img width="220" height="220" src="/images/unknow-220.png"></div>
+		<div><img width="220" height="220" src="
+      <?php if (empty($_SESSION['img'])) {
+             echo "/images/unknow-220.png";            
+       } else{
+          echo $_SESSION['img'];
+          } ?> 
+    "></div>
 		<div><input type="button" class="js-avator-try avator-try" value="换一换" hidefocus="true"></div>
 	</div>
 	<div class="avator-btn-group">

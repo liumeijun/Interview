@@ -1,8 +1,9 @@
-﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>IT技术文章-慕课网</title>
+    <title>IT技术文章-面试宝典</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <meta name="renderer" content="webkit">
     <meta property="qc:admins" content="77103107776157736375" />
@@ -10,7 +11,7 @@
     <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <meta http-equiv="Cache-Control" content="no-transform " />
     <meta name="Keywords" content="" />
-    <meta name="Description" content="慕课网为IT专业技术人员提供最新的文章信息,包括PHP,JAVA,C语言,MySql,DB2等相关文章,更多IT技术资讯、原创内容、开源代码尽在慕课社区" />
+    <meta name="Description" content="面试宝典为IT专业技术人员提供最新的文章信息,包括PHP,JAVA,C语言,MySql,DB2等相关文章,更多IT技术资讯、原创内容、开源代码尽在慕课社区" />
 
     <script type="text/javascript">
 
@@ -51,18 +52,18 @@
             <div class="article-tool-bar clearfix">
                 <div class="tool-left l">
 
-                    <a href="#" class="sort-item active">最新</a>
-                    <a href="#" class="sort-item ">热门</a>
+                    <a href="articleNew" class="sort-item active">最新</a>
+                    <a href="articleHot" class="sort-item ">热门</a>
                 </div>
             </div>
             <div id="lie">
-            <?php foreach($article as $k=>$v){?>
+            <?php foreach($new as $k=>$v){?>
             <div class="article-lwrap ">
                 <!-- text -->
                 <input type="hidden" id="a_id" value="<?php echo $v['a_id']?>">
                 <div class="">
                     <h3 class="item-title">
-                        <a href="#" class="title-detail"><?php echo $v['a_title']?></a>
+                        <a href="fangfa?id=<?php echo $v['a_id']?>" target="_blank" class="title-detail"><?php echo $v['a_title']?></a>
                     </h3>
                     <p class="item-bd"><?php echo $v['a_con']?></p>
                     <div class="item-btm clearfix">
@@ -82,21 +83,11 @@
                         <div class="r right-info">
                             <div class="favorite l" id="zan" value="<?php echo $v['a_id']?>">
                                 <img src="images/zan.jpg"  class="zan" width="15" height="20">
-                                <?php if($v['zan']=="1"){
-                                    ?>
-                                <em id="z-<?php echo $v['a_id']?>">以赞
-                                    <?php echo $v['a_num']?>
-                                </em>
-                                <?php
-                                }else{
-                                    ?>
+
                                 <em id="z-<?php echo $v['a_id']?>">点赞
                                     <?php echo $v['a_num']?>
                                 </em>
-                                <?php
-                                }
 
-                                    ?>
 
 
                             </div>
@@ -262,51 +253,9 @@
 <script type="text/javascript" src="js/sea_config.js"></script>
 <script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
 
-
-
-
-
 <div style="display: none">
-    <script type="text/javascript">
-        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
-        (function (d) {
-            window.bd_cpro_rtid="rHT4P1c";
-            var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
-            var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
-        })(document);
-    </script>
-    <script>
-        (function(){
-            var bp = document.createElement('script');
-            bp.src = '//push.zhanzhang.baidu.com/push.js';
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(bp, s);
-        })();
-    </script>
     <script src="js/jquery-1.9.1.min.js"></script>
     <script>
-        $(document).on("click","#zan",function(){
-            var zan=$(this).attr("value")
-            $.post('zan',{
-                zan:zan
-            },function(data){
-                //alert(data)
-                if(data==1){
-                    alert('请先登录');
-                    location.href='index';
-                }
-                var data=eval("("+data+")");
-                for(i in data){
-                    if(data[i]['num']==0){
-                        rp="取消赞"+data[i]['num'];
-                    }
-                    rp="已赞 "+data[i]['num'];
-                }
-
-                $("#z-"+zan).html(rp);
-            })
-        })
         $(document).on("click","#type",function(){
            var type=$(this).attr("value")
             $.post('type',{

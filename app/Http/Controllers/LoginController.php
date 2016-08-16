@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
+use DB,Mail,Request;
+use open51094;
+use Illuminate\Support\Facades\Session;
+
 
 session_start();
 
@@ -85,12 +88,12 @@ class LoginController extends Controller
         return view('login/register');
     }
     public function reg(){
-        $url=$_POST['url'];
-//        print_r($url);die;
-        $name=$_POST['username'];
-        $pwd=$_POST['password'];
-        $email=$_POST['email'];
-        $phone=$_POST['phone'];
+//	echo "ssssss";die;
+        $name = Request::input('username');
+        $pwd = Request::input('password');
+        $email = Request::input('email');
+        $phone = Request::input('phone');
+        $md5 = md5($email);
         $a_name=DB::table('users')->where('user_name',"$name")->first();
         if($a_name){
             echo "<script>alert('用户名已存在');location.href='index'</script>";
@@ -104,10 +107,23 @@ class LoginController extends Controller
                     echo "<script>alert('手机号已存在');location.href='index'</script>";
                 }else{
 
-                    $arr=DB::insert("insert into users(user_name,user_pwd,user_email,user_phone) values('$name','$pwd','$email','$phone');");
+                    $arr=DB::insert("insert into users(user_name,user_pwd,user_email,user_phone,user_md5) values('$name','$pwd','$email','$phone','$md5');");
                     if($arr){
-                        $_SESSION['username']=$name;
-                        echo "<script>alert('注册成功');location.href='".$url."'</script>";
+                        $email = md5($email);
+                        //echo $email;die;
+			            $_SESSION['username']=$name;
+                        $str= 'http://www.baodian.com/send?email='.$email;
+                        $boll= mail::raw($str, function ($message){
+                            $to= '1521233971@qq.com';
+                            $message -> to($to) ->subject('测试邮箱');
+                        });
+                        if ($boll) {
+                                echo "<script>alert('亲邮箱注册成功');location.href='#';</script>";
+                        }else{
+                            echo "邮箱错误";
+                        }
+
+                        // echo "<script>alert('注册成功');location.href='#'</script>";
                     }else{
                         echo "<script>alert('注册失败');location.href='".$url."'</script>";
                     }
@@ -118,17 +134,119 @@ class LoginController extends Controller
             }
         }
 
-
+    }
+    //邮件激活
+    public function sendemail(){
+        // echo "sda";die;
+        $email = Request::input('email');
+         $select  = DB::table('users')->where('user_md5','=',$email)->update(['user_state'=>'1']);
+         // Session::put('u_id',$user_id);
+        //print_r($select);die;
+        if($select ==1){
+             echo "<script>alert('激活成功');location.href='index'</script>";
+        }else{
+             echo "<script>alert('激活失败');location.href='index'</script>";
+        }        
     }
 
     public function out(){
         unset($_SESSION['username']);
-        $url=$_GET['url'];
-
-        echo "<script>alert('退出成功');location.href='".$url."'</script>";
+        unset($_SESSION['u_id']);
+        unset($_SESSION['img']);
+        
+        echo "<script>alert('退出成功');location.href='index'</script>";
     }
 
+      //第三方qq登陆
+    // public function qqlogin(){
+    //     $code=$_GET['code'];
+    //     //$state=$_GET['state'];
+    //     $client_id=101339184;
+    //     $client_secret='2b7b5c3cd25ab24d19315351727cae16';
+    //     $redirect_uri='http://www.baodian.com/qqlogin';
+    //     //print_r($redirect_uri);exit;
+    //     $url="https://graph.qq.com/oauth2.0/token?grant_type=authorization_code&client_id=$client_id&client_secret=$client_secret&code=$code&redirect_uri=$redirect_uri";
+    //     $data=file_get_contents($url);
+    //     // print_r($data);die;
+    //     $queryParts = explode('&',$data); 
+    //     // print_r($queryParts);exit;
+    //     $params = array(); 
+    //         foreach ($queryParts as $param) 
+    //         { 
+    //             $item = explode('=', $param); 
+    //            $params[$item[0]] = $item[1]; 
+    //         } 
+    //         // print_r($item);die;
+    //     $access_token=$params['access_token'];
+    //     // print_r($access_token);exit;
+    //     $url="https://graph.qq.com/oauth2.0/me?access_token=$access_token";
+    //     $data=file_get_contents($url);
+    //     // print_r($data);die;
+    //     $result = array();
+    //     preg_match_all("/(?:\{)(.*)(?:\})/i",$data, $result); 
+    //     $data=json_decode($result[0][0],true);
+    //     // print_r($data);exit;
+    //     $openid=$data['openid'];
+    //     // print_r($openid);exit;
+    //     $data = DB::table('users')->where('user_openid',$openid)->first();
+    //     $user_name=$data['user_name'];
+    //     // print_r($user_name);die; 
+    //     // Session::put('username',$data['user_name']);
+    //     if($data){
+    //             // session_start();
+    //             $_SESSION['username']=$user_name;
+    //             // echo "$_SESSION['user_name']";die;
+    //             // Session::put('username',$data['user_name']);
+    //         }else{
+    //             //rand随机函数
+    //             $user_name = rand(10000,9999);
+    //             $res = DB::table('users')->insert(['user_name'=>$user_name,'user_openid'=>$openid]);
+    //             // session_start();
+    //             $_SESSION['username']=$user_name;
+    //             // Session::put('username',$user_name);
+    //         }
+    //          // print_r($user_name);die; 
+    //     return redirect('/index');   
+    // }  
+    //第三方
+    public function weibo(){
+        include 'disan/open51094.class.php';
 
-
-
+        $open = new open51094();
+        $code = $_GET['code'];
+        $data=$open->me($code);
+        // print_r($data);die();
+        // $user_id=$data['user_id'];
+        $uniq=$data['uniq'];
+        $name=$data['name'];
+        $img=$data['img'];
+        $data = DB::table('users')->where('user_openid',$uniq)->first();
+         // $name=$data['user_nickname'];
+         //  $img=$data['img'];
+         // $_SESSION['u_id']=$data[0]['user_id'];
+        if ($data) {
+                  $name=$data['user_nickname'];
+                  $img=$data['img'];
+                  $user_id=$data['user_id'];
+                 $_SESSION['u_id']=$user_id;
+                 $_SESSION['username']=$name;
+                 $_SESSION['img']=$img;
+                 // echo $_SESSION['u_id'];die();
+                 // $_SESSION['user_id']=$uniq;
+        }else{
+             // $name="宝典".rand(10000,999);
+              // $_SESSION['u_id']=$user_id;
+             $res = DB::table('users')->insert(['user_nickname'=> $name,'img'=> $img,'user_openid'=>$uniq]);
+              $user_id=$data['user_id'];
+            // print_r($res);die;
+                  $_SESSION['username']=$name;
+                  // $_SESSION['u_id']=$data[0]['user_id'];
+                  $_SESSION['u_id']=$user_id;
+                  $_SESSION['img']=$img;
+                    // echo $_SESSION['img'];die();
+                  // $_SESSION['img']=$img;
+        }
+        
+          return redirect('/index');   
+    }
 }

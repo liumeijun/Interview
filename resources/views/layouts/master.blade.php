@@ -10,7 +10,7 @@ if(!isset($_SESSION)){
 
 <div id="header">
     <div class="page-container" id="nav" style="background:black;">
-        <a href="http://www.mianshibaodian.com/" target="_self"><img src="/images/login.png" style="float: left; padding-top:6px;"></a><a href="index" target="_self" class="hide-text"></a>
+        <a href="http://www.interview.com/" target="_self"><img src="/images/login.png" style="float: left; padding-top:6px;"></a><a href="index" target="_self" class="hide-text"></a>
         <div class="g-menu-mini l">
             <ul class="nav-item l">
                 <li><a href="shiti"  target="_self">试题</a></li>
@@ -60,15 +60,25 @@ if(!isset($_SESSION)){
                 </li>
                 <li class="set_btn user-card-box">
                     <a target="_self" href="/u/3071208/courses" action-type="my_menu" class="user-card-item"  id="header-avator">
-                        <img width="40" style="" height="40" src="/images/unknow-40.png">
+                        <img width="40" style="" height="40" src="<?php if (empty($_SESSION['img'])) {
+                                echo "/images/unknow-220.png";
+                                 } else{
+                                    echo $_SESSION['img'];
+                                    } ?> ">
                         <i style="display: none;" class="myspace_remind"></i>
                         <span style="display: none;">动态提醒</span>
                     </a>
                     <div class="g-user-card">
                         <div class="card-inner">
                             <div class="card-top">
-                                <a href="/u/3071208/courses"><img class="l" alt="凤颖" src="/images/unknow-160.png"></a>
-                                <a href="/u/3071208/courses"><span class="name text-ellipsis">凤颖</span></a>
+                                <a href="/u/3071208/courses"><img class="l" alt="凤颖" src=""></a>
+                                <a href="/u/3071208/courses"><span class="name text-ellipsis">
+                                <img width="40" style="" height="40" src="<?php if (empty($_SESSION['img'])) {
+                                    echo "/images/unknow-220.png";
+                                 } else{
+                                    echo $_SESSION['img'];
+                                } ?> ">
+                                </span></a>
                                 <p class="meta">
                                     <a href="/u/3071208/experience">经验<b id="js-user-mp">550</b></a>
                                     <a href="/u/3071208/credit">积分<b id="js-user-credit">0</b></a>            </p>
@@ -124,7 +134,10 @@ if(!isset($_SESSION)){
 <div class="footer bg-white idx-minwidth">
 
 
-    <script src="/static/js/landing-min.js?2013032917"></script>
+<script src="/static/js/landing-min.js?2013032917"></script>
+<script type="text/javascript" src="http://open.51094.com/user/myscript/157ab219be5214.html"></script>
+<div style="text-align:center;clear:both"></div>
+
 
     <div style="text-align:center;clear:both"></div>
 

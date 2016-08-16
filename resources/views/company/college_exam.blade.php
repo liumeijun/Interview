@@ -60,7 +60,7 @@
 			</div>
 			<?php }?>
 			@endforeach
-			<img src="images/next.png" alt="<<<<<>>>>>>" id="img" style=" margin-top:10px; margin-left:5px;">
+			<img src="images/next.png" alt="" id="img" style=" margin-top:10px; margin-left:5px;">
 			{{$arr->render()}}
 		</div>
 	   </div>

@@ -79,7 +79,7 @@ var isLogin=1
                     <span class="praise l">推荐</span>
                 </span>
                 <var class="cutoff l">|</var>
-                <span class="praise-num">7</span>
+                <span class="praise-num"><?php echo $arr['a_num']?></span>
             </div>  
                         <!-- 推荐end -->
 
@@ -94,7 +94,29 @@ var isLogin=1
                         <div class="bdsharebuttonbox weichat-style">
                             <a href="#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
                             <a href="#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
-                            <a href="#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                            {{--<a href="" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>--}}
+                            <script type="text/javascript">
+                                (function(){
+                                    var p = {
+                                        url:location.href,
+                                        showcount:'0',/*是否显示分享总数,显示：'1'，不显示：'0' */
+                                        desc:'',/*默认分享理由(可选)*/
+                                        summary:'',/*分享摘要(可选)*/
+                                        title:'',/*分享标题(可选)*/
+                                        site:'',/*分享来源 如：腾讯网(可选)*/
+                                        pics:'', /*分享图片的路径(可选)*/
+                                        style:'203',
+                                        width:98,
+                                        height:22
+                                    };
+                                    var s = [];
+                                    for(var i in p){
+                                        s.push(i + '=' + encodeURIComponent(p[i]||''));
+                                    }
+                                    document.write(['<a version="1.0"  class="bds_qzone icon-nav icon-share-qq" title="分享到QQ空间" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?',s.join('&'),'" target="_blank"></a>'].join(''));
+                                })();
+                            </script>
+                            <script src="http://qzonestyle.gtimg.cn/qzone/app/qzlike/qzopensl.js#jsdate=20111201" charset="utf-8"></script>
                         </div>
                     </li>
                 </ul>
@@ -103,8 +125,18 @@ var isLogin=1
             <!-- 收藏&举报 -->
             <div class="r-box r">
                                                                     <span id="js-follow" data-id="7997" class="dc-follow l">
-                        <span>收藏</span>
-                    </span>
+
+
+                    @if(empty($_SESSION['username']))
+                        <h4 id="house" style="float: right;color: #0000ff"><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" style="color: red" >加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height: 20px;"></a></h4>
+                    @else
+                        @if(empty($house))
+                             <h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['a_id']?>)" style="color: red">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>
+                        @else
+                             <h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['a_id']?>)" style="color:#0000ff">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>
+                        @endif
+                    @endif
+                                                                    </span>
                                                             </div>
             <!-- 收藏&举报end -->
 
@@ -272,7 +304,9 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
 <script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
 
 <!--script-->
-<script src="/js/jquery-1.9.1.min.js"></script>
+<script src="/js/jquery-1.9.1.min.js">
+    
+</script>
       <script>
           $(document).on("click","#ping",function(){
               use=$("#user").val();
@@ -306,7 +340,65 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
                   $("#aping").html(rp);
               })
           })
-      </script>
+          function addhouse(id){
+              $.ajax({
+                  type: "POST",
+                  url: "addhouse_article",
+                  data: "id="+id,
+                  success: function(msg){
+                      if(msg == 1){
+                          tr = '';
+                          tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="delhouse(<?php echo $arr['a_id']?>)" style="color:blue">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>';
+                          $("#house").remove();
+                          $("#s1").html(tr);
+                      }
+                  }
+              });
+          }
+
+          function is_house(){
+              alert('<a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >登录</a>');
+              //location.href='index.php/login';
+          }
+
+          function delhouse(id){
+              $.ajax({
+                  type: "POST",
+                  url: "delhouse_article",
+                  data: "id="+id,
+                  success: function(msg){
+                      if(msg == 1){
+                          tr = '';
+                          tr += '<h4 id="s1" style="float: right;color: #0000ff"><a onclick="addhouse(<?php echo $arr['a_id']?>)" style="color:red">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>';
+                          $("#house").remove();
+                          $("#s1").html(tr);
+                      }
+                  }
+              });
+          }
+
+    $(".praise").click(function(){
+        var id="<?php echo $arr['a_id'] ?>";
+        var zan = $('.praise-num').html();
+        var nzan = parseInt(zan)+1;
+        $.ajax({
+            url:'zan',
+            type:'POST',
+            data:{id:id},
+            success:function(msg){
+               if(msg==1){
+                 alert('请先登录');
+                 location.href='login';
+               }else if(msg==2){
+                alert('您已经推荐过该文章，无需再次推荐');
+               }else{
+                alert('您的推荐是对作者最大的鼓励');
+                $('.praise-num').html(nzan);
+               }
+            }
+        })
+    })
+    </script>
 <div style="display: none">
 </div>
 </body>
