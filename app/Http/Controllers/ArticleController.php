@@ -218,7 +218,6 @@ desc limit 10");
     }
 
 
-.
     //取消收藏
     public function delhouse_article(){
         if(!isset($_SESSION)){
@@ -236,5 +235,4 @@ desc limit 10");
             return 0;
         }
     }
->>>>>>> a599d948a45bbc31aa2adf9520f0f0659c9efa26
 }

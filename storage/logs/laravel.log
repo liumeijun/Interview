@@ -9418,3 +9418,18 @@ Stack trace:
 #36 E:\WAMP\www\php11\canon\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(99): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #37 E:\WAMP\www\php11\canon\public\index.php(54): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
 #38 {main}  
+[2016-08-16 13:35:03] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected '.', expecting function (T_FUNCTION)' in D:\phpStudy\WWW\Interview\app\Http\Controllers\ArticleController.php:221
+Stack trace:
+#0 {main}  
+[2016-08-16 13:35:08] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected '.', expecting function (T_FUNCTION)' in D:\phpStudy\WWW\Interview\app\Http\Controllers\ArticleController.php:221
+Stack trace:
+#0 {main}  
+[2016-08-16 13:35:10] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected '.', expecting function (T_FUNCTION)' in D:\phpStudy\WWW\Interview\app\Http\Controllers\ArticleController.php:221
+Stack trace:
+#0 {main}  
+[2016-08-16 13:35:36] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected '>>' (T_SR), expecting function (T_FUNCTION)' in D:\phpStudy\WWW\Interview\app\Http\Controllers\ArticleController.php:238
+Stack trace:
+#0 {main}  
+[2016-08-16 13:35:37] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected '>>' (T_SR), expecting function (T_FUNCTION)' in D:\phpStudy\WWW\Interview\app\Http\Controllers\ArticleController.php:238
+Stack trace:
+#0 {main}  
