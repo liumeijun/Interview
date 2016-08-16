@@ -134,40 +134,36 @@
 
 </div>
 
-@include('layouts.foot')
-<div id="J_GotoTop" class="elevator">
-    <a class="elevator-weixin" href="javascript:;">
-        <div class="elevator-weixin-box">
+        @include('layouts.foot')
+        <div id="J_GotoTop" class="elevator">
+            <a class="elevator-weixin" href="javascript:;">
+                <div class="elevator-weixin-box"></div>
+            </a>
+            <a class="elevator-msg" href="#" target="_blank" id="feedBack"></a>
+            <a class="elevator-app" href="#">
+                <div class="elevator-app-box"></div>
+            </a>
+            <a class="elevator-top" href="javascript:;" style="display:none" id="backTop"></a>
         </div>
-    </a>
-    <a class="elevator-msg" href="#" target="_blank" id="feedBack"></a>
-    <a class="elevator-app" href="#">
-        <div class="elevator-app-box">
+
+        <script src="js/pMarkdown.js"></script>
+        <script src="js/pMarkdown_002.js"></script>
+        <script src="js/pMarkdown_003.js"></script>
+
+        <!--script-->
+        <script src="js/pssologin.js"></script>
+        <script type="text/javascript" src="js/psea.js"></script>
+        <script type="text/javascript" src="js/psea_config.js"></script>
+        <script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+        <div style="display: none">
+            <script src="js/jquery-1.9.1.min.js"></script>
+            <script>
+                $(document).on("click","#al_name",function(){
+                    var a=$(this).attr("value")
+                    $("#biao").append(a)
+                })
+            </script>
         </div>
-    </a>
-    <a class="elevator-top" href="javascript:;" style="display:none" id="backTop"></a>
-</div>
-
-
-
-<script src="js/pMarkdown.js"></script>
-<script src="js/pMarkdown_002.js"></script>
-<script src="js/pMarkdown_003.js"></script>
-
-<!--script-->
-<script src="js/pssologin.js"></script>
-<script type="text/javascript" src="js/psea.js"></script>
-<script type="text/javascript" src="js/psea_config.js"></script>
-<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
-
-<div style="display: none">
-<script src="js/jquery-1.9.1.min.js"></script>
-<script>
-    $(document).on("click","#al_name",function(){
-        var a=$(this).attr("value")
-        $("#biao").append(a)
-
-    })
-</script>
-
-</div></body></html>
+    </body>
+</html>

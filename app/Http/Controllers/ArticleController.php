@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+header("content-type:text/html;charset=UTF-8");
 use DB;
 class ArticleController extends Controller
 {
@@ -26,16 +27,25 @@ class ArticleController extends Controller
             }else{
                 $article[$key]['zan']="0";
             }
-
         }
         //print_r($article);die;
 
-
-        //print_r($arr);die;
-        return view('article/article',['at_type'=>$at_type,'article'=>$article]);
+        //文章推荐
+        $groom = DB::select("select * from article join ar_type on article.a_type=ar_type.at_id join a_lei on article.a_lei=a_lei.al_id order by article.a_num
+desc limit 10");
+        //print_r($groom);die;
+        //查询一周达人
+//        $people = DB::table('aping')
+//            ->join('users', 'aping.u_id', '=', 'users.user_id')
+//            ->groupBy('aping.u_id')
+//            ->select(count('aping.u_id'))
+//            ->count('aping.u_id');
+        $people = DB::select("select user_name,img from aping join users on aping.u_id = users.user_id group by aping.u_id order by count(aping.u_id) desc limit 10");
+        return view('article/article',['at_type'=>$at_type,'article'=>$article,'groom' => $groom,'people' => $people]);
     }
     
-    
+
+    //发表文章展示页面
     public function publish(){
 //        echo 1;die;
         $at_type=DB::table('ar_type')->get();
@@ -44,7 +54,8 @@ class ArticleController extends Controller
         return view('article/publish',['ar_type'=>$at_type,'a_lei'=>$a_lei]);
     }
     
-    
+
+    //添加文章
     public function add(){
         $a_title=$_POST['a_title'];
         $a_type=$_POST['a_type'];
@@ -108,21 +119,45 @@ class ArticleController extends Controller
         if(!isset($_SESSION)){
             session_start();
         }
-        if(empty($_SESSION['username'])){
-            $username=0;
-        }else{
-            $username=$_SESSION['username'];
+        if (empty($_SESSION['username'])) {
+            $username = 0;
+        } else {
+            $username = $_SESSION['username'];
         }
-        $id=$_GET['id'];
-        $arr=DB::table("article")
-            ->join("ar_type","article.a_type","=","ar_type.at_id")
-            ->where("article.a_id",$id)->get();
-        //var_dump($arr);exit();
-        $aping=DB::table('aping')->join("users","aping.u_id","=","users.user_id")->join("article","aping.a_id","=","article.a_id")->orderBy("aping.ap_id","desc")->limit(3)->get();
-       //print_r($aping);die;
-        return view('article/wxiang',['arr'=>$arr[0],'username'=>$username,'aping'=>$aping]);
-    }
-    
+        $id = $_GET['id'];
+        $arr = DB::table("article")
+            ->join("ar_type", "article.a_type", "=", "ar_type.at_id")
+            ->where("article.a_id", $id)->get();
+
+        $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->limit(3)->get();
+//        return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
+
+        //查询是否收藏
+        if (empty($_SESSION['username'])) {
+            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
+        } else {
+            $user_id = DB::table('users')->where("user_name", "$username")
+                                         ->orwhere("user_phone","$username")
+                                         ->orwhere("user_email","$username")
+                                         ->first();
+            //  print_r($user_id);die;
+            $u_id = $user_id['user_id'];
+            $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
+             // dd($arr);die;
+            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping, 'house' => $is_house]);
+        }
+
+ }
+
+        //查询是否收藏
+//        if (empty($_SESSION['username'])) {
+//            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
+//        } else {
+//            $user_id = DB::table('users')->where("user_name", "$username")->get();
+//            $u_id = $user_id[0]['user_id'];
+//            $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
+//            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping, 'house' => $is_house]);
+//        }
     public function wping(){
         if(!isset($_SESSION)){
             session_start();
@@ -135,7 +170,7 @@ class ArticleController extends Controller
             $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
             $u_id=$u_id['user_id'];
         }
-        echo $u_id;die;
+        //echo $u_id;die;
         $a_id=$_POST['a_id'];
         $ping=$_POST['ping'];
         $sql="insert into aping(u_id,ap_con,a_id) values('$u_id','$ping','$a_id')";
@@ -146,4 +181,60 @@ class ArticleController extends Controller
         return json_encode($aping);
         //return view('article/aping',['aping'=>$aping]);
     }
+    //最新文章
+    public function articleNew()
+    {
+        $type = DB::table('ar_type')->get();
+        $newArticle = DB::table('article')->leftjoin('ar_type','article.a_type','=','ar_type.at_id')->orderby('a_addtime','desc')->get();
+        // dd($newArticle);
+        return view('article.newarticle')->with('new',$newArticle)->with('at_type',$type);
+    }
+
+    //最热文章
+    public function articleHot()
+    {
+        $type = DB::table('ar_type')->get();
+        $newArticle = DB::table('article')->leftjoin('ar_type','article.a_type','=','ar_type.at_id')->orderby('a_num','desc')->get();
+        // dd($newArticle);
+        return view('article.hotarticle')->with('new',$newArticle)->with('at_type',$type);
+    }
+
+    //文章收藏
+    public function addhouse_article(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $c_id = $_POST['id'];
+        //$user_name = Session::get('username');
+        $user_name=$_SESSION['username'];
+        $u_id=DB::table('users')->where("user_name","$user_name")->get();
+        $u_id=$u_id[0]['user_id'];
+        $arr = DB::insert("insert into house_article(user_id,article_id) values('$u_id','$c_id')");
+        if($arr){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+
+.
+    //取消收藏
+    public function delhouse_article(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $c_id = $_POST['id'];
+        //$user_name = Session::get('username');
+        $user_name=$_SESSION['username'];
+        $u_id=DB::table('users')->where("user_name","$user_name")->get();
+        $u_id=$u_id[0]['user_id'];
+        $arr = DB::delete("delete from house_article where user_id = '$u_id' and article_id = '$c_id'");
+        if($arr){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+>>>>>>> a599d948a45bbc31aa2adf9520f0f0659c9efa26
 }

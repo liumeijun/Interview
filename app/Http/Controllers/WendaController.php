@@ -23,7 +23,16 @@ class WendaController extends Controller
             ->orderBy('t_id','desc')
         ->simplePaginate(5);
         //print_r($pro);die;
-        return view('wenda/wenda',['pro'=>$pro]);
+
+
+        //一周回答雷锋榜
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $honor = DB::select("select user_name,img,count(comments_replay.user_id) from
+comments_replay join users on comments_replay.user_id = users.user_id group by
+ comments_replay.user_id order by count(comments_replay.user_id) desc limit 10");
+        return view('wenda/wenda',['pro'=>$pro,'honor' => $honor]);
     }
 
 
@@ -67,21 +76,24 @@ class WendaController extends Controller
 
     //详情页面
     public function detail(){
+        session_start();
         $input=new Input();
         $id=$input->get("id");
         $arr=DB::select("select * from t_tw where t_id='$id'");
        //查询提问人
        $arr_user=DB::table('t_tw')->leftjoin('users','users.user_id','=','t_tw.user_id')->where("t_tw.t_id",$id)->first();
+       //print_r($arr_user);die;
        // 评论问题
        //$arr_com=DB::table("comments")->leftjoin('users','users.user_id','=','comments.user_id')->leftjoin('t_tw','t_tw.t_id','=','t_tw.t_id')->where("comments.t_id",$id)->get();
        $arr_com=DB::select("select *,count(comments_replay.status) from comments inner join users on users.user_id=comments.user_id inner join t_tw on t_tw.t_id=comments.t_id LEFT JOIN comments_replay on comments.com_id=comments_replay.com_id  where comments.t_id=$id GROUP BY comments.com_id") ;
 //赞同评论的数量
-//        print_r($arr_com);die;
-        if(isset($_SESSION)){
-            session_start();
+        //print_r($arr_user);die;
+        if(isset($_SESSION['u_id'])){
             $u_id=$_SESSION['u_id'];
+            //查询登录人头像
+            $user_img = DB::table('users')->where('user_id',"$u_id")->get();
             $agree=DB::select("select co.com_id,re.status from comments co inner join comments_replay re on co.com_id=re.com_id WHERE  co.t_id=$id and re.user_id=$u_id");
-
+//            print_r($agree);die;
           foreach($arr_com as $ke=>$v){
               foreach($agree as $va){
                   if($v['com_id']==$va['com_id']){
@@ -92,8 +104,10 @@ class WendaController extends Controller
               }
           }
         }
+
+
 //            print_r($arr_com);die;
-        return view('wenda/detail',['arr'=>$arr],['arr_com'=>$arr_com,'arr_user'=>$arr_user]);
+        return view('wenda/detail',['arr'=>$arr],['arr_com'=>$arr_com,'arr_user'=>$arr_user,'user_img' => $user_img]);
     }
     //添加回答
     public function hui(){

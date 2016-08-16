@@ -80,10 +80,10 @@ var is_choice = "0";
 
 <div class="ques-answer">
     <div class="tag-img">
-                                            <a href="#" target="_blank">
+         <a href="#" target="_blank">
                 <img src="picture/563afeb5000149c000900090.jpg" title="28"/>
             </a>
-                                                            </div><!--.tag-img end-->
+          </div><!--.tag-img end-->
         <div class="from-tag">        来自
 
                 <a href="/detail" id="timu"><?php echo $v['d_name']?></a>的<a href="" target="_top"><b><?php echo $v['user_name']?></b></a>
@@ -99,17 +99,6 @@ var is_choice = "0";
             <?php echo $v['t_content'];?>
         </div>
         <div class="ctrl-bar clearfix">
-            <span class="agree-with " data-ques-id="312708" data-answer-id="156328" data-hasop="">
-
-
-
-
-
-            <em class='bb' >赞同</em>
-
-
-
-            </span>
             <div class="share-box clearfix">
                 
                 <div class="share-box-con">
@@ -234,82 +223,23 @@ var is_choice = "0";
 <div class="leifeng-sort">
     <h3 class="title">一周回答雷锋榜</h3>
     <ul>
-                <li>
-            <div class="ranking first">1</div>
-            <div class="user-pic">
-                <a target="_blank" href="/u/1088132/bbs">
-                    5241654156
-                    {{--<img src="picture/5485bdcf00015df201000100-100-100.jpg" title="Caballarii"/>--}}
-                </a>
-            </div><!--.user-pic end-->
-            <div class="user-name">
-                <a target="_blank" href="/u/1088132/bbs">Caballarii</a>
-            </div><!--.user-name end-->
-            <div class="user-info clearfix">
-                <span class="role">JAVA开发工程师</span>
-                <span class="answer-num">35回答</span>
-            </div><!--.user-info end-->
-        </li>
-                <li>
-            <div class="ranking second">2</div>
-            <div class="user-pic">
-                <a target="_blank" href="/u/1206175/bbs">
-                    <img src="picture/54c1f7be00019ad801000100-100-100.jpg" title="流口水流"/>
-                </a>
-            </div><!--.user-pic end-->
-            <div class="user-name">
-                <a target="_blank" href="/u/1206175/bbs">流口水流</a>
-            </div><!--.user-name end-->
-            <div class="user-info clearfix">
-                <span class="role">Web前端工程师</span>
-                <span class="answer-num">34回答</span>
-            </div><!--.user-info end-->
-        </li>
-                <li>
-            <div class="ranking third">3</div>
-            <div class="user-pic">
-                <a target="_blank" href="/u/2553777/bbs">
-                    <img src="picture/533e0ebb0001a72d02000200-100-100.jpg" title="display_none"/>
-                </a>
-            </div><!--.user-pic end-->
-            <div class="user-name">
-                <a target="_blank" href="/u/2553777/bbs">display_none</a>
-            </div><!--.user-name end-->
-            <div class="user-info clearfix">
-                <span class="role">Web前端工程师</span>
-                <span class="answer-num">31回答</span>
-            </div><!--.user-info end-->
-        </li>
-                <li>
-            <div class="ranking ">4</div>
-            <div class="user-pic">
-                <a target="_blank" href="/u/114554/bbs">
-                    <img src="picture/56f4fca500018f4101000100-100-100.jpg" title="李晓健"/>
-                </a>
-            </div><!--.user-pic end-->
-            <div class="user-name">
-                <a target="_blank" href="/u/114554/bbs">李晓健</a>
-            </div><!--.user-name end-->
-            <div class="user-info clearfix">
-                <span class="role">Web前端工程师</span>
-                <span class="answer-num">29回答</span>
-            </div><!--.user-info end-->
-        </li>
-                <li>
-            <div class="ranking ">5</div>
-            <div class="user-pic">
-                <a target="_blank" href="/u/1008219/bbs">
-                    <img src="picture/569639de0001ab3713000867-100-100.jpg" title="晚安sp"/>
-                </a>
-            </div><!--.user-pic end-->
-            <div class="user-name">
-                <a target="_blank" href="/u/1008219/bbs">晚安sp</a>
-            </div><!--.user-name end-->
-            <div class="user-info clearfix">
-                <span class="role">PHP开发工程师</span>
-                <span class="answer-num">28回答</span>
-            </div><!--.user-info end-->
-        </li>
+        @foreach($honor as $key => $v)
+            <li>
+                <div class="ranking first"><?= $key+1;?></div>
+                <div class="user-pic">
+                    <a target="_blank" href="/u/1088132/bbs">
+                        <img src="<?= $v['img'];?>" alt="用户头像">
+                    </a>
+                </div>
+                <div class="user-name">
+                    <a target="_blank" href="/u/1088132/bbs"><?= $v['user_name'];?></a>
+                </div><!--.user-name end-->
+                <div class="user-info clearfix">
+                    <span class="role">JAVA开发工程师</span>
+                    <span class="answer-num"><?= $v['count(comments_replay.user_id)'];?>回答</span>
+                </div><!--.user-info end-->
+            </li>
+        @endforeach
             </ul>
 </div><!--.leifeng-sort end-->
     </div>

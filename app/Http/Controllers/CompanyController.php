@@ -14,6 +14,7 @@ class CompanyController extends Controller
 		$sql = "select * from company";
 		$arr = DB::select($sql);
 		$exam = DB::table('shiti')->simplePaginate(9);
+		// dd($exam);
 		return view('company/index',['arr'=>$arr,'re'=>$ra,'exam'=>$exam]);
 	}
 	//根据专业查询试题

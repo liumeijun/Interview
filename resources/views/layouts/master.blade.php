@@ -10,7 +10,7 @@ if(!isset($_SESSION)){
 
 <div id="header">
     <div class="page-container" id="nav" style="background:black;">
-        <a href="http://www.mianshibaodian.com/" target="_self"><img src="/images/login.png" style="float: left; padding-top:6px;"></a><a href="index" target="_self" class="hide-text"></a>
+        <a href="http://www.interview.com/" target="_self"><img src="/images/login.png" style="float: left; padding-top:6px;"></a><a href="index" target="_self" class="hide-text"></a>
         <div class="g-menu-mini l">
             <ul class="nav-item l">
                 <li><a href="shiti"  target="_self">试题</a></li>

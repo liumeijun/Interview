@@ -22,68 +22,23 @@
         <div class="course-content">
             <div class="course-nav-box">
                 <div class="course-nav-hd">
-                    <span>全部课程</span>
+                    <span>最新试题</span>
                     <a href="/about/recruit" class="for-teacher hide-text" title="应聘讲师" target="_blank">应聘讲师</a>
-                </div>
-                <div class="course-nav-row clearfix">
-                    <span class="hd l">学院：</span>
-                    <div class="bd">
-                        <ul class="">
-                            <li class="course-nav-item on" class="type" id="type">
-                               <a href="#" class="leixing" value="0"> 全部</a>
-                            </li>
-
-                            <?php foreach($coll as $k=>$v){?>
-                            <li class="course-nav-item"  class="type" id="type">
-                               <a href="#" class="leixing" value="<?php echo $v['c_id']?>">
-                               <?php echo $v['c_name']?></a>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
-                </div>
-                <div class="course-nav-row clearfix">
-                    <span class="hd l">专业：</span>
-                    <div class="bd">
-                        <ul class="">
-                            <div id="zhuanye">
-                            <li class="course-nav-item on" id="zhuan">
-                               <a href="#" class="zhuan" value="0"> 全部</a>
-                            </li>
-
-                        <?php foreach($zhuan as $k=>$v){?>
-                            <li class="course-nav-item " id="zhuan">
-                                <a href="#" class="zhuan" value="<?php echo $v['d_name']?>">
-                                <?php echo $v['d_name']?></a>
-                            </li>
-                        <?php } ?>
-                                </div>
-                        </ul>
-                    </div>
-                </div>
-              <div class="course-nav-row clearfix">
-                    <span class="hd l">类型：</span>
-                   <div class="bd">
-                        <ul class="">
-                            <div id="lei">
-                            <li class="course-nav-item  on" id='lei'>
-                                <a href="#" value="0" class="lei" value="0">全部</a>
-                            </li>
-                        <?php foreach($lei as $k=>$v){?>
-                            <li class="course-nav-item " id="lei">
-                                <a href="#" class="lei" value="<?php echo $v['t_name']?>">
-                                    <?php echo $v['t_name']?></a>
-                            </li>
-                        <?php } ?>
-                                </div>
-                        </ul>
-                    </div>
                 </div>
             </div>
             <div class="course-tool-bar clearfix">
                 <div class="tool-left l">
-                    <a href="/course/list?sort=last" class="sort-item">最新</a>
-                    <a href="/course/list?sort=pop" class="sort-item active">最热</a>
+                    <a href="/course/new" class="sort-item">最新</a>
+                    <a href="/course/hot" class="sort-item active">最热</a>
+                    <?php
+                if(empty($_SESSION['username'])){
+            ?>
+             <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" class="sort-item active" >历史试题</a>
+            <?php
+                }else{
+            ?>
+                    <a href="history" class="sort-item active">历史试题</a>
+            <?php } ?>
                 </div>
                 <div class="l">
                     <span class="tool-item" style="display: none;">
@@ -100,7 +55,7 @@
                         </span>
                                                 <a href="javascript:void(0)" class="pager-action pager-prev hide-text disabled">上一页</a>
 
-                                                <a href="/shiti?page=2" class="pager-action pager-next hide-text">下一页</a>
+                                                <a href="/course/list?page=2" class="pager-action pager-next hide-text">下一页</a>
                                             </span>
                 </div>
             </div>
@@ -109,13 +64,13 @@
                     <ul>
 
 
-                    <?php foreach($shi as $k=>$v){?>
+                    <?php foreach($arr as $k=>$v){?>
                         <li class="course-one">
                             <a href="xiang?id=<?php echo $v['c_id']?>" target="_self">
 
 
 				<div class="course-list-img">
-                                    <img  width="240" height="135" alt="" class="lazy" data-original="<?php                                         if($v['c_college']=="软工学院"){
+                                    <img width="240" height="135" alt="" src="<?php                                         if($v['c_college']=="软工学院"){
                                         echo "/images/logo/软工.jpg";
                                     }elseif($v['c_college']=="移动通信学院"){
                                         echo "/images/logo/移动.jpg";
@@ -173,8 +128,7 @@
 			    font-size:xx-large;
                         }
                     </style>
-
-             <?php echo $shi->render(); ?>
+             <?php echo $arr->render(); ?>
         </div>
     </div>
 
@@ -198,11 +152,10 @@
 <script>
     $(document).on("click",".leixing",function(){
         var leixing=$(this).attr('value');
-        $.post('s',{
+        $.get('s',{
             leixing:leixing
         },function(data){
             $("#list").html(data)
-
         })
     })
 
@@ -214,6 +167,7 @@
         $.post('sou',{
             leixing:leixing
         },function(data){
+
             //alert(data)
             $("#zhuanye").html(data)
         })
@@ -246,14 +200,7 @@
        })
     })
 </script>
-<script src="js/jquery.lazyload.js"></script>
-<script charset="utf-8">
-
-    $(function($){
-        $(".lazy").show().lazyload({effect: "fadeIn",container: $("#List_courseId")});
-    })
-</script>
-@include('layouts.foot');
+@include('layouts.foot')
 </body>
 
 </html>

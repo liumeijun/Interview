@@ -204,7 +204,29 @@
                                     <li class="weichat-posi js-top-share">
                                         <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-tag="share_1" data-quesid="325735">
                                             <a href="#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
-                                            <a href="#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                                            {{--<a href="#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>--}}
+                                            <script type="text/javascript">
+                                                (function(){
+                                                    var p = {
+                                                        url:location.href,
+                                                        showcount:'0',/*是否显示分享总数,显示：'1'，不显示：'0' */
+                                                        desc:'',/*默认分享理由(可选)*/
+                                                        summary:'',/*分享摘要(可选)*/
+                                                        title:'',/*分享标题(可选)*/
+                                                        site:'',/*分享来源 如：腾讯网(可选)*/
+                                                        pics:'', /*分享图片的路径(可选)*/
+                                                        style:'203',
+                                                        width:98,
+                                                        height:22
+                                                    };
+                                                    var s = [];
+                                                    for(var i in p){
+                                                        s.push(i + '=' + encodeURIComponent(p[i]||''));
+                                                    }
+                                                    document.write(['<a version="1.0"  class="bds_qzone icon-nav icon-share-qq" title="分享到QQ空间" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?',s.join('&'),'" target="_blank"></a>'].join(''));
+                                                })();
+                                            </script>
+                                            <script src="http://qzonestyle.gtimg.cn/qzone/app/qzlike/qzopensl.js#jsdate=20111201" charset="utf-8"></script>
                                             <a href="#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
                                         </div>
                                     </li>
@@ -264,8 +286,9 @@
                 <form action="hui" method="post">
                 <div id="avator-wrap" class="detail-ci-avator answer-hidden">
 
-                    用户头像位置
-                    {{--<img src="http://img.mukewang.com/user/573422b30001668001000100-80-80.jpg" alt="" />--}}
+                    @foreach($user_img as $key => $v)
+                        <img src="<?= $v['img'];?>" alt="用户头像" style="width: 50px;height: 50px;"/>
+                    @endforeach
                     <div class="detail-r clearfix">
 
                         {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
@@ -308,7 +331,7 @@
             <div class="answer-con first" id="id_156829">
                 <div class="user-pic l">
                     <a href="http://www.imooc.com/u/1044131/bbs" target="_blank">
-                       头像位置
+                            <img src="<?= $arr_user['img'];?>" alt="用户头像">
                          </a>
                 </div><!--.user end-->
                 <div class="detail-r">
