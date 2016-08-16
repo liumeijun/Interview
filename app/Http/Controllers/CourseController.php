@@ -111,7 +111,7 @@ class CourseController extends Controller
         $num=$num['c_num']+=1;
         $sq=DB::update("update college_questions set c_num='$num' where c_id=".$id);
         $arr=DB::table('college_questions')->where('c_id',$id)->first();
-//print_r($arr);die;
+        //print_r($arr);die;
         if(!isset($_SESSION)){
             session_start();
         }

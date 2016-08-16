@@ -91,21 +91,6 @@ desc limit 10");
                 echo 3;
             }
         }
-        $u_id=empty($u_id['user_id'])?$u_id['user_id']:1;
-       //echo $u_id;die;
-        $arr=DB::table('article_zan')->where("u_id",$u_id)->where("article_id",$a_id)->get();
-        if($arr){
-            $zan=DB::table('article')->where('a_id',$a_id)->first();
-        }else{
-            $zan=DB::table('article')->where('a_id',$a_id)->first();
-            $nu=$zan['a_num'];
-            $a_num=$nu+=1;
-            $aa=DB::insert("update article set a_num=$a_num where a_id=$a_id");
-            $a=DB::insert("insert into from article_zan(u_id,article_id) values('$u_id','$a_id')");
-            $zan=DB::table('article')->where('a_id',$a_id)->get();
-        }
-        //print_r($zan);die;
-        return json_encode($zan);
     }
     
     
@@ -225,6 +210,7 @@ desc limit 10");
     }
 
 
+.
     //取消收藏
     public function delhouse_article(){
         if(!isset($_SESSION)){
