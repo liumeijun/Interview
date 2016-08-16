@@ -20,9 +20,10 @@ class CourseController extends Controller
         View::share('zhuan',$zhuan);
         View::share('shi',$shi);
         View::share('lei',$lei);
-        return view('course/course',['arr'=>$arr]);
+        View::share('coll',$arr);
+        return view('course/course');
     }
-    public function sou(){
+    public function sou(){ 
         if(!empty($_POST['leixing'])){
             $type= $_POST['leixing'];
         }else{
@@ -64,6 +65,7 @@ class CourseController extends Controller
         }
 
         //$shi=DB::select($shi);
+        // dd($shi);
         return view('course/shi',['shi'=>$shi]);
     }
     public function zhuanye(){

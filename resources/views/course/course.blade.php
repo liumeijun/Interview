@@ -33,8 +33,7 @@
                                <a href="#" class="leixing" value="0"> 全部</a>
                             </li>
 
-                            <?php foreach($arr as $k=>$v){?>
-
+                            <?php foreach($coll as $k=>$v){?>
                             <li class="course-nav-item"  class="type" id="type">
                                <a href="#" class="leixing" value="<?php echo $v['c_id']?>">
                                <?php echo $v['c_name']?></a>
@@ -111,7 +110,7 @@
                         </span>
                                                 <a href="javascript:void(0)" class="pager-action pager-prev hide-text disabled">上一页</a>
 
-                                                <a href="/course/list?page=2" class="pager-action pager-next hide-text">下一页</a>
+                                                <a href="/shiti?page=2" class="pager-action pager-next hide-text">下一页</a>
                                             </span>
                 </div>
             </div>
@@ -211,7 +210,6 @@
         $.post('s',{
             leixing:leixing
         },function(data){
-
             $("#list").html(data)
 
         })
