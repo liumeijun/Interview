@@ -33,12 +33,12 @@ Route::post('email_deng','LoginController@email_deng');
 //第三方
 Route::get('weibo','LoginController@weibo');
 //个人中心
-Route::get('setprofile', 'UserController@setprofile');
-Route::get('setavator', 'UserController@setavator');
-Route::get('setphone', 'UserController@setphone');
-Route::get('setverifyemail', 'UserController@setverifyemail');
-Route::get('setresetpwd', 'UserController@setresetpwd');
-Route::get('setbindsns', 'UserController@setbindsns');
+Route::get('/setprofile', 'UserController@setprofile');
+Route::get('/setavator', 'UserController@setavator');
+Route::get('/setphone', 'UserController@setphone');
+Route::get('/setverifyemail', 'UserController@setverifyemail');
+Route::get('/setresetpwd', 'UserController@setresetpwd');
+Route::get('/setbindsns', 'UserController@setbindsns');
 
 //个人中心
 Route::get('sms/messages', 'SmsController@messages');

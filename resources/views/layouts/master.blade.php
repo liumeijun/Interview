@@ -1,6 +1,6 @@
 <script src="../js/jquery.js"></script>
 <link rel="stylesheet" href="css/muke.css" type="text/css" />
-<script type="text/javascript" src="http://open.51094.com/user/myscript/157ab219be5214.html"></script>
+<script type="text/javascript" src="http://open.51094.com/user/myscript/157b278400d7b9.html"></script>
 <link rel="stylesheet" type="text/css" href="../static/css/ui2.css?2013032917">
 <?php
 if(!isset($_SESSION)){
@@ -354,7 +354,9 @@ if(!isset($_SESSION)){
                         u_pwd:u_pwd
                     },function(data){
                         if(data==5){
+                            // alert(url)
                             alert('登陆成功');location.href=url;
+
                         }else if(data==6){
                             alert('登陆失败');location.href='login';
                         }

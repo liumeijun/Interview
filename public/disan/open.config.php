@@ -8,8 +8,8 @@
  *@ author: hzy@51094.com
  *
  **/
-	define( 'APPID', '157ab219be5214');
+	define( 'APPID', '157b278400d7b9');
 
-	define( 'TOKEN', '4e5fdbafef0a833140e306646a7d18af');
+	define( 'TOKEN', '4a5f3842b1b64a1e70b104c00e3d3ff3');
 
 ?>
