@@ -7,7 +7,7 @@ class ArticleController extends Controller
 {
     public function article(){
         $at_type=DB::table('ar_type')->get();
-        $article=DB::select("select * from article left join ar_type on article.a_type=ar_type.at_id order by a_id desc");
+        $article=DB::select("select * from article left join ar_type on article.a_id=ar_type.at_id order by a_id desc");
         if(!isset($_SESSION)){
             session_start();
         }
@@ -28,7 +28,7 @@ class ArticleController extends Controller
                 $article[$key]['zan']="0";
             }
         }
-        // dd($article);
+        //print_r($article);die;
 
         //文章推荐
         $groom = DB::select("select * from article join ar_type on article.a_type=ar_type.at_id join a_lei on article.a_lei=a_lei.al_id order by article.a_num
@@ -71,28 +71,21 @@ desc limit 10");
     
     
     public function zan(){
-        $a_id=$_POST['id'];
-        // print_r($a_id);die;
+        $a_id=$_POST['zan'];
         if(!isset($_SESSION)){
             session_start();
         }
-        if(empty($_SESSION['u_id'])){
+        if(empty($_SESSION['username'])){
             echo 1;
         }else{
-            $u_id = $_SESSION['u_id'];
-            // echo $u_id;die;
-            $arr=DB::table('article_zan')->where("u_id",$u_id)->where("article_id",$a_id)->get();
-            if($arr){
-                // 当用户已经推荐过（赞）
-                echo 2;
-            }else{
-                $res = DB::table('article')->where('a_id',$a_id)->increment('a_num');
-                $a=DB::insert("insert into article_zan(u_id,article_id) values('$u_id','$a_id')");
-                echo 3;
-            }
+            $username=$_SESSION['username'];
+        }
+        $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
+        if($u_id){
+
         }
         $u_id=empty($u_id['user_id'])?$u_id['user_id']:1;
-       //echo $u_id;die;
+       echo $u_id;die;
         $arr=DB::table('article_zan')->where("u_id",$u_id)->where("article_id",$a_id)->get();
         if($arr){
             $zan=DB::table('article')->where('a_id',$a_id)->first();

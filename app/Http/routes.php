@@ -22,7 +22,7 @@ Route::get('/', 'IndexController@index');
 Route::get('index','IndexController@index');
 //登陆
 Route::get('login', 'LoginController@login');
-Route::get('out', 'LoginController@out');
+Route::any('out', 'LoginController@out');
 Route::post('name', 'LoginController@name');
 Route::post('email', 'LoginController@email');
 Route::post('name_pwd','LoginController@name_pwd');
@@ -30,13 +30,16 @@ Route::post('email_pwd','LoginController@email_pwd');
 Route::post('name_deng', 'LoginController@name_deng');
 Route::post('email_deng','LoginController@email_deng');
 
+//第三方
+Route::get('weibo','LoginController@weibo');
 //个人中心
-Route::any('user/setprofile', 'UserController@setprofile');
-Route::get('user/setavator', 'UserController@setavator');
-Route::get('user/setphone', 'UserController@setphone');
-Route::get('user/setverifyemail', 'UserController@setverifyemail');
-Route::get('user/setresetpwd', 'UserController@setresetpwd');
-Route::get('user/setbindsns', 'UserController@setbindsns');
+Route::get('/setprofile', 'UserController@setprofile');
+Route::get('/setavator', 'UserController@setavator');
+Route::get('/setphone', 'UserController@setphone');
+Route::get('/setverifyemail', 'UserController@setverifyemail');
+Route::get('/setresetpwd', 'UserController@setresetpwd');
+Route::get('/setbindsns', 'UserController@setbindsns');
+
 //保存个人资料
 Route::post('user/my_message', 'UserController@my_message');
 

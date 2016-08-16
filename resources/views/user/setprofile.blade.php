@@ -39,7 +39,7 @@ var is_choice = "";
   <div class="setting-left l">
     <ul class="wrap-boxes">
       <li class="active">
-        <a href="/user/setprofile" class="onactive">个人资料</a>
+        <a href="/setprofile" class="onactive">个人资料</a>
       </li>
 
         <li >
@@ -50,23 +50,23 @@ var is_choice = "";
         </li>
 
       <li >
-         <a href="/user/setavator">头像设置</a>
+         <a href="/setavator">头像设置</a>
        </li>
        
       <li >
-        <a href="/user/setphone">手机设置</a>
+        <a href="/setphone">手机设置</a>
                     <span class='unbound'>未绑定</span>
               </li>
       
       <li >
-        <a href="/user/setverifyemail">邮箱验证</a>
+        <a href="/setverifyemail">邮箱验证</a>
                     <span class='unbound'>未绑定</span>
               </li>
       <li >
-        <a href="/user/setresetpwd">修改密码</a>
+        <a href="/setresetpwd">修改密码</a>
       </li>
       <li >
-        <a no-pjajx href="/user/setbindsns">绑定帐号</a>
+        <a no-pjajx href="/setbindsns">绑定帐号</a>
       </li>
     </ul>
   </div>
@@ -79,8 +79,10 @@ var is_choice = "";
         <div class="wlfg-wrap clearfix">
             <label class="label-name" for="nick" >昵称</label>
             <div class="rlf-group">
-                <input type="text" name="nickname" id="nick"  autocomplete="off"  data-validate="nick"  class="input rlf-input rlf-input-nick" placeholder="请输入昵称."/>
-                <p class="rlf-tip-wrap" style="color: red"></p>
+            
+                <input type="text" name="nickname" id="nick"  autocomplete="off"  data-validate="nick"  class="input rlf-input rlf-input-nick" value="<?php echo $_SESSION['username']; ?>" placeholder="请输入昵称."/>
+                <p class="rlf-tip-wrap"></p>
+
             </div>
         </div>
         

@@ -81,7 +81,7 @@ var isLogin=1
                     <span class="praise l">推荐</span>
                 </span>
                 <var class="cutoff l">|</var>
-                <span class="praise-num"><?php echo $arr['a_num']?></span>
+                <span class="praise-num">7</span>
             </div>  
                         <!-- 推荐end -->
 
@@ -96,7 +96,8 @@ var isLogin=1
                         <div class="bdsharebuttonbox weichat-style">
                             <a href="#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
                             <a href="#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
-                            {{--<a href="" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>--}}
+                            <a href="#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+
                             <script type="text/javascript">
                                 (function(){
                                     var p = {
@@ -342,9 +343,7 @@ var isLogin=1
 <script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
 
 <!--script-->
-<script src="/js/jquery-1.9.1.min.js">
-    
-</script>
+<script src="/js/jquery-1.9.1.min.js"></script>
       <script>
           $(document).on("click","#ping",function(){
               use=$("#user").val();
@@ -379,6 +378,7 @@ var isLogin=1
                   $("#aping").html(rp);
               })
           })
+
           function addhouse(id){
               $.ajax({
                   type: "POST",
