@@ -1,7 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+    <style>
+        #overlay {
+            background: #000;
+            filter: alpha(opacity=50); /* IE的透明度 */
+            opacity: 0.5;  /* 透明度 */
+            display: none;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 100; /* 此处的图层要大于页面 */
+            display:none;
+        }
+        /*<!--登陆最外边的大div的css-->*/
+        #load{
+            position:absolute;
+
+            top:50%;
+
+            left:50%;
+            z-index:-1;
+            width: 300px;
+            z-index: 200;
+            height: 230px;
+
+            margin: -150px 0 0 -150px;
+
+            background:white;
+            border-radius: 2px;;
+            vertical-align: middle;
+            display:none;
+        }
+        /*<!--表单的css-->（需要自己修改）*/
+        #message{
+            color:red;
+            text-align: center;
+            width: 300px;
+            height:180px;
+        }
+        /*<!--按钮的css-->*/
+        #button{
+            width: 300px;
+            height: 50px;
+            background:orange;
+            border: none;
+        }
+    </style>
+    <meta charset="utf-8">
 <title>面试宝典-IT技术问答平台</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 <meta name="renderer" content="webkit">
@@ -167,8 +215,22 @@ var is_choice = "0";
 <div class="recommend-class">
     <div class="title clearfix">
         <h3>推荐分类</h3>
-        <span class="all-cls">全部分类</span>
-    </div><!--title end-->
+
+        {{--全部分类遮罩层查看--}}
+        <a href="javascript:void(0)" onclick="hideOverlay()">全</a>
+        <!--登陆框-->
+        <div id="load">
+            <form>
+                <!--表单框-->
+                <div id="message"><div id="texts">表单</div></div>
+                <!--登陆按钮-->
+                <div ><input type="button" onclick="hideOverlay()" id="button" value="quanbu">全部</div>
+            </form>
+        </div>
+        <!--遮罩框-->
+        <div id="overlay"></div>
+</div><!--title end-->
+
     <ul class="cls-list">
                 <li>
             <div class="class-info">
@@ -227,7 +289,7 @@ var is_choice = "0";
             <li>
                 <div class="ranking first"><?= $key+1;?></div>
                 <div class="user-pic">
-                    <a target="_blank" href="/u/1088132/bbs">
+                    <a target="_blank" href="#">
                         <img src="<?= $v['img'];?>" alt="用户头像">
                     </a>
                 </div>
@@ -334,8 +396,28 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
                }
             });
      });  */
+
 </script>
 
+
+    {{--JQUERY 代码--}}
+    <script>
+        /* 显示遮罩层 */
+        function showOverlay(){
+            $("#load").show()
+            $("#overlay").css("width",$(document).width())
+            $("#overlay").css("height",$(document).height())
+
+// fadeTo第一个参数为速度，第二个为透明度
+            // 多重方式控制透明度，保证兼容性，但也带来修改麻烦的问题
+            $("#overlay").fadeTo(200, 0.5);
+        }
+        /* 隐藏覆盖层 */
+        function hideOverlay() {
+            $("#overlay").fadeOut(200);
+            $("#load").hide()
+        }
+    </script>
 
 
 

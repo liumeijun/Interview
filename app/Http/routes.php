@@ -67,6 +67,9 @@ Route::post('tiwen', 'WendaController@tiwen');
 Route::any('detail', 'WendaController@detail');
 //评论
 Route::any('hui', 'WendaController@hui');
+
+//试题评论
+Route::post('pinglun_shiti','CourseController@pinglun_shiti');
 //Route::any('hui', function(){
 //   $re= \Illuminate\Support\Facades\Request::all();
 //    print_r($re);
@@ -112,6 +115,7 @@ Route::get('fangfa', 'ArticleController@wxiang');
 Route::post('wping', 'ArticleController@wping');
 Route::get('articleNew', 'ArticleController@articleNew');
 Route::get('articleHot', 'ArticleController@articleHot');
+Route::get('pinglun_article', 'ArticleController@pinglun_article');
 //招聘
 Route::get('program', 'ProgramController@program');
 Route::get('etc', 'ProgramController@etc');

@@ -135,7 +135,7 @@ desc limit 10");
         $arr = DB::table("article")
             ->join("ar_type", "article.a_type", "=", "ar_type.at_id")
             ->where("article.a_id", $id)->get();
-
+        //print_r($arr);die;
         $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->limit(3)->get();
 //        return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
 
@@ -173,9 +173,10 @@ desc limit 10");
             $username=0;
             $u_id=0;
         }else{
-            $username=$_SESSION['username'];
-            $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
-            $u_id=$u_id['user_id'];
+            //$username=$_SESSION['username'];
+            //$u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
+            //$u_id=$u_id['user_id'];
+            $u_id = $_SESSION['u_id'];
         }
         //echo $u_id;die;
         $a_id=$_POST['a_id'];

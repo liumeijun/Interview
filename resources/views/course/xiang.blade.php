@@ -252,9 +252,20 @@ var GC = {
                           </ul>
                               </div>
       </div>
-        <div style="float: right"><span  id="ping">立即评价</span></div>
+
+        {{--判断是否登录，登录后展示评价页面否则登录--}}
+        <?php
+            if(empty($_SESSION['username'])){
+                $user_name = 0; ?>
+                <div style="float: right"><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal"  style="color: red">立即评价</a></div>
+            <?php }else{
+                $user_name = 1; ?>
+                <div style="float: right"><a href="javascript:void(0)"  id="ping" onclick="pingjia(<?php echo $user_name;?>)">立即评价</a></div>
+           <?php  }
+        ?>
+
         <div id="pinglun">
-            <div id="star" style="float:left;" >
+            <div id="star" style="float:left;">
              <span>点击打分:</span>
              <ul style="float:left">
              <li><a href="javascript:;"> 1 </a></li>
@@ -263,11 +274,11 @@ var GC = {
              <li><a href="javascript:;"> 4 </a></li>
              <li><a href="javascript:;"> 5 </a></li>
              </ul>
-             <span></span>
+             <span id="score"></span>
              <p></p>
             </div>
-            <textarea rows="5" cols="100" id="con" placeholder="请输入评论:" style="background:#33ffff"></textarea>
-            <button id="sub">提交评论</button>
+            <textarea rows="5" cols="100" id="con" placeholder="请输入评论:" style="background:#ffffff"></textarea>
+            <a href="javascript:void(0)" id="sub">提交评论</a>
         </div>
       <div class="evaluation-list">
         <h3>试题评价</h3>
@@ -294,12 +305,29 @@ var GC = {
                       <a href="#" class="img-box"><span><img src="<?php if(empty($v['img'])){ echo "images/u.jpg"; }else{ echo $v['img']; }?>" width="40px" height="40px" alt="518000"></span></a>
                     <div class="user-info clearfix">
                   <a href="#" class="username"><?php echo $v['user_phone']?></a>
+
                   <div class="star-box">
-                      <img src="images/xing.jpg" width="20" height="20">
-                      <img src="images/xing.jpg" width="20" height="20">
-                      <img src="images/xing.jpg" width="20" height="20">
-                      <img src="images/xing.jpg" width="20" height="20">
-                      <img src="images/xing.jpg" width="20" height="20">
+                      @if($v['e_score'] == 1)
+                            <img src="images/xing.jpg" width="20" height="20">
+                      @elseif($v['e_score'] == 2)
+                            <img src="images/xing.jpg" width="20" height="20">
+                            <img src="images/xing.jpg" width="20" height="20">
+                      @elseif($v['e_score'] == 3)
+                            <img src="images/xing.jpg" width="20" height="20">
+                            <img src="images/xing.jpg" width="20" height="20">
+                            <img src="images/xing.jpg" width="20" height="20">
+                      @elseif($v['e_score'] == 4)
+                            <img src="images/xing.jpg" width="20" height="20">
+                            <img src="images/xing.jpg" width="20" height="20">
+                            <img src="images/xing.jpg" width="20" height="20">
+                            <img src="images/xing.jpg" width="20" height="20">
+                      @else
+                            <img src="images/xing.jpg" width="20" height="20">
+                            <img src="images/xing.jpg" width="20" height="20">
+                            <img src="images/xing.jpg" width="20" height="20">
+                            <img src="images/xing.jpg" width="20" height="20">
+                            <img src="images/xing.jpg" width="20" height="20">
+                      @endif
                    </div>
                 </div>
                 <p class="content"><?php echo $v['p_con']?></p>
@@ -507,25 +535,41 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
    $(function(){
        $("#pinglun").hide()
    })
-    $(document).on("click",'#ping',function(){
-        $("#pinglun").show()
+   function pingjia(username){
+       if(username == 1){
+           $("#pinglun").show()
+       }else{
+           alert("<a href='#login-modal' id='' data-category='UserAccount' data-action='login' data-toggle='modal '>登录</a>");
+       }
+   }
 
-    })
+//
+//   function score(){
+//       var score=$("#score").html()
+//   }
+
     $(document).on("click","#sub",function(){
-        var con=$("#con").val()
-        var c_id=$("#s_id").val()
-        $.post('index.php/con',{
-            con:con,
-            c_id:c_id
-        },function(data){
-            //alert(data)
-            if(data==1){
-                alert('请先登录');
-                location.href='index.php/login';
+        var con=$("#con").val();
+        var c_id=$("#s_id").val();
+        var score=$("#score").html();
+        if(score == ''){
+            $("#score").html("<span style='color: red'>请点击打分</span>")
+        }else{
+            if(con == '') {
+                alert('请输入评论内容')
             }else{
-                $("#list").html(data)
+                $.ajax({
+                    type: "POST",
+                    url: "pinglun_shiti",
+                    data: "con="+con+"&c_id="+c_id+"&score="+score,
+                    success: function(msg){
+                        alert('评论成功');
+                        $("#pinglun").hide();
+                        $('.evaluation').html(msg);
+                    }
+                });
             }
-        })
+        }
     })
 
    function addhouse(id){

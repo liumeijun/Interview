@@ -32,7 +32,10 @@ class WendaController extends Controller
         $honor = DB::select("select user_name,img,count(comments_replay.user_id) from
 comments_replay join users on comments_replay.user_id = users.user_id group by
  comments_replay.user_id order by count(comments_replay.user_id) desc limit 10");
-        return view('wenda/wenda',['pro'=>$pro,'honor' => $honor]);
+        //查看全部分类
+        $article_type = DB::table('a_lei')->get();
+
+        return view('wenda/wenda',['pro'=>$pro,'honor' => $honor,'article_type' => $article_type]);
     }
 
 
