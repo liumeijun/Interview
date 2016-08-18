@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 header("content-type:text/html;charset=UTF-8");
 use DB;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Input;
-
 class ArticleController extends Controller
 {
     public function article(){
         $at_type=DB::table('ar_type')->get();
-        $article=DB::select("select * from article left join ar_type on article.a_type=ar_type.at_id order by a_id desc");
+        $article=DB::select("select * from article left join ar_type on article.a_id=ar_type.at_id order by a_id desc");
         if(!isset($_SESSION)){
             session_start();
         }
@@ -21,6 +18,8 @@ class ArticleController extends Controller
         }
         $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
         $u_id=$u_id['user_id'];
+        //echo $u_id;die;
+        //print_r($article);die;
         foreach($article as $key=>$val){
             $arr=DB::table('article_zan')->where(["u_id"=>0,"article_id"=>$val['a_id']])->first();
             if($arr){
@@ -29,12 +28,18 @@ class ArticleController extends Controller
                 $article[$key]['zan']="0";
             }
         }
-        // dd($article);
+        //print_r($article);die;
 
         //文章推荐
         $groom = DB::select("select * from article join ar_type on article.a_type=ar_type.at_id join a_lei on article.a_lei=a_lei.al_id order by article.a_num
 desc limit 10");
+        //print_r($groom);die;
         //查询一周达人
+//        $people = DB::table('aping')
+//            ->join('users', 'aping.u_id', '=', 'users.user_id')
+//            ->groupBy('aping.u_id')
+//            ->select(count('aping.u_id'))
+//            ->count('aping.u_id');
         $people = DB::select("select user_name,img from aping join users on aping.u_id = users.user_id group by aping.u_id order by count(aping.u_id) desc limit 10");
         return view('article/article',['at_type'=>$at_type,'article'=>$article,'groom' => $groom,'people' => $people]);
     }
@@ -50,18 +55,11 @@ desc limit 10");
     }
     
 
-    /*
-     * 添加文章
-     */
+    //添加文章
     public function add(){
-//print_r($_FILES);
-        $post=Request::all();
-//print_r($post);die;
-        $file=Input::file('a_log');
-        print_r($file);die;
-        $a_title=$post['a_title'];
-        $a_type=$post['a_type'];
-        $a_con=$post['a_con'];
+        $a_title=$_POST['a_title'];
+        $a_type=$_POST['a_type'];
+        $a_con=$_POST['a_con'];
         $a_addtime=date("Y-m-d H:i:s");
         $re=DB::insert("insert into article(a_title,a_type,a_con,a_addtime) values('$a_title','$a_type','$a_con','$a_addtime')");
         if($re){
@@ -71,29 +69,20 @@ desc limit 10");
         }
     }
     
-    /*
-     * 点赞表
-     */
+    
     public function zan(){
-        $a_id=$_POST['id'];
-        // print_r($a_id);die;
+        $a_id=$_POST['zan'];
         if(!isset($_SESSION)){
             session_start();
         }
-        if(empty($_SESSION['u_id'])){
+        if(empty($_SESSION['username'])){
             echo 1;
         }else{
-            $u_id = $_SESSION['u_id'];
-            // echo $u_id;die;
-            $arr=DB::table('article_zan')->where("u_id",$u_id)->where("article_id",$a_id)->get();
-            if($arr){
-                // 当用户已经推荐过（赞）
-                echo 2;
-            }else{
-                $res = DB::table('article')->where('a_id',$a_id)->increment('a_num');
-                $a=DB::insert("insert into article_zan(u_id,article_id) values('$u_id','$a_id')");
-                echo 3;
-            }
+            $username=$_SESSION['username'];
+        }
+        $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
+        if($u_id){
+
         }
         $u_id=empty($u_id['user_id'])?$u_id['user_id']:1;
        //echo $u_id;die;
@@ -139,13 +128,23 @@ desc limit 10");
         $arr = DB::table("article")
             ->join("ar_type", "article.a_type", "=", "ar_type.at_id")
             ->where("article.a_id", $id)->get();
-
-        $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->limit(3)->get();
-//        return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
-
+        //print_r($arr);die;
+        //评论
+        $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->select('aping.ap_id','aping.ap_con','aping.u_id','article.a_id','aping.a_addtime','users.user_name','users.img','article.a_num','article.a_con','article.a_title')->get();
+        //回答（回答评论）
+        $a_ping = DB::table('a_ping')->join('aping','a_ping.ap_id','=','aping.ap_id')->leftjoin('users','a_ping.u_id','=','users.user_id')->orderBy('a_ping.article_addtime','desc')->orderBy('a_ping.ap_id')->select('a_ping.article_id','a_ping.ap_cont','a_ping.u_id','a_ping.ap_id','a_ping.article_addtime','aping.ap_con','aping.a_id','aping.a_addtime','users.user_name','users.img')->get();
+        //print_r($a_ping);die;
+        foreach($aping as $key => $v){
+            foreach($a_ping as $k => $a){
+                if($v['ap_id'] ==$a['ap_id']){
+                    $aping[$key]['answer'][]=$a;
+                }
+            }
+        }
+        //print_r($aping);die;
         //查询是否收藏
         if (empty($_SESSION['username'])) {
-            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
+            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping,'a_ping' => $a_ping]);
         } else {
             $user_id = DB::table('users')->where("user_name", "$username")
                                          ->orwhere("user_phone","$username")
@@ -154,7 +153,6 @@ desc limit 10");
             //  print_r($user_id);die;
             $u_id = $user_id['user_id'];
             $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
-             // dd($arr);die;
             return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping, 'house' => $is_house]);
         }
 
@@ -168,21 +166,32 @@ desc limit 10");
             $username=0;
             $u_id=0;
         }else{
-            $username=$_SESSION['username'];
-            $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
-            $u_id=$u_id['user_id'];
+            //$username=$_SESSION['username'];
+            //$u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
+            //$u_id=$u_id['user_id'];
+            $u_id = $_SESSION['u_id'];
         }
         //echo $u_id;die;
         $a_id=$_POST['a_id'];
         $ping=$_POST['ping'];
-        $sql="insert into aping(u_id,ap_con,a_id) values('$u_id','$ping','$a_id')";
+        $a_addtime = date("Y-m-d H:i:s",time());
+        $sql="insert into aping(u_id,ap_con,a_id,a_addtime) values('$u_id','$ping','$a_id','$a_addtime')";
         $re=DB::insert($sql);
 
-        $aping=DB::table('aping')->join("users","aping.u_id","=","users.user_id")->join("article","aping.a_id","=","article.a_id")->orderBy("aping.ap_id","desc")->limit(3)->get();
-        //print_r($aping);die;
-        return json_encode($aping);
-        //return view('article/aping',['aping'=>$aping]);
+        $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->select('aping.ap_id','aping.ap_con','aping.u_id','article.a_id','aping.a_addtime','users.user_name','users.img','article.a_num','article.a_con','article.a_title')->get();
+        //回答（回答评论）
+        $a_ping = DB::table('a_ping')->join('aping','a_ping.ap_id','=','aping.ap_id')->leftjoin('users','a_ping.u_id','=','users.user_id')->orderBy('a_ping.article_addtime','desc')->orderBy('a_ping.ap_id')->select('a_ping.article_id','a_ping.ap_cont','a_ping.u_id','a_ping.ap_id','a_ping.article_addtime','aping.ap_con','aping.a_id','aping.a_addtime','users.user_name','users.img')->get();
+        //print_r($a_ping);die;
+        foreach($aping as $key => $v){
+            foreach($a_ping as $k => $a){
+                if($v['ap_id'] ==$a['ap_id']){
+                    $aping[$key]['answer'][]=$a;
+                }
+            }
+        }
+        return view('article/a_ping', ['aping' => $aping]);
     }
+
     //最新文章
     public function articleNew()
     {
@@ -236,5 +245,37 @@ desc limit 10");
         }else{
             return 0;
         }
+    }
+
+    public function a_ping(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        if(empty($_SESSION['username'])){
+            $username=0;
+            $u_id=0;
+        }else{
+            $u_id = $_SESSION['u_id'];
+        }
+        $ap_id2=$_POST['ap_id'];
+        $ap_id = substr($ap_id2,3);
+        $ping=$_POST['ping'];
+        //echo $ap_id;die;
+        $a_addtime = date("Y-m-d H:i:s",time());
+        $sql="insert into a_ping(u_id,ap_cont,ap_id,article_addtime) values('$u_id','$ping','$ap_id','$a_addtime')";
+        $re=DB::insert($sql);
+
+        $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->select('aping.ap_id','aping.ap_con','aping.u_id','article.a_id','aping.a_addtime','users.user_name','users.img','article.a_num','article.a_con','article.a_title')->get();
+        //回答（回答评论）
+        $a_ping = DB::table('a_ping')->join('aping','a_ping.ap_id','=','aping.ap_id')->leftjoin('users','a_ping.u_id','=','users.user_id')->orderBy('a_ping.article_addtime','desc')->orderBy('a_ping.ap_id')->select('a_ping.article_id','a_ping.ap_cont','a_ping.u_id','a_ping.ap_id','a_ping.article_addtime','aping.ap_con','aping.a_id','aping.a_addtime','users.user_name','users.img')->get();
+        //print_r($a_ping);die;
+        foreach($aping as $key => $v){
+            foreach($a_ping as $k => $a){
+                if($v['ap_id'] ==$a['ap_id']){
+                    $aping[$key]['answer'][]=$a;
+                }
+            }
+        }
+        return view('article/a_ping', ['aping' => $aping]);
     }
 }
