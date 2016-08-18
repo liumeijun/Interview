@@ -59,6 +59,8 @@ Route::get('friend/friendlist', 'FriendController@friendlist');
  */
 //猿问首页
 Route::get('wenda', 'WendaController@wenda');
+//猿问回答点赞
+Route::get('agree','WendaController@agree');
 //我要提问
 Route::get('save', 'WendaController@save');
 //提交提问
@@ -105,7 +107,7 @@ Route::get('article', 'ArticleController@article');
 Route::post('delhouse_article', 'ArticleController@delhouse_article');
 Route::post('addhouse_article', 'ArticleController@addhouse_article');
 Route::get('article/publish', 'ArticleController@publish');
-Route::post('add', 'ArticleController@add');
+Route::any('article/add', 'ArticleController@add');
 Route::any('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
 Route::get('fangfa', 'ArticleController@wxiang');

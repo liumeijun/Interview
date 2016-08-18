@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 header("content-type:text/html;charset=UTF-8");
 use DB;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Input;
+
 class ArticleController extends Controller
 {
     public function article(){
@@ -18,8 +21,6 @@ class ArticleController extends Controller
         }
         $u_id=DB::table('users')->where("user_phone","$username")->orwhere("user_email","$username")->first();
         $u_id=$u_id['user_id'];
-        //echo $u_id;die;
-        //print_r($article);die;
         foreach($article as $key=>$val){
             $arr=DB::table('article_zan')->where(["u_id"=>0,"article_id"=>$val['a_id']])->first();
             if($arr){
@@ -33,13 +34,7 @@ class ArticleController extends Controller
         //文章推荐
         $groom = DB::select("select * from article join ar_type on article.a_type=ar_type.at_id join a_lei on article.a_lei=a_lei.al_id order by article.a_num
 desc limit 10");
-        //print_r($groom);die;
         //查询一周达人
-//        $people = DB::table('aping')
-//            ->join('users', 'aping.u_id', '=', 'users.user_id')
-//            ->groupBy('aping.u_id')
-//            ->select(count('aping.u_id'))
-//            ->count('aping.u_id');
         $people = DB::select("select user_name,img from aping join users on aping.u_id = users.user_id group by aping.u_id order by count(aping.u_id) desc limit 10");
         return view('article/article',['at_type'=>$at_type,'article'=>$article,'groom' => $groom,'people' => $people]);
     }
@@ -55,11 +50,18 @@ desc limit 10");
     }
     
 
-    //添加文章
+    /*
+     * 添加文章
+     */
     public function add(){
-        $a_title=$_POST['a_title'];
-        $a_type=$_POST['a_type'];
-        $a_con=$_POST['a_con'];
+//print_r($_FILES);
+        $post=Request::all();
+//print_r($post);die;
+        $file=Input::file('a_log');
+        print_r($file);die;
+        $a_title=$post['a_title'];
+        $a_type=$post['a_type'];
+        $a_con=$post['a_con'];
         $a_addtime=date("Y-m-d H:i:s");
         $re=DB::insert("insert into article(a_title,a_type,a_con,a_addtime) values('$a_title','$a_type','$a_con','$a_addtime')");
         if($re){
@@ -69,7 +71,9 @@ desc limit 10");
         }
     }
     
-    
+    /*
+     * 点赞表
+     */
     public function zan(){
         $a_id=$_POST['id'];
         // print_r($a_id);die;
@@ -156,15 +160,6 @@ desc limit 10");
 
  }
 
-        //查询是否收藏
-//        if (empty($_SESSION['username'])) {
-//            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
-//        } else {
-//            $user_id = DB::table('users')->where("user_name", "$username")->get();
-//            $u_id = $user_id[0]['user_id'];
-//            $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
-//            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping, 'house' => $is_house]);
-//        }
     public function wping(){
         if(!isset($_SESSION)){
             session_start();
