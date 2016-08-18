@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
+use DB,Request;
 class ArticleController extends Controller
 {
     public function article(){
@@ -146,4 +146,10 @@ class ArticleController extends Controller
         return json_encode($aping);
         //return view('article/aping',['aping'=>$aping]);
     }
+    //虎林制作分享添加积分
+    public function fenxiang(){
+        $bshare=Request::post('bshare');
+        echo $bshare;
+    }
+    
 }

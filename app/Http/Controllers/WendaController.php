@@ -75,8 +75,8 @@ class WendaController extends Controller
        // 评论问题
        //$arr_com=DB::table("comments")->leftjoin('users','users.user_id','=','comments.user_id')->leftjoin('t_tw','t_tw.t_id','=','t_tw.t_id')->where("comments.t_id",$id)->get();
        $arr_com=DB::select("select *,count(comments_replay.status) from comments inner join users on users.user_id=comments.user_id inner join t_tw on t_tw.t_id=comments.t_id LEFT JOIN comments_replay on comments.com_id=comments_replay.com_id  where comments.t_id=$id GROUP BY comments.com_id") ;
-//赞同评论的数量
-//        print_r($arr_com);die;
+        //赞同评论的数量
+        // print_r($arr_com);die;
         if(isset($_SESSION)){
             session_start();
             $u_id=$_SESSION['u_id'];

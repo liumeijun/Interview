@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
+use DB,Cache;
 use Illuminate\Support\Facades\Session;
 
 class CourseController extends Controller
