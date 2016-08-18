@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -52,8 +51,8 @@
             <div class="article-tool-bar clearfix">
                 <div class="tool-left l">
 
-                    <a href="articleNew" class="sort-item ">最新</a>
-                    <a href="articleHot" class="sort-item ">热门</a>
+                    <a href="#" class="sort-item active">最新</a>
+                    <a href="#" class="sort-item ">热门</a>
                 </div>
             </div>
             <div id="lie">

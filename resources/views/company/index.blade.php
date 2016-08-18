@@ -79,7 +79,7 @@ data-id="134">阿里巴巴</a>
 </li>
 </ul>
 <div class="module-box">
-<a href="#" class="btn btn-primary btn-block">2016春招备考计划</a>
+<a href="#" class="btn btn-primary btn-block">优秀个人简历模板</a>
 </div>
 </div>
 <div class="nk-content">
@@ -99,7 +99,7 @@ data-id="134">阿里巴巴</a>
 <div class="content-item-brief">
 <h1>{{$value['s_logo']}}</h1>
 <div class="web-logoimg">
-<img src="http://123.56.249.121/android/web/{{$value['s_img']}}" style="width:50px; height:50px;" />
+<img src="../images/resume.jpg" style="width:90px; height:100px;" />
 </div>
 <div class="exam-foot">已有{{$value['click']}}人参加</div>
 <dl class="exam-info">

@@ -25,7 +25,6 @@
                     <span>全部课程</span>
                     <a href="/about/recruit" class="for-teacher hide-text" title="应聘讲师" target="_blank">应聘讲师</a>
                 </div>
-                
             </div>
             <div class="course-tool-bar clearfix">
                 <div class="tool-left l">

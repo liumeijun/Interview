@@ -41,7 +41,7 @@ var is_choice = "";
   <div class="setting-left l">
     <ul class="wrap-boxes">
       <li>
-        <a href="/user/setprofile">个人资料</a>
+        <a href="/setprofile">个人资料</a>
       </li>
         <li >
             <a href="/user/my_house">我的收藏</a>
@@ -51,23 +51,23 @@ var is_choice = "";
         </li>
 
       <li >
-         <a href="/user/setavator">头像设置</a>
+         <a href="/setavator">头像设置</a>
        </li>
        
       <li >
-        <a href="/user/setphone">手机设置</a>
+        <a href="/setphone">手机设置</a>
                     <span class='unbound'>未绑定</span>
               </li>
       
       <li >
-        <a href="/user/setverifyemail">邮箱验证</a>
+        <a href="/setverifyemail">邮箱验证</a>
                     <span class='unbound'>未绑定</span>
               </li>
       <li >
-        <a href="/user/setresetpwd">修改密码</a>
+        <a href="/setresetpwd">修改密码</a>
       </li>
       <li  class="active">
-        <a no-pjajx href="/user/setbindsns"  class="onactive">绑定帐号</a>
+        <a no-pjajx href="/setbindsns"  class="onactive">绑定帐号</a>
       </li>
     </ul>
   </div>
