@@ -86,9 +86,11 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
        // 评论问题
        //$arr_com=DB::table("comments")->leftjoin('users','users.user_id','=','comments.user_id')->leftjoin('t_tw','t_tw.t_id','=','t_tw.t_id')->where("comments.t_id",$id)->get();
        $arr_com=DB::select("select *,count(comments_replay.status) from comments inner join users on users.user_id=comments.user_id inner join t_tw on t_tw.t_id=comments.t_id LEFT JOIN comments_replay on comments.com_id=comments_replay.com_id  where comments.t_id=$id GROUP BY comments.com_id") ;
+
 //赞同评论的数量
         //print_r($arr_user);die;
         if(isset($_SESSION['u_id'])){
+
             $u_id=$_SESSION['u_id'];
             //查询登录人头像
             $user_img = DB::table('users')->where('user_id',"$u_id")->get();

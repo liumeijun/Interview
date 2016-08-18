@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use DB,View,Cache;
 use Illuminate\Support\Facades\Session;
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 header("content-type:text/html;charset=UTF-8");
-use DB;
+use DB,Request;
 class ArticleController extends Controller
 {
     public function article(){
@@ -236,5 +236,9 @@ desc limit 10");
             return 0;
         }
     }
->>>>>>> a599d948a45bbc31aa2adf9520f0f0659c9efa26
+    //虎林制作分享添加积分
+    public function fenxiang(){
+        $bshare=Request::post('bshare');
+        echo $bshare;
+    }
 }
