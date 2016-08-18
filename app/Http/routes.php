@@ -116,6 +116,7 @@ Route::any('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
 Route::get('fangfa', 'ArticleController@wxiang');
 Route::post('wping', 'ArticleController@wping');
+Route::post('a_ping', 'ArticleController@a_ping');
 Route::get('articleNew', 'ArticleController@articleNew');
 Route::get('articleHot', 'ArticleController@articleHot');
 Route::get('pinglun_article', 'ArticleController@pinglun_article');

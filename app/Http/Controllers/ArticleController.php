@@ -85,7 +85,7 @@ desc limit 10");
 
         }
         $u_id=empty($u_id['user_id'])?$u_id['user_id']:1;
-       echo $u_id;die;
+       //echo $u_id;die;
         $arr=DB::table('article_zan')->where("u_id",$u_id)->where("article_id",$a_id)->get();
         if($arr){
             $zan=DB::table('article')->where('a_id',$a_id)->first();
@@ -129,12 +129,22 @@ desc limit 10");
             ->join("ar_type", "article.a_type", "=", "ar_type.at_id")
             ->where("article.a_id", $id)->get();
         //print_r($arr);die;
-        $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->limit(3)->get();
-//        return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
-
+        //评论
+        $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->select('aping.ap_id','aping.ap_con','aping.u_id','article.a_id','aping.a_addtime','users.user_name','users.img','article.a_num','article.a_con','article.a_title')->get();
+        //回答（回答评论）
+        $a_ping = DB::table('a_ping')->join('aping','a_ping.ap_id','=','aping.ap_id')->leftjoin('users','a_ping.u_id','=','users.user_id')->orderBy('a_ping.article_addtime','desc')->orderBy('a_ping.ap_id')->select('a_ping.article_id','a_ping.ap_cont','a_ping.u_id','a_ping.ap_id','a_ping.article_addtime','aping.ap_con','aping.a_id','aping.a_addtime','users.user_name','users.img')->get();
+        //print_r($a_ping);die;
+        foreach($aping as $key => $v){
+            foreach($a_ping as $k => $a){
+                if($v['ap_id'] ==$a['ap_id']){
+                    $aping[$key]['answer'][]=$a;
+                }
+            }
+        }
+        //print_r($aping);die;
         //查询是否收藏
         if (empty($_SESSION['username'])) {
-            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
+            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping,'a_ping' => $a_ping]);
         } else {
             $user_id = DB::table('users')->where("user_name", "$username")
                                          ->orwhere("user_phone","$username")
@@ -143,21 +153,11 @@ desc limit 10");
             //  print_r($user_id);die;
             $u_id = $user_id['user_id'];
             $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
-             // dd($arr);die;
             return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping, 'house' => $is_house]);
         }
 
  }
 
-        //查询是否收藏
-//        if (empty($_SESSION['username'])) {
-//            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping]);
-//        } else {
-//            $user_id = DB::table('users')->where("user_name", "$username")->get();
-//            $u_id = $user_id[0]['user_id'];
-//            $is_house = DB::table("house_article")->where(['user_id' => $u_id, 'article_id' => $id])->get();
-//            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping, 'house' => $is_house]);
-//        }
     public function wping(){
         if(!isset($_SESSION)){
             session_start();
@@ -174,14 +174,24 @@ desc limit 10");
         //echo $u_id;die;
         $a_id=$_POST['a_id'];
         $ping=$_POST['ping'];
-        $sql="insert into aping(u_id,ap_con,a_id) values('$u_id','$ping','$a_id')";
+        $a_addtime = date("Y-m-d H:i:s",time());
+        $sql="insert into aping(u_id,ap_con,a_id,a_addtime) values('$u_id','$ping','$a_id','$a_addtime')";
         $re=DB::insert($sql);
 
-        $aping=DB::table('aping')->join("users","aping.u_id","=","users.user_id")->join("article","aping.a_id","=","article.a_id")->orderBy("aping.ap_id","desc")->limit(3)->get();
-        //print_r($aping);die;
-        return json_encode($aping);
-        //return view('article/aping',['aping'=>$aping]);
+        $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->select('aping.ap_id','aping.ap_con','aping.u_id','article.a_id','aping.a_addtime','users.user_name','users.img','article.a_num','article.a_con','article.a_title')->get();
+        //回答（回答评论）
+        $a_ping = DB::table('a_ping')->join('aping','a_ping.ap_id','=','aping.ap_id')->leftjoin('users','a_ping.u_id','=','users.user_id')->orderBy('a_ping.article_addtime','desc')->orderBy('a_ping.ap_id')->select('a_ping.article_id','a_ping.ap_cont','a_ping.u_id','a_ping.ap_id','a_ping.article_addtime','aping.ap_con','aping.a_id','aping.a_addtime','users.user_name','users.img')->get();
+        //print_r($a_ping);die;
+        foreach($aping as $key => $v){
+            foreach($a_ping as $k => $a){
+                if($v['ap_id'] ==$a['ap_id']){
+                    $aping[$key]['answer'][]=$a;
+                }
+            }
+        }
+        return view('article/a_ping', ['aping' => $aping]);
     }
+
     //最新文章
     public function articleNew()
     {
@@ -235,5 +245,37 @@ desc limit 10");
         }else{
             return 0;
         }
+    }
+
+    public function a_ping(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        if(empty($_SESSION['username'])){
+            $username=0;
+            $u_id=0;
+        }else{
+            $u_id = $_SESSION['u_id'];
+        }
+        $ap_id2=$_POST['ap_id'];
+        $ap_id = substr($ap_id2,3);
+        $ping=$_POST['ping'];
+        //echo $ap_id;die;
+        $a_addtime = date("Y-m-d H:i:s",time());
+        $sql="insert into a_ping(u_id,ap_cont,ap_id,article_addtime) values('$u_id','$ping','$ap_id','$a_addtime')";
+        $re=DB::insert($sql);
+
+        $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->select('aping.ap_id','aping.ap_con','aping.u_id','article.a_id','aping.a_addtime','users.user_name','users.img','article.a_num','article.a_con','article.a_title')->get();
+        //回答（回答评论）
+        $a_ping = DB::table('a_ping')->join('aping','a_ping.ap_id','=','aping.ap_id')->leftjoin('users','a_ping.u_id','=','users.user_id')->orderBy('a_ping.article_addtime','desc')->orderBy('a_ping.ap_id')->select('a_ping.article_id','a_ping.ap_cont','a_ping.u_id','a_ping.ap_id','a_ping.article_addtime','aping.ap_con','aping.a_id','aping.a_addtime','users.user_name','users.img')->get();
+        //print_r($a_ping);die;
+        foreach($aping as $key => $v){
+            foreach($a_ping as $k => $a){
+                if($v['ap_id'] ==$a['ap_id']){
+                    $aping[$key]['answer'][]=$a;
+                }
+            }
+        }
+        return view('article/a_ping', ['aping' => $aping]);
     }
 }
