@@ -24,6 +24,7 @@
         h1,h2,h3,h4,h5,h6{
             color:black;
         }
+        .imgs{border:solid 1px black;height:50px;width:50px;border-radius: 50%;float:left;}/*头像类*/
     </style>
 
     <script type="text/javascript">
@@ -59,121 +60,6 @@
 
 <div id="main">
 
-    <script>
-        var quesname="4个月，从HTML到jQuery,可能吗";   //问答名称
-        var url = 'http://www.mukewang.com' + window.location.pathname;
-        window._bd_share_config = {
-            "common":{
-                "bdUrl": url,
-                "bdSnsKey": {
-                    'tsina':'2788596354'
-                },
-                "bdText":quesname+""+"_慕课网_猿问",
-                "bdMini":"2",
-                "bdMiniList":false,
-                "bdPic":"",
-                "bdStyle":"0",
-                "bdSize":"16"
-            },
-            share : [{
-                "tag" : "share_1",
-                "onBeforeClick":function(cmd,config){
-                    if(cmd=="qzone"){
-                        config.bdText = quesname+url+"_慕课网_猿问";
-                    }else{
-                        config.bdText = "[慕课猿问："+quesname+url+"(分享自@慕课网)#慕课爱分享#";
-                    }
-                    return config;
-                }
-            },{
-                "tag" : "share_2",
-                "onBeforeClick":function(cmd,config){
-                    if(cmd=="tsina"){
-                        config.bdText = "我在慕课网(@慕课网) 提了一个问题“"+quesname+"”"+url;
-                    }else{
-                        config.bdText = "我在慕课网 提了一个问题“"+quesname+"”"+url;
-                    }
-                    return config;
-                }
-            },{
-                "tag" : "share_3",
-                "onBeforeClick":function(cmd,config){
-                    if(cmd=="tsina"){
-                        config.bdText = "我在慕课网(@慕课网) 回答了“"+quesname+"”"+url+"快来围观";
-                    }else{
-                        config.bdText = "我在慕课网 回答了“"+quesname+"”"+url+"快来围观";
-                    }
-                    return config;
-                }
-            },
-                {
-                    "tag" : 'share_answer_186010',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186010',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:DustinMoskovitz (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_186069',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186069',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:qq_纯黑的白_03819130 (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_186044',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186044',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:璃茉茉 (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_186040',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186040',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:zZ爱吃菜 (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_186071',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186071',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:这偌大的城市 (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_186066',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186066',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:tangjiaqq (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_186060',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186060',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:天天up啊噗 (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_186047',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186047',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:杜新明 (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_186042',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186042',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:yemaa (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_186033',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186033',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:Cella (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_186008',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186008',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:Echo_Chien (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_186006',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/186006',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:慕粉3203730 (分享自@慕课网)#慕课爱分享#'
-                }
-                ,        {
-                    "tag" : 'share_answer_185997',
-                    "bdUrl" : 'http://www.imooc.com/wenda/wdanswer/185997',
-                    "bdText":'[慕课猿问：4个月，从HTML到jQuery,可能吗 回答者:慕粉3343677 (分享自@慕课网)#慕课爱分享#'
-                }
-            ]
-        };
-    </script>
 
     <div class="wenda clearfix">
         <div class="l wenda-main">
@@ -182,12 +68,18 @@
                 <div class="qa-content-inner ">
                     <div id="js-content-main">
                         <div class="detail-q-title clearfix">
-                            <h1 class="js-qa-wenda-title detail-wenda-title l" style="color:black"><?php echo $arr['0']['t_title'];?></h1>
+                            <div>
+                            <a href="#" target="_blank">{{--href地址回答者的个人中心--}}
+                                {{--回答者头像--}}
+                                <img src="<?= $arr_user['img']; ?>"class="imgs" alt="用户头像" >
+                            </a>
+                            </div><br/>
+                            <h1 class="js-qa-wenda-title detail-wenda-title l" style="color:black;margin-left: 15px;"><?php echo $arr['0']['t_title'];?></h1>
                             <!-- 编辑 -->
 
                         </div>
 
-                        <div id="js-qa-wenda" class="detail-wenda imgPreview rich-text"><p><?php echo $arr['0']['t_content']?><br /></p></div>
+                        <div id="js-qa-wenda" class="detail-wenda imgPreview rich-text" style="padding-left: 75px;"><p><?php echo $arr['0']['t_content']?><br /></p></div>
                     </div>
 
                     <div class="qa-header detail-user-tips">
@@ -202,7 +94,7 @@
                             <div class="small-share l wd-share">
                                 <ul class="share-wrap">
                                     <li class="weichat-posi js-top-share">
-                                        <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-tag="share_1" data-quesid="325735">
+<!--                                         <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-tag="share_1" data-quesid="325735">
                                             <a href="#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
                                             {{--<a href="#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>--}}
                                             <script type="text/javascript">
@@ -228,7 +120,16 @@
                                             </script>
                                             <script src="http://qzonestyle.gtimg.cn/qzone/app/qzlike/qzopensl.js#jsdate=20111201" charset="utf-8"></script>
                                             <a href="#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
-                                        </div>
+                                        </div> -->
+                                    
+                                        <div class="bshare-custom icon-medium">
+                                          <a title="分享到QQ空间" class="bshare-qzone" ></a>
+                                          <a title="分享到朋友网" class="bshare-qqxiaoyou"></a>
+                                          <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+                                          <!-- <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>  -->
+                                      </div>
+                                      <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+                                      <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
                                     </li>
                                 </ul>
                             </div>
@@ -285,13 +186,11 @@
                 {{--添加回答--}}
                 <form action="hui" method="post">
                 <div id="avator-wrap" class="detail-ci-avator answer-hidden">
-
-                    @foreach($user_img as $key => $v)
-                        <img src="<?= $v['img'];?>" alt="用户头像" style="width: 50px;height: 50px;"/>
-                    @endforeach
+                        {{--当前登录人回答者头像--}}
+                    <?php if(isset($arr['user'])){?>
+                        <img src="<?= $arr['user']['img'];?>"style="width: 50px;height: 50px;"  alt="用户头像" class="imgs"/>
+                        <?php } ?>
                     <div class="detail-r clearfix">
-
-                        {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
                         <input type="hidden" name="url" value="<?php echo Request::fullurl() ?>">
                         {{--题id--}}
                         <input type="hidden" id="tid" name="tid" value="<?php echo $arr['0']['t_id']?>">
@@ -316,68 +215,84 @@
 
 
             </div>
-
+{{--添加回答结束--}}
             <?php } ?>
 
             <!-- 回答数 -->
             <div class="ans_num">共<?php echo count($arr_com);?>条回答</div>
-            <?php foreach ($arr_com as $key => $val) {
+            <!--.开始回答-->
+            <?php foreach ($arr_com as $key => $val){?>
+                <div id="aa">
+                    <div class="ques-answer">
+                        <div class="answer-con first" id="id_156829">
+                            <div class="user-pic l">
+                                <a href="#" target="_blank">{{--href地址回答者的个人中心--}}
+                                    {{--回答者头像--}}
+                                        <img src="<?= $val['img'];?>" class="imgs" alt="用户头像">
+                                     </a>
+                            </div><!--.user end-->
+                            <div class="detail-r">
+                                <span class="time"><?php echo $val['com_addtime'];?></span>
+                                <a class="detail-name" href="#" target="_blank"><?php echo $val['user_name'];?></a>{{--href地址回答者的个人中心--}}
+                            </div>
 
-    ?>
+
+                            <div class="answer-content rich-text imgPreview"><p><?php echo $val['com_content'];?><br></p></div>
+
+                            <div class="ctrl-bar clearfix js-wenda-tool">
+                                {{--判断是否登录,进行对回复的支持与反对--}}
+
+                               <?php if(empty($_SESSION['username'])){ ?>
+                                            <span class="agree-with " data-ques-id="313011" data-answer-id="156829" data-hasop="">
+                                            <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" ><b >赞同</b></a>
+                                            </span>
+                                            <span class="agree-with " data-ques-id="313011" data-answer-id="156829" data-hasop="">
+                                            <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" ><b >反对</b></a>
+                                            </span>
+                                            <span class="reply" data-replynum="0" data-reply-id="156829" data-ques-uid="2965295"><em><?php if(isset($val['agree'])){echo count($val['agree']);}else{echo 0;}  ?></em>个回复</span>
+                              <?php }else{ ?>
+
+                                            <?php if($val['is_agree']=='' ||$val['is_agree']==0){ ?>
+                                            {{--当前登录人没有回复--}}
+                                                <span class="agree-with " data-ques-id="313011" data-answer-id="156829" data-hasop="">
+                                                <b class="agree" b="<?php echo $val['com_id'] ?>"  >赞同</b> </span>
+                                                <span class="agree-with " data-ques-id="313011" data-answer-id="156829" ><b class="disagree" b="<?php echo $val['com_id']; ?>">反对</b></span>
+                                            <?php }else{ if($val['is_agree']==1){ ?>
+                                            {{--已经赞过--}}
+                                                    <span class="agree-with " data-ques-id="313011" data-answer-id="156829" data-hasop=""  style="background: #EDF1F2">
+                                                    <b class="agree" b="<?php echo $val['com_id'] ?>"  >取消赞同</b>
+                                                    </span>
+                                                    <span class="agree-with" data-ques-id="313011" data-answer-id="156829" ><b class="disagree" b="<?php echo $val['com_id']; ?>">反对</b></span>
+
+                                                <?php }else{ ?>
+                                              {{--已经反对--}}
+                                                    <span class="agree-with " data-ques-id="313011" data-answer-id="156829" data-hasop="">
+                                                    <b class="agree" b="<?php echo $val['com_id'] ?>" >赞同</b>
+                                                     </span>
+                                                    <span class="oppose " data-ques-id="313011" data-answer-id="156829" style="background: #EDF1F2" ><b class="disagree" b="<?php echo $val['com_id']; ?>">取消反对</b></span>
+
+                                             <?php } ?>
 
 
-    <div id="aa">
-        <div class="ques-answer">
-            <div class="answer-con first" id="id_156829">
-                <div class="user-pic l">
-                    <a href="http://www.imooc.com/u/1044131/bbs" target="_blank">
-                            <img src="<?= $arr_user['img'];?>" alt="用户头像">
-                         </a>
-                </div><!--.user end-->
-                <div class="detail-r">
-                    <span class="time"><?php echo $val['com_addtime'];?></span>
-                    <a class="detail-name" href="http://www.imooc.com/u/1044131/bbs" target="_blank"><?php echo $val['user_name'];?></a>
+
+                           <?php }?>
+                                <span class="reply" data-replynum="0" data-reply-id="156829" data-ques-uid="2965295"><em class="num"><?php if(isset($val['agree'])){echo count($val['agree']);}else{echo 0;}  ?></em>个回复</span>
+
+                               <?php  }?>
+                            </div><!--.ctrl-bar end-->
+
+
+                        </div>
+                    </div>
                 </div>
-
-
-                <div class="answer-content rich-text imgPreview"><p><?php echo $val['com_content'];?><br></p></div>
-
-                <div class="ctrl-bar clearfix js-wenda-tool">
-                    {{--判断是否登录,进行对回复的支持与反对--}}
-
-                        @if(empty($_SESSION['username']))
-                                <span class="agree-with " data-ques-id="313011" data-answer-id="156829" data-hasop="">
-                                <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" ><b>赞同</b></a>
-                                </span>
-                        <a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" ><span class="oppose " data-ques-id="313011" data-answer-id="156829" data-hasop="">反对</span></a>
-                        <span class="reply" data-replynum="0" data-reply-id="156829" data-ques-uid="2965295"><em><?php echo $val['count(comments_replay.status)'] ?></em>个回复</span>
-                        @else
-                        <span class="agree-with " data-ques-id="313011" data-answer-id="156829" data-hasop="">
-                            @if($arr_com['0']['status']==0)
-                            <b class="agree" >赞同</b>
-                             @else
-                                <b class="noagree" >取消赞同</b>
-                             @endif
-                                </span>
-                        <span class="oppose " data-ques-id="313011" data-answer-id="156829" data-hasop="" id="disagree">反对</span>
-                        <span class="reply" data-replynum="0" data-reply-id="156829" data-ques-uid="2965295"><em><?php echo $val['count(comments_replay.status)'] ?></em>个回复</span>
-
-                    @endif
-                </div><!--.ctrl-bar end-->
-
-
-            </div><!--.answer-con end-->
-         <!--.reply-con end-->
-
-        </div>
-    </div>
-    <!-- 回答回复 end --><?php } ?>
+             <?php } ?>
+            <!--.结束回答-->
             <div class="qa-comment-page">
             </div>
 
         </div>
-
-        <div class="wenda-slider r">
+        {{--右边开始--}}
+            <div class="wenda-slider r">
             <div class="quiz"><a href="save" class="js-quiz">我要提问</a></div>
             <!-- 相关问题 -->
             <div class="panel about-ques">
@@ -462,7 +377,7 @@
             </div><!--.recommend-class end-->
 
         </div>
-
+        {{--右边结束--}}
     </div>
 
 
@@ -471,7 +386,7 @@
 
 @include('layouts.foot')
 
-
+{{--右边咨询--}}
 <div id="J_GotoTop" class="elevator">
 
     <a href="/user/feedback" class="elevator-msg" title="意见反馈"><i class="icon-feedback"></i></a>
@@ -485,13 +400,6 @@
     </a>
     <a href="javascript:void(0)" class="elevator-top no-goto" style="display:none" title="返回顶部" id="backTop"><i class="icon-up2"></i></a>
 </div>
-
-
-
-
-
-
-
 
 
 <div style="display: none">
@@ -532,15 +440,109 @@
         })
     </script>
     <script>
+        jQuery(document).ready(function($) {
+         $('.agree').click(function(){
+            /*获取同意按钮*/
+             var ag=$(this)
+             /*获取反对按钮*/
+             var disag=$(this).parent().siblings('.agree-with').children();
+             /*同意按钮的值*/
+             var zan=$(this).html();
+             /*获取点回答id*/
+             var com_id=$(this).attr('b');
+             /*获取数量位置*/
+             var replay=ag.parent().siblings('.reply').children('.num');
+             if(zan=='赞同'){
+                 $.ajax({
+                   url:'agree',
+                   type:'GET',
+                  data:{status:1,com_id:com_id},
+                    success:function(msg) {
+                        if (msg == 200) {
+                            /*初始状态不为0*/
+                            disag.html('反对');
+                            disag.parent().css('background', '');
 
-        $('#agree').click(function(){
-            $(this).parent().html('<b id="noagree" onclick="agree(this)">取消赞同</b>');
-        })
+                            ag.parent().css('background', '#EDF1F2');
+                            ag.html('取消赞同')
+                        } else {
+                            if(msg==400){
+                            var re = replay.html()*1+1*1;
+                            replay.html(re)
+                            ag.parent().css('background', '#EDF1F2');
+                            ag.html('取消赞同')
+                            }
+                        }
+                    }})
 
 
-        $('#noagree').click(function(){
-            alert($(this))
-            $(this).parent().html('<b id="agree" onclick="agree(this)">赞同</b>');
+             }else{
+                 $.ajax({
+                     url:'agree',
+                     type:'GET',
+                     data:{status:0,com_id:com_id},
+                     success:function(msg){
+                         if(msg==500){
+                             var re = replay.html()-1;
+                             replay.html(re)
+                             ag.parent().css('background','');
+                             ag.html('赞同')
+                         }
+                     }
+                 })
+             }
+
+         })
+        $('.disagree').click(function(){
+                /*获取同意按钮*/
+                var ag=$(this)
+                /*获取反对按钮*/
+                var disag=$(this).parent().siblings('.agree-with').children();
+                /*同意按钮的值*/
+                var zan=$(this).html();
+                /*获取点回答id*/
+                var com_id=$(this).attr('b');
+                /*获取数量位置*/
+                var replay=ag.parent().siblings('.reply').children('.num');
+                if(zan=='反对'){
+                    $.ajax({
+                        url:'agree',
+                        type:'GET',
+                        data:{status:2,com_id:com_id},
+                        success:function(msg){
+                            if (msg == 200) {
+                                /*初始状态不为0*/
+                                disag.html('赞同');
+                                disag.parent().css('background', '');
+                                ag.parent().css('background', '#EDF1F2');
+                                ag.html('取消反对')
+                            } else {
+                                if(msg==400){
+                                    var re = replay.html()*1+1*1;
+                                    replay.html(re)
+                                    ag.parent().css('background', '#EDF1F2');
+                                    ag.html('取消反对')
+                                }
+                            }
+                        }})
+                }else{
+                    $.ajax({
+                        url:'agree',
+                        type:'GET',
+                        data:{status:0,com_id:com_id},
+                        success:function(msg){
+                            if(msg==500){
+                                var re = replay.html()-1;
+                                replay.html(re)
+                                ag.parent().css('background','');
+                                ag.html('反对')
+                            }
+                        }
+                    })
+                }
+
+            })
+
         })
     </script>
     <?php } ?>

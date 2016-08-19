@@ -1,6 +1,6 @@
 <script src="../js/jquery.js"></script>
 <link rel="stylesheet" href="css/muke.css" type="text/css" />
-<script type="text/javascript" src="http://open.51094.com/user/myscript/157ab219be5214.html"></script>
+<script type="text/javascript" src="http://open.51094.com/user/myscript/157b278400d7b9.html"></script>
 <link rel="stylesheet" type="text/css" href="../static/css/ui2.css?2013032917">
 <?php
 if(!isset($_SESSION)){
@@ -71,19 +71,18 @@ if(!isset($_SESSION)){
                     <div class="g-user-card">
                         <div class="card-inner">
                             <div class="card-top">
-                                <a href="/u/3071208/courses"><img class="l" alt="凤颖" src=""></a>
-                                <a href="/u/3071208/courses"><span class="name text-ellipsis">
-                                <img width="40" style="" height="40" src="<?php if (empty($_SESSION['img'])) {
+                                <a href="/u/3071208/courses"><img class="l" alt="凤颖" src="<?php if (empty($_SESSION['img'])) {
                                     echo "/images/unknow-220.png";
                                  } else{
                                     echo $_SESSION['img'];
-                                } ?> ">
-                                </span></a>
+                                } ?> "></a>
+                               <a href="/u/3071208/courses"><span class="name text-ellipsis"><?php echo $_SESSION['username'] ?></span></a>
+
                                 <p class="meta">
                                     <a href="/u/3071208/experience">经验<b id="js-user-mp">550</b></a>
                                     <a href="/u/3071208/credit">积分<b id="js-user-credit">0</b></a>            </p>
 
-                                <a class="icon-set setup" href="/user/setprofile"></a>
+                                <a class="icon-set setup" href="/setprofile"></a>
                             </div>
                             <!--
                             <div class="card-links">
@@ -103,7 +102,7 @@ if(!isset($_SESSION)){
                             <div class="card-sets clearfix">
                                 <a class="l mr30" target="_blank" href="/wenda/save">发问题</a>
                                 <a class="l" target="_blank" href="/article/publish">写文章</a>
-                                <a class="r" href="out/?url=<?php   $re=Request::fullurl(); echo substr($re,(strripos($re,'/')+1))  ?>">退出</a>
+                                <a class="r" href="out?url=<?php   $re=Request::fullurl(); echo substr($re,(strripos($re,'/')+1))  ?>">退出</a>
                             </div>
                         </div>
                         <i class="card-arr"></i>
@@ -135,7 +134,6 @@ if(!isset($_SESSION)){
 
 
 <script src="/static/js/landing-min.js?2013032917"></script>
-<script type="text/javascript" src="http://open.51094.com/user/myscript/157ab219be5214.html"></script>
 <div style="text-align:center;clear:both"></div>
 
 
@@ -174,6 +172,8 @@ if(!isset($_SESSION)){
                 <div>
                     第三方:<span id="hzy_fast_login"></span>
                 </div>
+                    
+                
                 <a href=""><p>还没有账号,立即注册</p></a><br>
             </div>
 
@@ -195,8 +195,11 @@ if(!isset($_SESSION)){
 
             <input type="text" name="email" data-validate="nick" class="ipt ipt-email" placeholder="邮箱格式:@ . com" id="email">
             <font color="red"><p class="tips" id="email_sp"></p></font>
-            <input type="text" name="phone" data-validate="nick" class="ipt ipt-nick" placeholder="手机号为11位 " id="phone" ><font color="red"><p class="tips" id="phone_sp"></p></font>
-
+            <input type="text" name="phone" data-validate="nick" class="ipt ipt-nick" placeholder="手机号为11位 " id="phone" >
+            <font color="red"><p class="tips" id="phone_sp"></p></font>
+            <input class="code" value="六位数字验证码" id="validatecode" type="text">
+            <input class="getNum vm" onclick='duanxin()' value="获取验证码" type="button">
+            
             <input type="submit" name="type"  class="button-blue reg" value="注册" data-category="UserAccount" data-action="regist">
 
             <!--  <div class="wrap-right l">
@@ -213,7 +216,7 @@ if(!isset($_SESSION)){
              </div> -->
         </form>
     </div>
-
+    
 
     <SCRIPT src="../js/jquery-1.9.1.min.js" type="text/javascript"></SCRIPT>
     <script>
@@ -357,7 +360,9 @@ if(!isset($_SESSION)){
                         u_pwd:u_pwd
                     },function(data){
                         if(data==5){
+                            // alert(url)
                             alert('登陆成功');location.href=url;
+
                         }else if(data==6){
                             alert('登陆失败');location.href='login';
                         }
@@ -386,6 +391,27 @@ if(!isset($_SESSION)){
                 return false;
             }
         }
+
+    //短信验证
+    function duanxin(){
+    //获取手机ID
+    var phone = $('#phone').val();
+    // alert(phone);return;
+    $.ajax({
+        url:'xing',
+        data:{'phone':phone},
+        type:"GET",
+        dataType:"Json",
+        success:function(msg){
+
+            if(msg['stat']=='100'){
+                alert('短信发送成功了');
+            }else{
+                alert('短信发送失败了');
+            }
+        }
+    });
+}  
     </script>
 
     {{--

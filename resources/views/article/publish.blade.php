@@ -22,7 +22,7 @@
     var old_label = null;
 </script>
 <link rel="stylesheet" href="../css/pa.css" type="text/css">
-<script src="../js/pjquery.js" async="" charset="utf-8"></script><script src="js/pseajs-text.js" async="" charset="utf-8"></script><script src="js/pcommon.js" async="" charset="utf-8"></script><script src="js/pstring.js" async="" charset="utf-8"></script><script src="js/psuggest.js" async="" charset="utf-8"></script><script src="js/pstore.js" async="" charset="utf-8"></script><script src="js/pjson.js" async="" charset="utf-8"></script><script src="js/pim.js" async="" charset="utf-8"></script><script src="js/ppublish.js" async="" charset="utf-8"></script><script src="js/psocket.js" async="" charset="utf-8"></script><script src="js/pmodal.js" async="" charset="utf-8"></script><script src="js/pwebuploader.js" async="" charset="utf-8"></script><link href="css/pwebuploader.css" rel="stylesheet" charset="utf-8"><script src="js/pMarkdown_004.js" async="" charset="utf-8"></script><link href="css/peditor.css" rel="stylesheet" charset="utf-8"><script src="js/pprettify.js" async="" charset="utf-8"></script><link href="css/prettify.css" rel="stylesheet" charset="utf-8"></head>
+<script src="../js/pjquery.js" async="" charset="utf-8"></script><script src="../js/pseajs-text.js" async="" charset="utf-8"></script><script src="../js/pcommon.js" async="" charset="utf-8"></script><script src="../js/pstring.js" async="" charset="utf-8"></script><script src="../js/psuggest.js" async="" charset="utf-8"></script><script src="../js/pstore.js" async="" charset="utf-8"></script><script src="../js/pjson.js" async="" charset="utf-8"></script><script src="../js/pim.js" async="" charset="utf-8"></script><script src="../js/ppublish.js" async="" charset="utf-8"></script><script src="../js/psocket.js" async="" charset="utf-8"></script><script src="../js/pmodal.js" async="" charset="utf-8"></script><script src="../js/pwebuploader.js" async="" charset="utf-8"></script><link href="css/pwebuploader.css" rel="stylesheet" charset="utf-8"><script src="../js/pMarkdown_004.js" async="" charset="utf-8"></script><link href="css/peditor.css" rel="stylesheet" charset="utf-8"><script src="../js/pprettify.js" async="" charset="utf-8"></script><link href="css/prettify.css" rel="stylesheet" charset="utf-8"></head>
 <body>
 
 @include('layouts.master')
@@ -46,13 +46,15 @@
             </div>
             <div class="form-group clearfix">
                 <label for="" class="form-label l"><span>&nbsp;</span>封面</label>
+
                 <div class="form-ipt-wrap">
-                    <div class="face-upload clearfix">
+                    <div style="float: left">
+                    <input type="file" id="file_logo" name="a_logo">
+                    </div>
+                    <div class="form-ipt-wrap" id="drop_area" style=" border:1px dashed silver;width: 200px;height: 200px;float: left;margin-left: 30px;">
+                        <img id="preview" src="" width="200" height="200" style="display:none; width: 200px; height: 200px;">
+                    </div>
 
-                                <input type="file" name="a_logo">
-
-
-                       </div>
                     <div id="js-face-reault" class="face-result">
                     </div>
                     <input id="art-face" type="hidden">
@@ -76,7 +78,6 @@
                     <div class="tip">本地保存成功 <i class="icon-close"></i></div>
                     <div id="js-mk" class="mk-container">
                         <div id="js-wmd-wrap-js-mk" class="wmd-wrap">
-
                             <div id="js-wmd-input-wrap-js-mk" class="wmd-input-wrap">
                                 <textarea id="wmd-input-js-mk" name="a_con"></textarea>
                             </div>
@@ -104,7 +105,7 @@
             <div class="form-group form-bottom">
                 <label for="" class="form-label l"></label>
                 <div class="form-ipt-wrap">
-                    <input type="submit" class="btn btn-green" value="提交"><span class="submit-tip js-submit-tip"></span>        <p id="js-msg" class="form-ipt-error"></p>
+                    <input type="submit" class="btn btn-green" value="提交" ><span class="submit-tip js-submit-tip"></span>        <p id="js-msg" class="form-ipt-error"></p>
                 </div>
             </div>
         </div>
@@ -164,6 +165,47 @@
                     $("#biao").append(a)
                 })
             </script>
+
         </div>
     </body>
 </html>
+{{--图片预览--}}
+<script>
+   $('#file_logo').change(function (){
+       var docObj=document.getElementById("file_logo");
+       var al1=docObj.files[0]
+       var imgObjPreview=document.getElementById("preview");
+       imgObjPreview.style.display = 'block';
+       imgObjPreview.src = window.URL.createObjectURL(al1);
+   })
+</script>
+<script>
+    function xhr2(){
+        var xhr = new XMLHttpRequest();//第一步
+        //新建一个FormData对象
+        var formData = new FormData(); //++++++++++
+        //追加文件数据
+        formData.append('file', resultfile);
+        //post方式
+        xhr.open('POST', 'add'); //第二步骤
+        //发送请求
+        xhr.send(formData);  //第三步骤
+        //ajax返回
+        xhr.onreadystatechange = function(){ //第四步
+            if ( xhr.readyState == 4 && xhr.status == 200 ) {
+                console.log( xhr.responseText );
+            }
+        };
+        //设置超时时间
+        xhr.timeout = 10000;
+        xhr.ontimeout = function(event){
+            alert('请求超时！');
+        }
+    }
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../baidu/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../baidu/ueditor.all.min.js"> </script>
+<script type="text/javascript">
+    var ue = UE.getEditor('wmd-input-js-mk');
+</script>

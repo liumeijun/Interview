@@ -59,7 +59,7 @@ var isLogin=1
                 <span class="spacer l">15小时前</span>
                 <span class="spacer l spacer-2">120浏览</span>
                 <a class="spacer l" href="#comment" >2评论</a>
-                                                                                                            </div>
+         </div>
         </div>
 
         <div class="detail-content ">
@@ -79,7 +79,7 @@ var isLogin=1
                     <span class="praise l">推荐</span>
                 </span>
                 <var class="cutoff l">|</var>
-                <span class="praise-num"><?php echo $arr['a_num']?></span>
+                <span class="praise-num">7</span>
             </div>  
                         <!-- 推荐end -->
 
@@ -91,10 +91,11 @@ var isLogin=1
             <div class="small-share l">
                 <ul class="share-wrap">
                     <li class="weichat-posi">
-                        <div class="bdsharebuttonbox weichat-style">
+                      <!--   <div class="bdsharebuttonbox weichat-style">
                             <a href="#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
                             <a href="#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
-                            {{--<a href="" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>--}}
+                            <a href="#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+
                             <script type="text/javascript">
                                 (function(){
                                     var p = {
@@ -117,6 +118,35 @@ var isLogin=1
                                 })();
                             </script>
                             <script src="http://qzonestyle.gtimg.cn/qzone/app/qzlike/qzopensl.js#jsdate=20111201" charset="utf-8"></script>
+                           <!-- 虎林修改 -->
+                        <div class="bdsharebuttonbox weichat-style" style="margin-left:150px;padding-top=50px;">
+                             <div class="bshare-custom icon-medium">
+                                  <a title="分享到QQ空间"  class="bshare-qzone" href="javascript:void(0)"></a>
+                                  <a title="分享到朋友网" class="bshare-qqxiaoyou" ></a>
+                                  <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+                                  <!-- <a title="分享到QQ空间" class="bshare-qzone">QQ空间</a> -->
+                                  <span class="BSHARE_COUNT bshare-share-count">--</span>
+                                  <!-- <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>  -->
+                            </div>
+                              <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+                              <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+                          <script type="text/javascript">
+                                    $(".bshare-qzone").click(function(){
+                                        var bshare = 1;
+                                        alert(1);
+                                        $.ajax({
+                                            url:"fenxiang",
+                                            type:"post",
+                                            data:{bshare:bshare},
+                                            success:function(msg){
+                                                    alert(date);
+                                                    // $(".huan").html(date);
+                                                }
+                                            }
+
+                                        })
+                                    })
+                          </script>
                         </div>
                     </li>
                 </ul>
@@ -124,7 +154,7 @@ var isLogin=1
             <!-- 分享end -->
             <!-- 收藏&举报 -->
             <div class="r-box r">
-                                                                    <span id="js-follow" data-id="7997" class="dc-follow l">
+            <span id="js-follow" data-id="7997" class="dc-follow l">
 
 
                     @if(empty($_SESSION['username']))
@@ -304,9 +334,7 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
 <script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
 
 <!--script-->
-<script src="/js/jquery-1.9.1.min.js">
-    
-</script>
+<script src="/js/jquery-1.9.1.min.js"></script>
       <script>
           $(document).on("click","#ping",function(){
               use=$("#user").val();
@@ -340,6 +368,7 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
                   $("#aping").html(rp);
               })
           })
+
           function addhouse(id){
               $.ajax({
                   type: "POST",
