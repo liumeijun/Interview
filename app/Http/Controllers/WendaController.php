@@ -54,7 +54,9 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
         }
         
     }
-//提交提问功能
+    /*
+     * 提交提问功能
+     */
     public function tiwen(){
         $re=Request::all();
 //        print_r($re);die;
@@ -74,44 +76,72 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
          } 
     }
 
-    //详情页面
+    /*
+     * 详情页面
+     */
     public function detail(){
         session_start();
         $input=new Input();
         $id=$input->get("id");
+        //查询题目
         $arr=DB::select("select * from t_tw where t_id='$id'");
+        //print_r($arr);die;
        //查询提问人
        $arr_user=DB::table('t_tw')->leftjoin('users','users.user_id','=','t_tw.user_id')->where("t_tw.t_id",$id)->first();
-       //print_r($arr_user);die;
-       // 评论问题
-       //$arr_com=DB::table("comments")->leftjoin('users','users.user_id','=','comments.user_id')->leftjoin('t_tw','t_tw.t_id','=','t_tw.t_id')->where("comments.t_id",$id)->get();
-       $arr_com=DB::select("select *,count(comments_replay.status) from comments inner join users on users.user_id=comments.user_id inner join t_tw on t_tw.t_id=comments.t_id LEFT JOIN comments_replay on comments.com_id=comments_replay.com_id  where comments.t_id=$id GROUP BY comments.com_id") ;
+//        //print_r($arr_user);die;
+//        // 评论问题
+//        //$arr_com=DB::table("comments")->leftjoin('users','users.user_id','=','comments.user_id')->leftjoin('t_tw','t_tw.t_id','=','t_tw.t_id')->where("comments.t_id",$id)->get();
+//        $arr_com=DB::select("select *,count(comments_replay.status) from comments inner join users on users.user_id=comments.user_id inner join t_tw on t_tw.t_id=comments.t_id LEFT JOIN comments_replay on comments.com_id=comments_replay.com_id  where comments.t_id=$id GROUP BY comments.com_id") ;
 
-//赞同评论的数量
-        //print_r($arr_user);die;
+// //赞同评论的数量
+//         //print_r($arr_user);die;
+
+        //查询回答的人数及点赞的人数
+        $arr1 = DB::table('comments')
+            ->join('users', 'users.user_id', '=', 'comments.user_id')
+            ->select('*')
+            ->where('comments.t_id',$id)
+            ->get();
+        $arr2 = DB::table('comments')
+            ->leftjoin('comments_replay','comments.com_id', '=','comments_replay.com_id')
+            ->select('comments_replay.status','comments_replay.com_id','comments_replay.user_id')
+            ->where('comments.t_id',$id)
+            ->where('status','!=','0')
+            ->get();
+        //处理数组，得到想要的数据
+        foreach($arr1 as $k=>$v){
+            foreach($arr2 as $ke=>$val){
+                if($val['com_id']==$v['com_id']){
+                    $arr1[$k]['agree'][]=$val;
+                }
+            }
+            $arr1[$k]['is_agree']='';
+        }
+        //判断当是否登录，
         if(isset($_SESSION['u_id'])){
 
             $u_id=$_SESSION['u_id'];
+//            print_r($u_id);die;
             //查询登录人头像
             $user_img = DB::table('users')->where('user_id',"$u_id")->get();
-            $agree=DB::select("select co.com_id,re.status from comments co inner join comments_replay re on co.com_id=re.com_id WHERE  co.t_id=$id and re.user_id=$u_id");
-//            print_r($agree);die;
-          foreach($arr_com as $ke=>$v){
-              foreach($agree as $va){
-                  if($v['com_id']==$va['com_id']){
-                      $arr_com[$ke]['agree']=$va['status'];
-                  }else{
-                      $arr_com[$ke]['agree']='';
-                  }
-              }
-          }
+            foreach($arr1 as $key=>$v){
+                if(isset($v['agree'])){
+                   foreach($v['agree'] as $k=>$va){
+                       if($va['user_id']==$u_id){
+                           $arr1[$key]['is_agree']=$va['status'];
+                       }
+                   }
+                }
+            }
+
+            $arr['user']=DB::table('users')->select('img','user_name')->where("user_id",$u_id)->first();
         }
-
-
-//            print_r($arr_com);die;
-        return view('wenda/detail',['arr'=>$arr],['arr_com'=>$arr_com,'arr_user'=>$arr_user,'user_img' => $user_img]);
+        //返回数据
+        return view('wenda/detail',['arr'=>$arr],['arr_com'=>$arr1,'arr_user'=>$arr_user]);
     }
-    //添加回答
+    /*
+     * 添加评论
+     */
     public function hui(){
 
         $re=Request::all();
@@ -124,59 +154,62 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
 //            print_r($sql);die;
             $user_id=$sql['user_id'];
         }
-//        print_r($user_id);die;
+//        添加入库
         $con=$re['account'];
         $tid=$re['tid'];
        $time=date("Y-m-d H:i:s");
         $sq="insert into comments(com_content,com_addtime,user_id,t_id) values('$con','$time','$user_id','$tid')";
-        //echo $sq;
+        //执行添加
         $res=DB::insert($sq);
+        //添加成功返回原路径
         if($res){
-
             $url=substr($re['url'],(strripos($re['url'],'/')+1));
-
-
            echo "<script>alert('成功');location.href='".$url."'</script>";
         }else{
             echo "评论失败";
         }
-//        $arr_com=DB::select("select * from comments inner join users on users.user_id=comments.user_id inner join t_tw on t_tw.t_id=comments.t_id where comments.t_id=$tid order by com_id desc");
-//        //print_r($arr_com);die;
-//        return view('wenda/aa',['arr_com'=>$arr_com]);
 
     }
 
+    /*
+     * 点赞功能
+     * 状态 （0,1,2）  0 代表作废状态，  1 代表 赞同     2代表反对
+     * 400代表执行成功（数据库数据添加了，或者状态由0变为别的状态），评论数量要加1
+     * 500 （数据库数据状态由非0变成了0）评论数量要减1
+     * 200 原始状态不为0，但是进行了修改，而且修改成功了
+     * 300 修改或者添加失败！
+     */
+    function agree()
+    {
+        session_start();
+        $agree = Request::get('status');
+        $com_id = Request::get('com_id');
+        $user_id = $_SESSION['u_id'];
+        $result = DB::table('comments_replay')->where(['com_id' => $com_id, 'user_id' => $user_id])->first();
+        if ($result != array()) {
+            $up = DB::table('comments_replay')->where(['com_id' => $com_id, 'user_id' => $user_id])->update(['status' => $agree]);
+            if ($up) {
+                if($result['status']==0){
+                    echo 400;die;//原状态为0修改后总数加1
+                }else{
+                  if($agree==0){
+                      echo 500;die;//原状态不为0 要修改为0 修改后总数减1
+                  }else{
+                      echo 200;die;//原状态为不为0 切不是修改为0 总数不变
+                  }
+                }
+            } else {
+                echo 300;die;/*修改失败没变化*/
+            }
+        }else{
+            $arr = array('status' => $agree, 'com_id' => $com_id,'user_id' => $user_id);
+            $insert = DB::table('comments_replay')->insert($arr);
+            if ($insert) {
+                echo 400;die;//添加成功回复加总数1
+            } else {
+                echo 300;die;/*修改失败没变化*/
 
-    // public function zid(){
-    //         session_start();
-    //         $zid=$_GET['name'];
-    //         $id=$_SESSION['user_id'];
-    //         $user = DB::table('dianzan')->where('user_id', $id)->first();
-    //         //print_r($user); 
-    //        if($user['z_id']!=$zid){
-    //             $sq="insert into dianzan(z_id,user_id) values('$zid','$id')";
-    //             $rr=DB::insert($sq);
-    //             if($rr){
-    //                 //$id=$_SESSION['user_id'];
-    //                 //$sql="select z_id from z_u where user_id='$id'";
-    //                 //$re=DB::select($sql);
-    //                 //if(empty($re)){
-    //                    // $sq="insert into z_u(z_id,user_id) vlues('$zid','$id')";
-    //                    // $rr=DB::select($sq);
-    //                     if($rr){
-    //                         echo '1';
-    //                     }
-    //             }
-    //         }
-    //             else{
-    //                 $sqp="delete from z_u where z_id='$zid' and user_id='$id'";
-    //                 $rq=DB::delete($sqp);
-    //                 if($rq){
-    //                     echo '3';
-    //                 }        
-    //             }
-               
-    //     }
-
-    
+            }
+        }
+    }
 }
