@@ -13,7 +13,9 @@
 <meta http-equiv="Cache-Control" content="no-transform ">
 
 <meta name="Keywords" content="">
-<script src="js/push.js"></script><script src="js/rt.js" async="" type="text/javascript"></script><script type="text/javascript">
+<script src="js/push.js"></script>
+<script src="js/rt.js" async="" type="text/javascript"></script>
+<script type="text/javascript">
 
       var OP_CONFIG={"module":"course","page":"view","userInfo":{"uid":"3116765","nickname":"qq_\u672c\u5bab\u672a\u6b7b\u4f11\u60f3\u7eb3\u59be_03116765","head":"http:\/\/img.mukewang.com\/user\/56f9e5ab0001e7b101000100-80-80.jpg","usertype":"1","roleid":0}};
   var isLogin = 1;
@@ -87,10 +89,15 @@ var GC = {
       </div>
       <!-- share -->
       <div data-bd-bind="1459252125792" class="share-action r bdsharebuttonbox bdshare-button-style0-16">
-        分享
-        <a title="分享到微信" href="javascript:;" class="share wx js-share" data-cmd="weixin"></a>
-        <a title="分享到QQ空间" href="javascript:;" class="share qq js-share" data-cmd="qzone"></a>
-        <a title="分享到新浪微博" href="javascript:;" class="share sina js-share" data-cmd="tsina"></a>
+        分享  
+          <div class="bshare-custom icon-medium">
+              <a title="分享到QQ空间" class="bshare-qzone" ></a>
+              <a title="分享到朋友网" class="bshare-qqxiaoyou"></a>
+              <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+              <!-- <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>  -->
+          </div>
+          <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+          <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
       </div>
       <i class="split-line r"></i>
 
@@ -114,14 +121,7 @@ var GC = {
 </div>
 <div class="course-info-main clearfix w">
   <div class="info-bar clearfix">
-    <div class="info-bar-box">
-      
-                                                                        
-                                                                        
-                                                                        
-                                                                        
-                                                                        
-                                                                        
+    <div class="info-bar-box">                                          
                     <a href="#" class="btn-red start-study-btn r">开始学习</a>
             <div class="score-info">
     <div class="satisfaction-degree-info">

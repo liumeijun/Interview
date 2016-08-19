@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use DB,View,Cache;
 use Illuminate\Support\Facades\Session;
 
@@ -251,6 +250,5 @@ class CourseController extends Controller
         $hot = DB::table('college_questions')->orderBy('c_num','desc')->simplePaginate(12);
         // dd($hot);
         return view('course/hot')->with('arr',$hot);
-
     }
 }

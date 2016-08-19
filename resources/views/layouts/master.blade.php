@@ -169,8 +169,10 @@ if(!isset($_SESSION)){
                 下次自动登录 </label>
             <a class="forgot">忘记密码？</a>
             <div>
-               
+                <div>
                     第三方:<span id="hzy_fast_login"></span>
+                </div>
+                    
                 
                 <a href=""><p>还没有账号,立即注册</p></a><br>
             </div>
@@ -193,8 +195,11 @@ if(!isset($_SESSION)){
 
             <input type="text" name="email" data-validate="nick" class="ipt ipt-email" placeholder="邮箱格式:@ . com" id="email">
             <font color="red"><p class="tips" id="email_sp"></p></font>
-            <input type="text" name="phone" data-validate="nick" class="ipt ipt-nick" placeholder="手机号为11位 " id="phone" ><font color="red"><p class="tips" id="phone_sp"></p></font>
-
+            <input type="text" name="phone" data-validate="nick" class="ipt ipt-nick" placeholder="手机号为11位 " id="phone" >
+            <font color="red"><p class="tips" id="phone_sp"></p></font>
+            <input class="code" value="六位数字验证码" id="validatecode" type="text">
+            <input class="getNum vm" onclick='duanxin()' value="获取验证码" type="button">
+            
             <input type="submit" name="type"  class="button-blue reg" value="注册" data-category="UserAccount" data-action="regist">
 
             <!--  <div class="wrap-right l">
@@ -211,7 +216,7 @@ if(!isset($_SESSION)){
              </div> -->
         </form>
     </div>
-
+    
 
     <SCRIPT src="../js/jquery-1.9.1.min.js" type="text/javascript"></SCRIPT>
     <script>
@@ -386,6 +391,27 @@ if(!isset($_SESSION)){
                 return false;
             }
         }
+
+    //短信验证
+    function duanxin(){
+    //获取手机ID
+    var phone = $('#phone').val();
+    // alert(phone);return;
+    $.ajax({
+        url:'xing',
+        data:{'phone':phone},
+        type:"GET",
+        dataType:"Json",
+        success:function(msg){
+
+            if(msg['stat']=='100'){
+                alert('短信发送成功了');
+            }else{
+                alert('短信发送失败了');
+            }
+        }
+    });
+}  
     </script>
 
     {{--

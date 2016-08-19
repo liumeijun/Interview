@@ -94,7 +94,7 @@
                             <div class="small-share l wd-share">
                                 <ul class="share-wrap">
                                     <li class="weichat-posi js-top-share">
-                                        <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-tag="share_1" data-quesid="325735">
+<!--                                         <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-tag="share_1" data-quesid="325735">
                                             <a href="#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
                                             {{--<a href="#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>--}}
                                             <script type="text/javascript">
@@ -120,7 +120,16 @@
                                             </script>
                                             <script src="http://qzonestyle.gtimg.cn/qzone/app/qzlike/qzopensl.js#jsdate=20111201" charset="utf-8"></script>
                                             <a href="#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
-                                        </div>
+                                        </div> -->
+                                    
+                                        <div class="bshare-custom icon-medium">
+                                          <a title="分享到QQ空间" class="bshare-qzone" ></a>
+                                          <a title="分享到朋友网" class="bshare-qqxiaoyou"></a>
+                                          <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+                                          <!-- <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>  -->
+                                      </div>
+                                      <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+                                      <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
                                     </li>
                                 </ul>
                             </div>

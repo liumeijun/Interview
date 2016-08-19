@@ -155,6 +155,13 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
         //print_r($arr);die;
        //查询提问人
        $arr_user=DB::table('t_tw')->leftjoin('users','users.user_id','=','t_tw.user_id')->where("t_tw.t_id",$id)->first();
+//        //print_r($arr_user);die;
+//        // 评论问题
+//        //$arr_com=DB::table("comments")->leftjoin('users','users.user_id','=','comments.user_id')->leftjoin('t_tw','t_tw.t_id','=','t_tw.t_id')->where("comments.t_id",$id)->get();
+//        $arr_com=DB::select("select *,count(comments_replay.status) from comments inner join users on users.user_id=comments.user_id inner join t_tw on t_tw.t_id=comments.t_id LEFT JOIN comments_replay on comments.com_id=comments_replay.com_id  where comments.t_id=$id GROUP BY comments.com_id") ;
+
+// //赞同评论的数量
+//         //print_r($arr_user);die;
 
         //查询回答的人数及点赞的人数
         $arr1 = DB::table('comments')
@@ -179,6 +186,7 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
         }
         //判断当是否登录，
         if(isset($_SESSION['u_id'])){
+
             $u_id=$_SESSION['u_id'];
 //            print_r($u_id);die;
             //查询登录人头像

@@ -32,9 +32,11 @@ Route::post('email_deng','LoginController@email_deng');
 
 //第三方
 Route::get('weibo','LoginController@weibo');
+
 /*
  * 个人中心
  */
+
 Route::get('/setprofile', 'UserController@setprofile');
 //我的招聘公司
 Route::get('/mycompany', 'UserController@mycompany');
@@ -124,8 +126,10 @@ Route::any('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
 Route::get('fangfa', 'ArticleController@wxiang');
 Route::post('wping', 'ArticleController@wping');
+
 Route::get('articleNew', 'ArticleController@articleNew');
 Route::get('articleHot', 'ArticleController@articleHot');
+Route::post('fenxiang', 'ArticleController@fenxiang');
 //招聘
 Route::get('program', 'ProgramController@program');
 Route::get('etc', 'ProgramController@etc');
@@ -136,7 +140,9 @@ Route::get('position', 'ProgramController@position');
 //注册
 //Route::post('register', 'CommonController@register');
 Route::post('reg','LoginController@reg');
-
+//手机短信验证
+Route::get('xing','LoginController@xing');
+//进入注册页面
 Route::get('register','LoginController@register');
 //发送回邮件
 Route::get('send','LoginController@sendemail');
