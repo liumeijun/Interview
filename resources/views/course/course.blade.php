@@ -82,8 +82,8 @@
             </div>
             <div class="course-tool-bar clearfix">
                 <div class="tool-left l">
-                    <a href="news" class="sort-item">最新</a>
-                    <a href="hot" class="sort-item active">最热</a>
+                    <a href="javascript:void(0);" class="sort-item active" id="news">最新</a>
+                    <a href="javascript:void(0);" class="sort-item active" id="hot">最热</a>
             <?php
                 if(empty($_SESSION['username'])){
             ?>
@@ -91,7 +91,7 @@
             <?php
                 }else{
             ?>
-                    <a href="history" class="sort-item active">历史试题</a>
+                    <a href="javascript:void(0)" class="sort-item active" id="history">历史试题</a>
             <?php } ?>
 
                 </div>
@@ -255,6 +255,30 @@
            $("#list").html(data)
        })
     })
+
+    // 最新试题
+    $('#news').click(function(){
+        $.get('news',function(msg){
+           $('.course-list').html(msg);
+        });
+        $(this).attr("class","sort-item");
+        $(this).nextAll().attr("class","sort-item active");
+    });
+    $('#hot').click(function(){
+        $.get('hot',function(msg){
+           $('.course-list').html(msg);
+        });
+        $(this).attr("class","sort-item");
+        $(this).prev().attr("class","sort-item active");
+        $(this).next().attr("class","sort-item active" );
+    });
+    $('#history').click(function(){
+        $.get('history',function(msg){
+           $('.course-list').html(msg);
+        });
+        $(this).attr("class","sort-item");
+        $(this).prevAll().attr("class","sort-item active");
+    });
 </script>
 <script src="js/jquery.lazyload.js"></script>
 <script charset="utf-8">

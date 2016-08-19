@@ -4,13 +4,13 @@
  *梁坤
  */
 namespace App\Http\Controllers;
-use DB;
+use DB,Session,Request,Input;
 class CompanyController extends Controller
 {
 	//公司列表
 	public function index(){
 		$re = "select * from direction";
-		$ra = DB::select($re);
+		$ra = DB::select($re);.
 		$sql = "select * from company";
 		$arr = DB::select($sql);
 		$exam = DB::table('shiti')->simplePaginate(9);
@@ -28,10 +28,11 @@ class CompanyController extends Controller
 		$name_z = $_GET['name_z'];
 		$name_x = $_GET['name_x'];
 		if(empty($name_z)){
-		$arr = DB::table('shiti')->where('company_name',"$name_x")->simplePaginate(9);
+			$arr = DB::table('shiti')->where('company_name',"$name_x")->simplePaginate(9);
 		}else{
-		$arr = DB::table('shiti')->where('company_name',"$name_x")->where('direction_name',"$name_z")->simplePaginate(9);
-		}
+			$arr = DB::table('shiti')->where('company_name',"$name_x")->where('direction_name',"$name_z")->simplePaginate(9);
+		}    
+
 		return view('company/college_x',['exam'=>$arr]);
 	}
 	//查看试题
@@ -40,7 +41,7 @@ class CompanyController extends Controller
 		//$state = session_status();
 		//print_r($_SESSION);die;
 		if(!isset($_SESSION)){		
-		session_start();
+			session_start();
 		}
 		if(!empty($id)){
 		$sql = "select click from shiti where s_id='$id'";
@@ -53,10 +54,10 @@ class CompanyController extends Controller
 		$id=$_SESSION['id'];
 		$count=DB::table('exam')->where('company_id',"$id")->count();
 		if($count==0){
-		 echo "<script>alert('暂无试题');location.href='company'</script>";
-				}else{
+			echo "<script>alert('暂无试题');location.href='company'</script>";
+		}else{
 		$data=DB::table('exam')->where('company_id',"$id")->paginate(1);
-		return view('company/college_exam',['arr'=>$data]);
-				     }
+			return view('company/college_exam',['arr'=>$data]);
+		}
 	}
 }
