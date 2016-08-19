@@ -7,7 +7,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <meta http-equiv="Cache-Control" content="no-transform ">
-    <link rel = "Shortcut Icon" href=http://www.mbaodian.com/favicon.ico>
+    <link rel = "Shortcut Icon" href=/favicon.ico>
     <meta name="Keywords" content="面试，面试宝典，面试技巧，面试经验，面试简历，简历下载，面试试题">
     <script src="../js/push.js"></script>
     <script src="../js/rt.js" async="" type="text/javascript"></script>

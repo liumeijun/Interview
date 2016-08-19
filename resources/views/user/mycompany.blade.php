@@ -19,7 +19,10 @@
 var is_choice = "";
   var seajsTimestamp="v=201604211612";
   </script>
- 
+    <style>
+        th{padding:50px;}
+        td{padding:50px;}
+    </style>
 <!--
 <link rel="stylesheet" href="/static/component/logic/login/login-regist.css" type="text/css" />
 <link rel="stylesheet" href="/static/css/settings.css" type="text/css" />
@@ -37,29 +40,32 @@ var is_choice = "";
 
 <div class="settings-cont clearfix">
 
-  @include('layouts.ownleft')
+    @include('layouts.ownleft')
   <div class="setting-right">
     <div class="setting-right-wrap wrap-boxes settings" >
-
+        
  <div class="setting-verify setting-phone-verify">
-    <div class="maillogo">
-        <i class="icon-mail"></i>
-    </div>
-            <h4>邮箱未绑定，为账户安全请绑定邮箱</h4>
-        <div class="verifybox verifyboxt">
-            <a class="binding" href="/user/setbindemail">立即绑定</a>
-        </div>
-
-    <p>可用邮箱加密码登录慕课网</p>
-    <p>可用邮箱找回密码</p>
-
-
+     <h2 style="margin-top: 5%">我投过的简历</h2>
+     <table align="center" border="1" style="margin-top: 10%;" cellpadding="5" cellspacing="5">
+         <tr>
+             <th style="padding: 15px;">公司名称</th>
+             <th style="padding: 15px;">54354</th>
+             <th style="padding: 15px;">3543</th>
+             <th style="padding: 15px;">354354</th>
+         </tr>
+         <tr>
+             <td style="padding: 15px;" >123456</td>
+             <td style="padding: 15px;" >fdsa</td>
+             <td style="padding: 15px;" >fdsa</td>
+             <td style="padding: 15px;" >fdsa</td>
+         </tr>
+     </table>
 </div>
 
 
     </div>
   </div>
-
+  
 </div>
 
 </div>

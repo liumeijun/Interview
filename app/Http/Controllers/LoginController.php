@@ -126,7 +126,7 @@ class LoginController extends Controller
                             echo "邮箱错误";
                         }
 
-                        // echo "<script>alert('注册成功');location.href='#'</script>";
+                         echo "<script>alert('注册成功');location.href='#'</script>";
                     }else{
                         echo "<script>alert('注册失败');location.href='".$url."'</script>";
                     }
@@ -237,11 +237,9 @@ class LoginController extends Controller
                  $_SESSION['u_id']=$user_id;
                  $_SESSION['username']=$name;
                  $_SESSION['img']=$img;
-                 // echo $_SESSION['u_id'];die();
-                 // $_SESSION['user_id']=$uniq;
+
         }else{
-             // $name="宝典".rand(10000,999);
-              // $_SESSION['u_id']=$user_id;
+
              $res = DB::table('users')->insert(['user_nickname'=> $name,'img'=> $img,'user_openid'=>$uniq]);
               $user_id=$data['user_id'];
             // print_r($res);die;

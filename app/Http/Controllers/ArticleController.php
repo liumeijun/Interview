@@ -49,15 +49,17 @@ desc limit 10");
 
     //发表文章展示页面
     public function publish(){
-//        echo 1;die;
+        //echo 1;die;
         $at_type=DB::table('ar_type')->get();
-//	print_r($at_type);die;
+        //	print_r($at_type);die;
         $a_lei=DB::table('a_lei')->get();
         return view('article/publish',['ar_type'=>$at_type,'a_lei'=>$a_lei]);
     }
     
 
-    //添加文章
+    /*
+     * 添加文章
+     */
     public function add(){
 
         //文件上传
@@ -71,11 +73,17 @@ desc limit 10");
             echo "<script>alert('标题不能为空');window.history.go(-1)</script>";die;
         }
         $a_type=$_POST['a_type'];
+        if(empty($a_type)){
+            echo "<script>alert('栏目不能为空');window.history.go(-1)</script>";die;
+        }
         $a_con=$_POST['a_con'];
+        if(empty($a_con)){
+            echo "<script>alert('内容不能为空');window.history.go(-1)</script>";die;
+        }
         $a_addtime=date("Y-m-d H:i:s");
-        $re=DB::insert("insert into article(a_title,a_type,a_con,a_addtime,a_log) values('$a_title','$a_type','$a_con','$a_addtime','$path')");
+        $re=DB::insert("insert into article(a_title,a_type,a_con,a_addtime,a_logo) values('$a_title','$a_type','$a_con','$a_addtime','$path')");
         if($re){
-            echo "<script>alert('提交成功');location.href='article';</script>";
+            echo "<script>alert('提交成功');window.history.go(-1)</script>";
         }else{
             echo "<script>alert('提交失败');location.href='publish';</script>";
         }

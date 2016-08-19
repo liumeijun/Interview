@@ -11,20 +11,86 @@ use  Illuminate\Pagination\LengthAwarePaginator;
 header('content-type:text/html;charset=utf-8');
 class WendaController extends Controller
 {
+    /*
+     * 问答推荐
+     */
     public function wenda(){
-        //echo "123";die;
+//        //echo "123";die;
+//        $is_look=Input::get('is_look');
+//        if(empty($is_look)){
+//            echo 1;
+//        }else{
+//            print_r($is_look);
+//        }
         $pro=DB::table('t_tw')
+            ->select(DB::raw('*,count(comments.com_id)as num'))
         ->join('direction', function ($join) {
             $join->on('direction.d_id', '=', 't_tw.d_id');
         })
         ->join('users', function ($join) {
             $join->on('users.user_id', '=', 't_tw.user_id');
         })
-            ->orderBy('t_id','desc')
+        ->leftjoin('comments',function($join){
+            $join->on('comments.t_id', '=', 't_tw.t_id');
+        })->groupby('t_tw.t_id')
+            ->orderBy('num','desc')
         ->simplePaginate(5);
+//        print_r($pro);die;
+   //一周回答雷锋榜
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $honor = DB::select("select user_name,img,count(comments_replay.user_id) from
+comments_replay join users on comments_replay.user_id = users.user_id group by
+ comments_replay.user_id order by count(comments_replay.user_id) desc limit 10");
+        return view('wenda/wenda',['pro'=>$pro,'honor' => $honor,'is_look']);
+    }
+
+
+    /*
+     * 最新问答题
+     */
+    public function bestnew(){
+        //echo "123";die;
+        $pro=DB::table('t_tw')
+            ->join('direction', function ($join) {
+                $join->on('direction.d_id', '=', 't_tw.d_id');
+            })
+            ->join('users', function ($join) {
+                $join->on('users.user_id', '=', 't_tw.user_id');
+            })
+            ->orderBy('t_tw.add_time','desc')
+            ->simplePaginate(5);
         //print_r($pro);die;
-
-
+        //一周回答雷锋榜
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $honor = DB::select("select user_name,img,count(comments_replay.user_id) from
+      comments_replay join users on comments_replay.user_id = users.user_id group by
+      comments_replay.user_id order by count(comments_replay.user_id) desc limit 10");
+        return view('wenda/bestnew',['pro'=>$pro,'honor' => $honor]);
+    }
+    /*
+    * 问答推荐
+    */
+    public function waitreply(){
+        //echo "123";die;
+        $pro=DB::table('t_tw')
+            ->select(DB::raw('*,count(comments.com_id)as num'),'t_tw.t_id')
+            ->join('direction', function ($join) {
+                $join->on('direction.d_id', '=', 't_tw.d_id');
+            })
+            ->leftjoin('users', function ($join) {
+                $join->on('users.user_id', '=', 't_tw.user_id');
+            })
+            ->leftjoin('comments',function($join){
+                $join->on('comments.t_id', '=', 't_tw.t_id');
+            })
+            ->groupby('t_tw.t_id')
+            ->having('num','=','0')
+            ->simplePaginate(5);
+//        print_r($pro);die;
         //一周回答雷锋榜
         if(!isset($_SESSION)){
             session_start();
@@ -32,7 +98,7 @@ class WendaController extends Controller
         $honor = DB::select("select user_name,img,count(comments_replay.user_id) from
 comments_replay join users on comments_replay.user_id = users.user_id group by
  comments_replay.user_id order by count(comments_replay.user_id) desc limit 10");
-        return view('wenda/wenda',['pro'=>$pro,'honor' => $honor]);
+        return view('wenda/waitreply',['pro'=>$pro,'honor' => $honor]);
     }
 
 
@@ -67,8 +133,9 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
             session_start();
         }
         $u_id=$_SESSION['u_id'];
+        $time=date('Y-m-d H:i;s');
         //var_dump($t_content);die;
-        $arr1=DB::insert("INSERT INTO t_tw(t_title,t_content,user_id,d_id) values('$t_title','$t_content','$u_id','$pro')");
+        $arr1=DB::insert("INSERT INTO t_tw(t_title,t_content,user_id,d_id,add_time) values('$t_title','$t_content','$u_id','$pro','$time')");
          if($arr1){
              echo "<script>alert('成功');location.href='wenda'</script>";
          }else{
@@ -133,7 +200,6 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
                    }
                 }
             }
-
             $arr['user']=DB::table('users')->select('img','user_name')->where("user_id",$u_id)->first();
         }
         //返回数据
@@ -143,7 +209,6 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
      * 添加评论
      */
     public function hui(){
-
         $re=Request::all();
         $username=$re['user_name'];
 
@@ -168,7 +233,6 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
         }else{
             echo "评论失败";
         }
-
     }
 
     /*
