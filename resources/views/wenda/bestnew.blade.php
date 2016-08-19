@@ -59,8 +59,8 @@ var is_choice = "0";
         <a class="js-quiz" href="save">我要提问</a>
       </div>
           <div class="nav">
-              <a href="/wenda/" class="active">推荐</a>
-              <a href="bestnew" >最新</a>
+              <a href="/wenda/" >推荐</a>
+              <a href="bestnew" class="active" >最新</a>
               <a href="waitreply" >等待回答</a>
               <div class="switch-box">
                   <div class="switch js-switch">
@@ -107,7 +107,7 @@ var is_choice = "0";
         </div>
 
         <div class="ctrl-bar clearfix">
-            共<?php echo $v['num']; ?>条回答
+          发布时间：<?php echo $v['add_time'] ?>
 
         </div><!--.ctrl-bar end-->
     </div><!--.answer-con end-->

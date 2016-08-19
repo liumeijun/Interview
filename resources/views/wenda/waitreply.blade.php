@@ -59,11 +59,11 @@ var is_choice = "0";
         <a class="js-quiz" href="save">我要提问</a>
       </div>
           <div class="nav">
-              <a href="/wenda/" class="active">推荐</a>
+              <a href="/wenda/" >推荐</a>
               <a href="bestnew" >最新</a>
-              <a href="waitreply" >等待回答</a>
+              <a href="waitreply" class="active">等待回答</a>
               <div class="switch-box">
-                  <div class="switch js-switch">
+                  <div class="switch js-switch on">
                       <div class="fill">
                           <div class="outer"></div>
                       </div>
@@ -289,15 +289,15 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
 </script>
 
 <script type="text/javascript" src='../js/jquery-1.9.1.js'></script>
-    <script type="text/javascript">
-        $.ready($('.switch').click(function(){
-            if($(this).attr('class')=="switch js-switch"){
-                $(this).attr("class",'switch js-switch on ')
-            }else{
-                $(this).attr("class",'switch js-switch')
-            }
-        }))
-    </script>
+<script type="text/javascript">
+$.ready($('.switch').click(function(){
+    if($(this).attr('class')=="switch js-switch"){
+        $(this).attr("class",'switch js-switch on ')
+    }else{
+        $(this).attr("class",'switch js-switch')
+    }
+}))
+</script>
 
 
 

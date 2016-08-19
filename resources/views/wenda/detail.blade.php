@@ -262,11 +262,7 @@
                                                      </span>
                                                     <span class="oppose " data-ques-id="313011" data-answer-id="156829" style="background: #EDF1F2" ><b class="disagree" b="<?php echo $val['com_id']; ?>">取消反对</b></span>
 
-                                             <?php } ?>
-
-
-
-                           <?php }?>
+                                             <?php }  }?>
                                 <span class="reply" data-replynum="0" data-reply-id="156829" data-ques-uid="2965295"><em class="num"><?php if(isset($val['agree'])){echo count($val['agree']);}else{echo 0;}  ?></em>个回复</span>
 
                                <?php  }?>
