@@ -34,6 +34,7 @@ Route::post('email_deng','LoginController@email_deng');
 Route::get('weibo','LoginController@weibo');
 //个人中心
 Route::get('/setprofile', 'UserController@setprofile');
+Route::post('/setprofile', 'UserController@setprofile');
 Route::get('/setavator', 'UserController@setavator');
 Route::get('/setphone', 'UserController@setphone');
 Route::get('/setverifyemail', 'UserController@setverifyemail');
@@ -62,6 +63,8 @@ Route::get('friend/friendlist', 'FriendController@friendlist');
  */
 //猿问首页
 Route::get('wenda', 'WendaController@wenda');
+//猿问回答点赞
+Route::get('agree','WendaController@agree');
 //我要提问
 Route::get('save', 'WendaController@save');
 //提交提问
@@ -70,6 +73,13 @@ Route::post('tiwen', 'WendaController@tiwen');
 Route::any('detail', 'WendaController@detail');
 //评论
 Route::any('hui', 'WendaController@hui');
+//关注
+Route::post('addhouse_wenda','WendaController@addhouse_wenda');
+//取消关注
+Route::post('delhouse_wenda','WendaController@delhouse_wenda');
+//关注分类
+Route::post('g_direction','WendaController@g_direction');
+
 
 //试题评论
 Route::post('pinglun_shiti','CourseController@pinglun_shiti');
@@ -111,7 +121,7 @@ Route::get('article', 'ArticleController@article');
 Route::post('delhouse_article', 'ArticleController@delhouse_article');
 Route::post('addhouse_article', 'ArticleController@addhouse_article');
 Route::get('article/publish', 'ArticleController@publish');
-Route::post('add', 'ArticleController@add');
+Route::post('article/add', 'ArticleController@add');
 Route::any('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
 Route::get('fangfa', 'ArticleController@wxiang');

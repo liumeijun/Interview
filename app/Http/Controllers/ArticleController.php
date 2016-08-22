@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 header("content-type:text/html;charset=UTF-8");
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use DB;
 class ArticleController extends Controller
 {
@@ -57,11 +59,21 @@ desc limit 10");
 
     //添加文章
     public function add(){
+
+        //文件上传
+        $file = Input::file('a_logo');
+        //文件重新命名
+        $new_name=time().rand(10000,99999).".".$file -> getClientOriginalExtension();
+        //设置文件存储路径
+        $path = $file ->move('/userfile',$new_name);
         $a_title=$_POST['a_title'];
+        if(empty($a_title)){
+            echo "<script>alert('标题不能为空');window.history.go(-1)</script>";die;
+        }
         $a_type=$_POST['a_type'];
         $a_con=$_POST['a_con'];
         $a_addtime=date("Y-m-d H:i:s");
-        $re=DB::insert("insert into article(a_title,a_type,a_con,a_addtime) values('$a_title','$a_type','$a_con','$a_addtime')");
+        $re=DB::insert("insert into article(a_title,a_type,a_con,a_addtime,a_log) values('$a_title','$a_type','$a_con','$a_addtime','$path')");
         if($re){
             echo "<script>alert('提交成功');location.href='article';</script>";
         }else{

@@ -144,7 +144,7 @@ var is_choice = "0";
         <div class="user">
         </div>
         <div class="answer-content">
-            <?php echo $v['t_content'];?>
+            <?php echo substr($v['t_content'],0,400)."…………" ;?>
         </div>
         <div class="ctrl-bar clearfix">
             <div class="share-box clearfix">
