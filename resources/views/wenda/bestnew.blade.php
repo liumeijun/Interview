@@ -58,21 +58,39 @@ var is_choice = "0";
         <span>程序员自己的问答社区</span>
         <a class="js-quiz" href="save">我要提问</a>
       </div>
-          <div class="nav">
-              <a href="/wenda/" >推荐</a>
-              <a href="bestnew" class="active" >最新</a>
-              <a href="waitreply" >等待回答</a>
-              <div class="switch-box">
-                  <div class="switch js-switch">
-                      <div class="fill">
-                          <div class="outer"></div>
-                      </div>
-                      <div class="inner"></div>
-                  </div>
-                  <span>只显示关注内容</span>
-              </div>
-              </div>
-      <div >
+        <?php if($re=Input::get('is_look')){
+        ?>
+        <div class="nav">
+            <a href="/wenda?is_look=1" >推荐</a>
+            <a href="bestnew?is_look=1" class="active" >最新</a>
+            <a href="waitreply?is_look=1">等待回答</a>
+            <div class="switch-box">
+                <div class="switch js-switch on">
+                    <div class="fill">
+                        <div class="outer"></div>
+                    </div>
+                    <div class="inner"></div>
+                </div>
+                <span>只显示关注内容</span>
+            </div>
+        </div>
+        <?php }else{?>
+        <div class="nav">
+            <a href="/wenda/">推荐</a>
+            <a href="bestnew"  class="active" >最新</a>
+            <a href="waitreply" >等待回答</a>
+            <div class="switch-box">
+                <div class="switch js-switch">
+                    <div class="fill">
+                        <div class="outer"></div>
+                    </div>
+                    <div class="inner"></div>
+                </div>
+                <span>只显示关注内容</span>
+            </div>
+        </div>
+        <?php }?>
+      <div>
         
 
 
@@ -116,21 +134,23 @@ var is_choice = "0";
 
 
 <?php } ?>
-<style>
-            .pager{
-                position:absolute;
-                left:400px;
-                bottom:-20px;
-            }
-                        .pager li{
-                            float:left;
-                            margin-left:100px;
-                font-size:xx-large;
-                        }
-                    </style>
-             <?php echo $pro->links(); ?>
-
-
+    <style>
+        .pagination{
+            position:absolute;
+            left:450px;
+            bottom:-20px;
+        }
+        .pagination li{
+            float:left;
+            margin-left:10px;
+            font-size:24px;
+        }
+    </style>
+    <?php if($re=Input::get('is_look')){?>
+             <?=$pro->appends(['is_look' => '1'])->links();?>
+          <?php }else{?>
+          <?=$pro->links();?>
+          <?php } ?>
 </div>
     </div> 
     <?php $pro->render() ?>
@@ -292,9 +312,10 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
     <script type="text/javascript">
         $.ready($('.switch').click(function(){
             if($(this).attr('class')=="switch js-switch"){
-                $(this).attr("class",'switch js-switch on ')
+//                $(this).attr("class",'switch js-switch on ')
+                location.href='bestnew?is_look=1'
             }else{
-                $(this).attr("class",'switch js-switch')
+                location.href='bestnew'
             }
         }))
     </script>

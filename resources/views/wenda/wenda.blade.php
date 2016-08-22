@@ -106,32 +106,43 @@ var is_choice = "0";
         <span>程序员自己的问答社区</span>
         <a class="js-quiz" href="save">我要提问</a>
       </div>
-          <div class="nav">
-              <a href="/wenda/" class="active">推荐</a>
-              <a href="bestnew" >最新</a>
-              <a href="waitreply" >等待回答</a>
-              <div class="switch-box">
-                  <div class="switch js-switch">
-                      <div class="fill">
-                          <div class="outer"></div>
-                      </div>
-                      <div class="inner"></div>
-                  </div>
-                  <span>只显示关注内容</span>
-              </div>
-              </div>
-      <div >
+        <?php if($re=Input::get('is_look')){
+        ?>
+        <div class="nav">
+            <a href="/wenda?is_look=1" class="active">推荐</a>
+            <a href="bestnew?is_look=1" >最新</a>
+            <a href="waitreply?is_look=1">等待回答</a>
+            <div class="switch-box">
+                <div class="switch js-switch on">
+                    <div class="fill">
+                        <div class="outer"></div>
+                    </div>
+                    <div class="inner"></div>
+                </div>
+                <span>只显示关注内容</span>
+            </div>
+        </div>
+        <?php }else{?>
+        <div class="nav">
+            <a href="/wenda/" class="active" >推荐</a>
+            <a href="bestnew"  >最新</a>
+            <a href="waitreply" >等待回答</a>
+            <div class="switch-box">
+                <div class="switch js-switch">
+                    <div class="fill">
+                        <div class="outer"></div>
+                    </div>
+                    <div class="inner"></div>
+                </div>
+                <span>只显示关注内容</span>
+            </div>
+        </div>
+        <?php }?>
+
+      <div>
         
-
-
-
-
-
-
+         {{--问题 回答--}}
 <?php foreach($pro as $k=>$v){?>
-
-
-
 <div class="ques-answer">
     <div class="tag-img">
          <a href="#" target="_blank">
@@ -156,7 +167,6 @@ var is_choice = "0";
 
         <div class="ctrl-bar clearfix">
             共<?php echo $v['num']; ?>条回答
-
         </div><!--.ctrl-bar end-->
     </div><!--.answer-con end-->
     </div><!--.ques-answer end-->
@@ -165,23 +175,25 @@ var is_choice = "0";
 
 <?php } ?>
 <style>
-            .pager{
-                position:absolute;
-                left:400px;
-                bottom:-20px;
-            }
-                        .pager li{
-                            float:left;
-                            margin-left:100px;
-                font-size:xx-large;
-                        }
-                    </style>
-             <?php echo $pro->links(); ?>
-
-
+    .pagination{
+        position:absolute;
+        left:450px;
+        bottom:-20px;
+    }
+    .pagination li{
+        float:left;
+        margin-left:10px;
+        font-size:24px;
+    }
+</style>
+          <?php if($re=Input::get('is_look')){?>
+             <?=$pro->appends(['is_look' => '1'])->links();?>
+          <?php }else{?>
+          <?=$pro->links();?>
+          <?php } ?>
 </div>
     </div> 
-    <?php $pro->render() ?>
+    <?php $pro->render();?>
     <div class="r wenda-slider">
 
       <!--.my-follow-class登录后可见-->
@@ -287,11 +299,11 @@ var is_choice = "0";
     <div class="tag-main">
         <h3><span>关注我喜欢或专注的猿问分类</span> <i class="icon-close2 js-close"></i></h3>
         <ul class="tag-list clearfix">
-                        <li data-tag-id="12" >
+            <li data-tag-id="12" >
                 <img src="picture/563aff7e0001c8c700900090.jpg" alt=""/>
                 <span>Android</span>
             </li>
-                    </ul>
+        </ul>
         <div class="save-btn">保存</div>
     </div><!--.tag-main end-->
 </div><!--.tag-pop end-->
@@ -347,16 +359,16 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(bp, s);
 })();
-
 </script>
-
+{{--关注和全部--}}
 <script type="text/javascript" src='../js/jquery-1.9.1.js'></script>
     <script type="text/javascript">
         $.ready($('.switch').click(function(){
             if($(this).attr('class')=="switch js-switch"){
-                $(this).attr("class",'switch js-switch on ')
+//                $(this).attr("class",'switch js-switch on ')
+              location.href='wenda?is_look=1'
             }else{
-                $(this).attr("class",'switch js-switch')
+                location.href='wenda'
             }
         }))
     </script>
@@ -380,7 +392,6 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
             $("#load").hide()
         }
     </script>
-
 
 
 
