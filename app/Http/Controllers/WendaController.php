@@ -15,27 +15,65 @@ class WendaController extends Controller
      * 问答推荐
      */
     public function wenda(){
-//        //echo "123";die;
-//        $is_look=Input::get('is_look');
-//        if(empty($is_look)){
-//            echo 1;
-//        }else{
-//            print_r($is_look);
-//        }
-        $pro=DB::table('t_tw')
-            ->select(DB::raw('*,count(comments.com_id)as num'))
-        ->join('direction', function ($join) {
-            $join->on('direction.d_id', '=', 't_tw.d_id');
-        })
-        ->join('users', function ($join) {
-            $join->on('users.user_id', '=', 't_tw.user_id');
-        })
-        ->leftjoin('comments',function($join){
-            $join->on('comments.t_id', '=', 't_tw.t_id');
-        })->groupby('t_tw.t_id')
-            ->orderBy('num','desc')
-        ->simplePaginate(5);
-//        print_r($pro);die;
+        session_start();
+        $is_look=Input::get('is_look');
+       //是否查看关注
+        if(!empty($is_look)){
+
+
+            //关注的话查看试题
+            if(isset($_SESSION['u_id'])) {
+            $guan = DB::table('house_direction')
+                        ->where('user_id',"{$_SESSION['u_id']}")
+                        ->get();
+             if($guan==array('')){
+                 $arr=array();
+//                 echo "<script>alert('没有关注分类，即将展示所有的'),window.history.go(-1)</script>";die;
+             }else{
+                 $arr=array();
+                 foreach($guan as $v){
+                     $arr[]=$v['d_id'];
+                 }
+             }
+            }else{
+                $arr=array();
+                echo "<script>alert('请先登录'),location.href='index'</script>";die;
+            }
+
+        }
+        /*查看显示关注与否*/
+        if(isset($arr) && $arr!=array()){
+            $pro=DB::table('t_tw')
+                ->select(DB::raw('*,count(comments.com_id) as num'))
+                ->join('direction', function ($join) {
+                    $join->on('direction.d_id', '=', 't_tw.d_id');
+                })
+                ->join('users', function ($join) {
+                    $join->on('users.user_id', '=', 't_tw.user_id');
+                })
+                ->leftjoin('comments',function($join){
+                    $join->on('comments.t_id', '=', 't_tw.t_id');
+                })
+                ->groupby('t_tw.t_id')
+                ->orderBy('num','desc')
+                ->whereIn('t_tw.d_id',$arr)
+                ->Paginate(5);
+        }else{
+            $pro=DB::table('t_tw')
+                ->select(DB::raw('*,count(comments.com_id) as num'))
+                ->join('direction', function ($join) {
+                    $join->on('direction.d_id', '=', 't_tw.d_id');
+                })
+                ->join('users', function ($join) {
+                    $join->on('users.user_id', '=', 't_tw.user_id');
+                })
+                ->leftjoin('comments',function($join){
+                    $join->on('comments.t_id', '=', 't_tw.t_id');
+                })
+                ->groupby('t_tw.t_id')
+                ->orderBy('num','desc')
+                ->Paginate(5);
+        }
    //一周回答雷锋榜
         if(!isset($_SESSION)){
             session_start();
@@ -46,21 +84,57 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
         return view('wenda/wenda',['pro'=>$pro,'honor' => $honor,'is_look']);
     }
 
-
     /*
      * 最新问答题
      */
     public function bestnew(){
-        //echo "123";die;
-        $pro=DB::table('t_tw')
-            ->join('direction', function ($join) {
-                $join->on('direction.d_id', '=', 't_tw.d_id');
-            })
-            ->join('users', function ($join) {
-                $join->on('users.user_id', '=', 't_tw.user_id');
-            })
-            ->orderBy('t_tw.add_time','desc')
-            ->simplePaginate(5);
+
+        session_start();
+        $is_look=Input::get('is_look');
+        //是否查看关注
+        if(!empty($is_look)){
+            //关注的话查看试题
+            if(isset($_SESSION['u_id'])) {
+                $guan = DB::table('house_direction')
+                    ->where('user_id',"{$_SESSION['u_id']}")
+                    ->get();
+                if($guan==array('')){
+                    $arr=array();
+//                 echo "<script>alert('没有关注分类，即将展示所有的'),window.history.go(-1)</script>";die;
+                }else{
+                    $arr=array();
+                    foreach($guan as $v){
+                        $arr[]=$v['d_id'];
+                    }
+                }
+            }else{
+                $arr=array();
+                echo "<script>alert('请先登录'),location.href='index'</script>";die;
+            }
+        }
+        /*查看显示关注与否*/
+        if(isset($arr) && $arr!=array()) {
+            $pro = DB::table('t_tw')
+                ->join('direction', function ($join) {
+                    $join->on('direction.d_id', '=', 't_tw.d_id');
+                })
+                ->join('users', function ($join) {
+                    $join->on('users.user_id', '=', 't_tw.user_id');
+                })
+                ->whereIn('t_tw.d_id',$arr)
+                ->orderBy('t_tw.add_time', 'desc')
+                ->Paginate(5);
+        }else{
+            $pro = DB::table('t_tw')
+                ->join('direction', function ($join) {
+                    $join->on('direction.d_id', '=', 't_tw.d_id');
+                })
+                ->join('users', function ($join) {
+                    $join->on('users.user_id', '=', 't_tw.user_id');
+                })
+                ->orderBy('t_tw.add_time', 'desc')
+                ->Paginate(5);
+        }
         //print_r($pro);die;
         //一周回答雷锋榜
         if(!isset($_SESSION)){
@@ -71,25 +145,73 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
       comments_replay.user_id order by count(comments_replay.user_id) desc limit 10");
         return view('wenda/bestnew',['pro'=>$pro,'honor' => $honor]);
     }
+
+
     /*
-    * 问答推荐
+    * 问答等待回答
     */
     public function waitreply(){
-        //echo "123";die;
-        $pro=DB::table('t_tw')
-            ->select(DB::raw('*,count(comments.com_id)as num'),'t_tw.t_id')
-            ->join('direction', function ($join) {
-                $join->on('direction.d_id', '=', 't_tw.d_id');
-            })
-            ->leftjoin('users', function ($join) {
-                $join->on('users.user_id', '=', 't_tw.user_id');
-            })
-            ->leftjoin('comments',function($join){
-                $join->on('comments.t_id', '=', 't_tw.t_id');
-            })
-            ->groupby('t_tw.t_id')
-            ->having('num','=','0')
-            ->simplePaginate(5);
+        session_start();
+        $is_look=Input::get('is_look');
+        //是否查看关注
+
+        if(!empty($is_look)){
+            //关注的话查看试题
+            if(isset($_SESSION['u_id'])) {
+                $guan = DB::table('house_direction')
+                    ->where('user_id',"{$_SESSION['u_id']}")
+                    ->get();
+                if($guan==array('')){
+                    $arr=array();
+//                 echo "<script>alert('没有关注分类，即将展示所有的'),window.history.go(-1)</script>";die;
+                }else{
+                    $arr=array();
+                    foreach($guan as $v){
+                        $arr[]=$v['d_id'];
+                    }
+                }
+            }else{
+                $arr=array();
+                echo "<script>alert('请先登录'),location.href='index'</script>";die;
+            }
+        }
+        /*查看显示关注与否*/
+        if(isset($arr) && $arr!=array()){
+            $pro = DB::table('t_tw')
+                ->select('*', DB::raw("count(comments.com_id) as num"), 't_tw.t_id')
+                ->join('direction', function ($join) {
+                    $join->on('direction.d_id', '=', 't_tw.d_id');
+                })
+                ->leftjoin('users', function ($join) {
+                    $join->on('users.user_id', '=', 't_tw.user_id');
+                })
+                ->leftjoin('comments', function ($join) {
+                    $join->on('comments.t_id', '=', 't_tw.t_id');
+                })
+                ->whereIn('t_tw.d_id',$arr)
+                ->groupby('t_tw.t_id')
+//                ->having('num','=','0')
+                ->orderBy('num','asc')
+                ->Paginate(5);
+            }else{
+            $pro = DB::table('t_tw')
+                ->select('*', DB::raw("count(comments.com_id) as num"), 't_tw.t_id')
+                ->join('direction', function ($join) {
+                    $join->on('direction.d_id', '=', 't_tw.d_id');
+                })
+                ->leftjoin('users', function ($join) {
+                    $join->on('users.user_id', '=', 't_tw.user_id');
+                })
+                ->leftjoin('comments', function ($join) {
+                    $join->on('comments.t_id', '=', 't_tw.t_id');
+                })
+                ->groupby('t_tw.t_id')
+//                ->having('num','=','0')
+                ->orderBy('num','asc')
+                ->Paginate(5);
+                }
+
+
 //        print_r($pro);die;
         //一周回答雷锋榜
         if(!isset($_SESSION)){
