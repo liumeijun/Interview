@@ -563,12 +563,16 @@
                 success: function(msg){
                         var tr = '';
                         for(var i=0;i<=msg.length;i++){
-                                tr += '<a href="javascript:void(0)" data-tag-id="5" class="follow" id="g_direction">已关注</a>';
+                                tr += '<a href="javascript:void(0)" data-tag-id="5" class="follow" id="q_direction">已关注</a>';
                         }
                         $("#g_direction_"+d_id).remove();
                         $("#direction_"+d_id).html(tr);
                 }
             });
+        }
+
+        function q_direction(d_id){
+            alert(d_id)
         }
 
     </script>

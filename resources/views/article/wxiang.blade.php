@@ -81,7 +81,7 @@ var isLogin=1
                     <span class="praise l">推荐</span>
                 </span>
                 <var class="cutoff l">|</var>
-                <span class="praise-num">7</span>
+                <span class="praise-num"><?php echo $zan;?></span>
             </div>  
                         <!-- 推荐end -->
 

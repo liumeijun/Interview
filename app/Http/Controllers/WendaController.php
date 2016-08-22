@@ -146,24 +146,24 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
         $ti = DB::table('t_tw')->join("direction",'t_tw.d_id','=','direction.d_id')
             ->groupBy('t_tw.d_id')->orderBy('t_tw.add_time')->get();
         //判断是否收藏分类
-        if(!empty($_SESSION['u_id'])){
+        if(!empty($_SESSION['u_id'])) {
             $fei_num = count($type);
             $fenlei = DB::table("house_direction")->where(['user_id' => $u_id,])->get();
-                foreach($fenlei as $v){
-                    $fen[]=$v['d_id'];
-                }
-                foreach($ti as $k=>$v){
-                    if(in_array($v['d_id'],$fen)){
-                        $ti[$k]['is_guan']='1';
-                    }else{
-                        $ti[$k]['is_guan']='0';
+            foreach ($fenlei as $v) {
+                $fen[] = $v['d_id'];
+            }
+            foreach ($ti as $k => $v) {
+                if(empty($fenlei)){
+                    $ti[$k]['is_guan'] = '0';
+                }else{
+                    if (in_array($v['d_id'], $fen)) {
+                        $ti[$k]['is_guan'] = '1';
+                    } else {
+                        $ti[$k]['is_guan'] = '0';
                     }
                 }
-        }else{
-            $fei_num = count($type);
-            $fenlei = DB::table("house_direction")->where(['user_id' => $u_id,])->get();
+            }
         }
-        //print_r($ti);die;
         //返回数据
         return view('wenda/detail',['arr'=>$arr],['arr_com'=>$arr1,'arr_user'=>$arr_user,'house' => $is_house,'xiangguan' => $xiangguan,'type' => $type,'ti' => $ti]);
     }
