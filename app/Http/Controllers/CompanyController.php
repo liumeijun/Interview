@@ -10,7 +10,7 @@ class CompanyController extends Controller
 	//公司列表
 	public function index(){
 		$re = "select * from direction";
-		$ra = DB::select($re);.
+		$ra = DB::select($re);
 		$sql = "select * from company";
 		$arr = DB::select($sql);
 		$exam = DB::table('shiti')->simplePaginate(9);

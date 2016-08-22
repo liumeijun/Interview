@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use  Illuminate\Pagination\LengthAwarePaginator;
 
-
 header('content-type:text/html;charset=utf-8');
 class WendaController extends Controller
 {
@@ -220,7 +219,11 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
         $honor = DB::select("select user_name,img,count(comments_replay.user_id) from
 comments_replay join users on comments_replay.user_id = users.user_id group by
  comments_replay.user_id order by count(comments_replay.user_id) desc limit 10");
-        return view('wenda/waitreply',['pro'=>$pro,'honor' => $honor]);
+        //查看全部分类
+        $article_type = DB::table('a_lei')->get();
+
+        return view('wenda/wenda',['pro'=>$pro,'honor' => $honor,'article_type' => $article_type]);
+        //return view('wenda/waitreply',['pro'=>$pro,'honor' => $honor]);
     }
 
 
@@ -306,6 +309,9 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
             }
             $arr1[$k]['is_agree']='';
         }
+
+        $is_house = '';
+
         //判断当是否登录，
         if(isset($_SESSION['u_id'])){
 
@@ -322,11 +328,48 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
                    }
                 }
             }
+
+            $arr['user']=DB::table('users')->select('img','user_name')->where("user_id",$u_id)->first();
+
+            //判断是否收藏
+            $is_house = DB::table("house_wenda")->where(['user_id' => $u_id, 'tid' => $id])->get();
+
+        }
+
+        $d_id = $arr[0]['d_id'];
+        //查询相关问题
+        $xiangguan = DB::table('t_tw')->where("d_id","$d_id")->orderBy('add_time','desc')->limit('10')->get();
+        unset($xiangguan[0]);
+
+        //查询相关分类
+        $type = DB::table('direction')->get();
+        $ti = DB::table('t_tw')->join("direction",'t_tw.d_id','=','direction.d_id')
+            ->groupBy('t_tw.d_id')->orderBy('t_tw.add_time')->get();
+        //判断是否收藏分类
+        if(!empty($_SESSION['u_id'])){
+            $fei_num = count($type);
+            $fenlei = DB::table("house_direction")->where(['user_id' => $u_id,])->get();
+                foreach($fenlei as $v){
+                    $fen[]=$v['d_id'];
+                }
+                foreach($ti as $k=>$v){
+                    if(in_array($v['d_id'],$fen)){
+                        $ti[$k]['is_guan']='1';
+                    }else{
+                        $ti[$k]['is_guan']='0';
+                    }
+                }
+        }else{
+            $fei_num = count($type);
+            $fenlei = DB::table("house_direction")->where(['user_id' => $u_id,])->get();
+        }
+        //print_r($ti);die;
+        //返回数据
+        return view('wenda/detail',['arr'=>$arr],['arr_com'=>$arr1,'arr_user'=>$arr_user,'house' => $is_house,'xiangguan' => $xiangguan,'type' => $type,'ti' => $ti]);
             $arr['user']=DB::table('users')->select('img','user_name')->where("user_id",$u_id)->first();
         }
         //返回数据
-        return view('wenda/detail',['arr'=>$arr],['arr_com'=>$arr1,'arr_user'=>$arr_user]);
-    }
+        //return view('wenda/detail',['arr'=>$arr],['arr_com'=>$arr1,'arr_user'=>$arr_user]);
     /*
      * 添加评论
      */
@@ -397,5 +440,65 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
 
             }
         }
+    }
+
+    /*
+     * 时庆庆
+     * 2016-08-20
+     * 收藏
+     * 状态码：200 成功   500 失败
+     */
+    public function addhouse_wenda(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $tid = $_POST['tid'];
+        //$user_name = Session::get('username');
+        $u_id=$_SESSION['u_id'];
+        $arr = DB::insert("insert into house_wenda(user_id,tid) values('$u_id','$tid')");
+        if($arr){
+            return 200;
+        }else{
+            return 500;
+        }
+    }
+
+    /*
+     * 时庆庆
+     * 2016-08-20
+     * 取消收藏
+     * 状态码：200 成功   500 失败
+     */
+
+    public function delhouse_wenda(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $tid = $_POST['tid'];
+        //$user_name = Session::get('username');
+        $user_id=$_SESSION['u_id'];
+        $arr = DB::delete("delete from house_wenda where user_id = '$user_id' and tid = '$tid'");
+        if($arr){
+            return 200;
+        }else{
+            return 500;
+        }
+    }
+
+    /*
+     * 时庆庆
+     * 2016-08-21
+     *关注分类
+     */
+    public function g_direction(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $d_id = $_POST['d_id'];
+        //$user_name = Session::get('username');
+        $u_id=$_SESSION['u_id'];
+        $arr = DB::insert("insert into house_direction(user_id,d_id) values('$u_id','$d_id')");
+        $msg = DB::table("house_direction")->where("user_id","$u_id")->get();
+        echo json_encode($msg);
     }
 }

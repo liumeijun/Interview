@@ -38,9 +38,9 @@ Route::get('weibo','LoginController@weibo');
  */
 
 Route::get('/setprofile', 'UserController@setprofile');
+Route::post('/setprofile', 'UserController@setprofile');
 //我的招聘公司
 Route::get('/mycompany', 'UserController@mycompany');
-
 Route::get('/setavator', 'UserController@setavator');
 Route::get('/setphone', 'UserController@setphone');
 Route::get('/setverifyemail', 'UserController@setverifyemail');
@@ -83,6 +83,16 @@ Route::post('tiwen', 'WendaController@tiwen');
 Route::any('detail', 'WendaController@detail');
 //评论
 Route::any('hui', 'WendaController@hui');
+//关注
+Route::post('addhouse_wenda','WendaController@addhouse_wenda');
+//取消关注
+Route::post('delhouse_wenda','WendaController@delhouse_wenda');
+//关注分类
+Route::post('g_direction','WendaController@g_direction');
+
+
+//试题评论
+Route::post('pinglun_shiti','CourseController@pinglun_shiti');
 //Route::any('hui', function(){
 //   $re= \Illuminate\Support\Facades\Request::all();
 //    print_r($re);
@@ -126,9 +136,10 @@ Route::any('zan', 'ArticleController@zan');
 Route::post('type', 'ArticleController@type');
 Route::get('fangfa', 'ArticleController@wxiang');
 Route::post('wping', 'ArticleController@wping');
-
+Route::post('a_ping', 'ArticleController@a_ping');
 Route::get('articleNew', 'ArticleController@articleNew');
 Route::get('articleHot', 'ArticleController@articleHot');
+Route::get('pinglun_article', 'ArticleController@pinglun_article');
 Route::post('fenxiang', 'ArticleController@fenxiang');
 //招聘
 Route::get('program', 'ProgramController@program');

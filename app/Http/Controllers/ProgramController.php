@@ -40,11 +40,9 @@ class ProgramController extends Controller
     }
 //简历模块
     public function program(){
-//        http://www.lagou.com/jobs/positionAjax.json?px=default&city=%E5%8C%97%E4%BA%AC&district=%E6%9C%9D%E9%98%B3%E5%8C%BA&needAddtionalResult=false
-//      $url="http://www.lagou.com/jobs/positionAjax.json?city=%E5%8C%97%E4%BA%AC&needAddtionalResult=false";
-//        $str = file_get_contents($url);
-//        $arr = json_decode($str,true);
-//        dd($arr);
+
+//      $url="http://www.lagou.com/jobs/positionAjax.json?hy=移动互联网,电子商务&px=new&city=北京&needAddtionalResult=false&first=true&kd=&pn=1";
+
 //        ini_set('user_agent','Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727;)');
 //        $html=file_get_contents($url);
 //        $file=mb_convert_encoding($html,'UTF-8','UTF-8');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use DB,View,Cache;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Request;
 
 header("content-type:text/html;charset=UTF-8");
 class CourseController extends Controller
@@ -127,6 +128,7 @@ class CourseController extends Controller
         }else{
             $ping=array();
         }
+        //print_r($ping);die;
         if($arr['c_college']=='软工学院'){
             $arr['img']='http://123.56.249.121/api/logo/软工.jpg';
         }elseif($arr['c_college']=='移动通信学院'){
@@ -151,36 +153,36 @@ class CourseController extends Controller
         if (empty($_SESSION['username'])) {
             return view('course/xiang',['arr'=>$arr,'ping'=>$ping]);
         } else {
-            $is_house = DB::table("house_article")->where(['user_id' => $uid, 'article_id' => $id])->get();
+            $is_house = DB::table("house_college_questions")->where(['user_id' => $uid, 'college_questions_id' => $id])->get();
             return view('course/xiang',['arr'=>$arr,'ping'=>$ping,'house' => $is_house]);
         }
     }
 
 
 
-    public function con()
-    {
-        $con = $_POST['con'];
-        $c_id = $_POST['c_id'];
-        $e_addtime = date("Y-m-d H:i:s");
-        if (!empty($_SESSION['username'])) {
-            echo "1";
-        } else {
-            //$username=$_SESSION['username'];
-            //$u_id=table('users')->where("user_phone","$username")->orwhere("user_email","$username")->pluck('user_id');
-            // $u_id=1;
-            if (!isset($_SESSION)) {
-                session_start();
-            }
-            $username = $_SESSION['username'];
-            $u_id = DB::table('users')->where("user_phone", "$username")->orwhere("user_email", "$username")->first();
-            $u_id = $u_id['user_id'];
-            $sql = "insert into e_ping(p_con,u_id,e_id,e_addtime) values('$con',$u_id,'$c_id','$e_addtime')";
-            $re = DB::insert($sql);
-            $ping = DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$u_id order by p_id desc");
-            return view('course/ping', ['ping' => $ping]);
-        }
-    }
+//    public function con()
+//    {
+//        $con = $_POST['con'];
+//        $c_id = $_POST['c_id'];
+//        $e_addtime = date("Y-m-d H:i:s");
+//        if (!empty($_SESSION['username'])) {
+//            echo "1";
+//        } else {
+//            //$username=$_SESSION['username'];
+//            //$u_id=table('users')->where("user_phone","$username")->orwhere("user_email","$username")->pluck('user_id');
+//            // $u_id=1;
+//            if (!isset($_SESSION)) {
+//                session_start();
+//            }
+//            $username = $_SESSION['username'];
+//            $u_id = DB::table('users')->where("user_phone", "$username")->orwhere("user_email", "$username")->first();
+//            $u_id = $u_id['user_id'];
+//            $sql = "insert into e_ping(p_con,u_id,e_id,e_addtime) values('$con',$u_id,'$c_id','$e_addtime')";
+//            $re = DB::insert($sql);
+//            $ping = DB::select("select * from users inner join e_ping on users.user_id=e_ping.u_id where u_id=$u_id order by p_id desc");
+//            return view('course/ping', ['ping' => $ping]);
+//        }
+//    }
 
     //收藏试题
     public function addhouse(){
@@ -250,5 +252,32 @@ class CourseController extends Controller
         $hot = DB::table('college_questions')->orderBy('c_num','desc')->simplePaginate(12);
         // dd($hot);
         return view('course/hot')->with('arr',$hot);
+    }
+
+    //试题评论
+    public function pinglun_shiti(){
+        $con = $_POST['con'];
+        $c_id = $_POST['c_id'];
+        $score1 = $_POST['score'];
+        $score = substr($score1,'8','1');
+        //echo $score;die;
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $u_id = $_SESSION['u_id'];
+        $e_addtime = date("Y-m-d H:i:s",time());
+        //echo $u_id;die;
+        $pinglun_shiti = DB::table('e_ping')->insert(
+            array(
+                'p_con' => $con,
+                'u_id' => $u_id,
+                'e_Id' => $c_id,
+                'e_addtime' => $e_addtime,
+                'e_score' => $score
+            )
+        );
+       $arr = DB::table('e_ping')->join('users','u_id','=','users.user_id')
+                                    ->where('e_id',$c_id)->orderby('e_addtime','desc')->get();
+       return view('course.pinglun')->with('ping',$arr);
     }
 }
