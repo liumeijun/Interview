@@ -32,24 +32,29 @@ Route::post('email_deng','LoginController@email_deng');
 
 //第三方
 Route::get('weibo','LoginController@weibo');
-//个人中心
+
+/*
+ * 个人中心
+ */
+
 Route::get('/setprofile', 'UserController@setprofile');
 Route::post('/setprofile', 'UserController@setprofile');
+//我的招聘公司
+Route::get('/mycompany', 'UserController@mycompany');
 Route::get('/setavator', 'UserController@setavator');
 Route::get('/setphone', 'UserController@setphone');
 Route::get('/setverifyemail', 'UserController@setverifyemail');
 Route::get('/setresetpwd', 'UserController@setresetpwd');
 Route::get('/setbindsns', 'UserController@setbindsns');
-
 //保存个人资料
-Route::post('user/my_message', 'UserController@my_message');
+Route::post('my_message', 'UserController@my_message');
 
 //我的收藏
-Route::get('user/my_house', 'UserController@my_house');
+Route::get('my_house', 'UserController@my_house');
 //我的收藏->收藏的文章
-Route::get('user/my_house_article', 'UserController@my_house_article');
+Route::get('my_house_article', 'UserController@my_house_article');
 //我的评价
-Route::get('user/my_ping', 'UserController@my_ping');
+Route::get('my_ping', 'UserController@my_ping');
 
 
 //个人中心
@@ -63,6 +68,11 @@ Route::get('friend/friendlist', 'FriendController@friendlist');
  */
 //猿问首页
 Route::get('wenda', 'WendaController@wenda');
+
+//等待回答
+Route::get('waitreply', 'WendaController@waitreply');
+//最新
+Route::get('bestnew', 'WendaController@bestnew');
 //猿问回答点赞
 Route::get('agree','WendaController@agree');
 //我要提问
@@ -130,6 +140,7 @@ Route::post('a_ping', 'ArticleController@a_ping');
 Route::get('articleNew', 'ArticleController@articleNew');
 Route::get('articleHot', 'ArticleController@articleHot');
 Route::get('pinglun_article', 'ArticleController@pinglun_article');
+Route::post('fenxiang', 'ArticleController@fenxiang');
 //招聘
 Route::get('program', 'ProgramController@program');
 Route::get('etc', 'ProgramController@etc');
@@ -140,7 +151,9 @@ Route::get('position', 'ProgramController@position');
 //注册
 //Route::post('register', 'CommonController@register');
 Route::post('reg','LoginController@reg');
-
+//手机短信验证
+Route::get('xing','LoginController@xing');
+//进入注册页面
 Route::get('register','LoginController@register');
 //发送回邮件
 Route::get('send','LoginController@sendemail');

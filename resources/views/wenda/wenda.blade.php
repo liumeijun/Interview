@@ -106,14 +106,20 @@ var is_choice = "0";
         <span>程序员自己的问答社区</span>
         <a class="js-quiz" href="save">我要提问</a>
       </div>
-      <div class="nav">
-        
-              </div><!--.nav end-->
-      <!--推荐位-->
-                  <ul class="recommend">
-                
-              </ul><!--recommend end-->
-                  <!--左侧列表内容-->
+          <div class="nav">
+              <a href="/wenda/" class="active">推荐</a>
+              <a href="bestnew" >最新</a>
+              <a href="waitreply" >等待回答</a>
+              <div class="switch-box">
+                  <div class="switch js-switch">
+                      <div class="fill">
+                          <div class="outer"></div>
+                      </div>
+                      <div class="inner"></div>
+                  </div>
+                  <span>只显示关注内容</span>
+              </div>
+              </div>
       <div >
         
 
@@ -142,49 +148,17 @@ var is_choice = "0";
     </div>
         <div class="answer-con first" data-answer-id="156328" id="answer-con">
         <div class="user">
+
         </div>
         <div class="answer-content">
             <?php echo substr($v['t_content'],0,400)."…………" ;?>
         </div>
-        <div class="ctrl-bar clearfix">
-            <div class="share-box clearfix">
-                
-                <div class="share-box-con">
-                    <div class="bdsharebuttonbox" data-tag="share_answer_156328" data-quesid="156328">
-                        <a class="bds_weixin icon-share-weichat" data-cmd="weixin"></a>
-                        <a class="bds_tsina icon-share-weibo" data-cmd="tsina"></a>
-                        <a class="bds_qzone icon-share-qq" data-cmd="qzone" href="#"></a>
-                    </div>
-                </div>
-            </div>
 
-            <span class="shrink">收起</span>
+        <div class="ctrl-bar clearfix">
+            共<?php echo $v['num']; ?>条回答
+
         </div><!--.ctrl-bar end-->
     </div><!--.answer-con end-->
-    <div class="reply-con">
-        <ul class="reply-list">
-           
-
-        </ul><!--.reply-list end-->
-        <!--<div class="more-reply">点击展开后面<span>2</span>条评论</div>-->
-        <div class="release-reply-con clearfix">
-            <div class="user-pic">
-                                <span class="no-login-pic"><i class="icon-ques-revert"></i></span>
-                            </div><!--.user-pic end-->
-            <div class="user-name">
-                                <span class="no-login-user-name">未知生物</span>
-                            </div>
-            <div class="textarea-con">
-                <textarea ></textarea>
-                                
-                            </div>
-            <p class="err-tip"></p>
-            <div class="userCtrl clearfix">
-                <div class="verify-code"></div>
-                <div class="do-reply-btn" data-answer-id="156328" data-ques-uid="2413329">回复</div>
-            </div>
-        </div><!--.release-reply-con end-->
-    </div><!--.reply-con end-->
     </div><!--.ques-answer end-->
 
 
@@ -377,27 +351,15 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
 </script>
 
 <script type="text/javascript" src='../js/jquery-1.9.1.js'></script>
-<script type="text/javascript">
-    /* $(".bb").click( function () {
-           var zid=$(this).attr("pp"); 
-            //alert(zid)
-             $.ajax({
-               type: "GET",
-               url: "zid",
-               data: "name="+zid,
-               success: function(msg){
-                   // alert(msg)
-                   if(msg=='1'){
-                        alert('点赞成功');
-                    }
-                    else{
-                        alert('取消成功');
-                    }
-               }
-            });
-     });  */
-
-</script>
+    <script type="text/javascript">
+        $.ready($('.switch').click(function(){
+            if($(this).attr('class')=="switch js-switch"){
+                $(this).attr("class",'switch js-switch on ')
+            }else{
+                $(this).attr("class",'switch js-switch')
+            }
+        }))
+    </script>
 
 
     {{--JQUERY 代码--}}

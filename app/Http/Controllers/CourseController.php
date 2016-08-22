@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use DB,View,Cache;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Request;
@@ -253,7 +252,6 @@ class CourseController extends Controller
         $hot = DB::table('college_questions')->orderBy('c_num','desc')->simplePaginate(12);
         // dd($hot);
         return view('course/hot')->with('arr',$hot);
-
     }
 
     //试题评论

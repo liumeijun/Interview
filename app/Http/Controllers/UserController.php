@@ -40,6 +40,10 @@ class UserController extends Controller
         return view('user/setbindsns');
     }
 
+    //我的应聘公司
+    public function mycompany(){
+        return view('user/mycompany');
+    }
     //我的收藏
     public function my_house(){
         if(!isset($_SESSION)){

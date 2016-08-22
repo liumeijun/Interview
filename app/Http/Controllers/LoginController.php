@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use DB,Mail,Request;
 use open51094;
 use Illuminate\Support\Facades\Session;
-
+//引用短信验证码类命名空间
+use App\Http\Smsapis\smsapi;
 
 session_start();
 
@@ -37,7 +38,7 @@ class LoginController extends Controller
         $u_pwd=$_POST['u_pwd'];
         //echo $u_name,$u_pwd;die;
         $arr=DB::table('users')->where('user_phone',"$u_name")->where('user_pwd',"$u_pwd")->get();
-        //print_r($arr);die;
+        print_r($arr);die;
         if($arr){
             echo 3;
         }else{
@@ -64,6 +65,7 @@ class LoginController extends Controller
         if($arr){
             $_SESSION['u_id']=$arr[0]['user_id'];
             $_SESSION['username']=$arr[0]['user_name'];
+            // echo $_SESSION['username'];die();
             echo 5;
         }else{
             echo 6;
@@ -78,6 +80,7 @@ class LoginController extends Controller
         if($arr){
             $_SESSION['u_id']=$arr[0]['user_id'];
             $_SESSION['username']=$arr[0]['user_name'];
+
             echo 5;
         }else{
             echo 6;
@@ -123,7 +126,7 @@ class LoginController extends Controller
                             echo "邮箱错误";
                         }
 
-                        // echo "<script>alert('注册成功');location.href='#'</script>";
+                         echo "<script>alert('注册成功');location.href='#'</script>";
                     }else{
                         echo "<script>alert('注册失败');location.href='".$url."'</script>";
                     }
@@ -234,11 +237,9 @@ class LoginController extends Controller
                  $_SESSION['u_id']=$user_id;
                  $_SESSION['username']=$name;
                  $_SESSION['img']=$img;
-                 // echo $_SESSION['u_id'];die();
-                 // $_SESSION['user_id']=$uniq;
+
         }else{
-             // $name="宝典".rand(10000,999);
-              // $_SESSION['u_id']=$user_id;
+
              $res = DB::table('users')->insert(['user_nickname'=> $name,'img'=> $img,'user_openid'=>$uniq]);
               $user_id=$data['user_id'];
             // print_r($res);die;
@@ -249,7 +250,53 @@ class LoginController extends Controller
                     // echo $_SESSION['img'];die();
                   // $_SESSION['img']=$img;
         }
-        
           return redirect('/index');   
+    }
+    //短信注册验证
+    public function xing(){
+        //接收的手机号
+        $phone = $_GET['phone'];
+        // echo $phone;die;
+        //设定验证码随机数
+        $code=rand(1000,9999);
+        //将手机号存入cookie
+        setcookie('phone',$code,time()+600);
+        //接口发送数据
+        $url='http://api.sms.cn/sms/?ac=send&uid=hulin&pwd=3532bd6ef2fe152cdc3a0ef7164a77f6&template=384921&mobile='.$phone.'&content={"code":"'.$code.'"}';
+        // $url='http://api.sms.cn/sms/?ac=send&uid=niuliang&pwd=c99d994abde245f922cfb339d245d8a0&template=384826&mobile='.$phone.'&content={"phone":'.$phone.'}'; 
+        //$url='http://api.sms.cn/sms/?ac=send&uid=niuliang&pwd=c99d994abde245f922cfb339d245d8a0&template=384826&mobile=18513975044&content={"phone":1234}';
+        $data=array();
+        $method='GET';
+        $res=$this->curlPost($url,$data,$method);
+        echo $res;          
+        die;        
+    }   
+    //curl的post传参
+    function curlPost($url,$data,$method){
+        $ch = curl_init();   //1.初始化
+        curl_setopt($ch, CURLOPT_URL, $url); //2.请求地址
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);//3.请求方式
+        //4.参数如下
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+        if (ini_get('open_basedir') == '' && ini_get('safe_mode' == 'Off')) {
+            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        }
+        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+        curl_setopt($ch, CURLOPT_SSLVERSION, 3);
+        curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'SSLv3');
+
+        if($method=="POST"){//5.post方式的时候添加数据
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $tmpInfo = curl_exec($ch);//6.执行
+
+        if (curl_errno($ch)) {//7.如果出错
+            return curl_error($ch);
+        }
+        curl_close($ch);//8.关闭
+        return $tmpInfo;
     }
 }

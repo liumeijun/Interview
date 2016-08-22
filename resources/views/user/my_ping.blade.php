@@ -41,38 +41,7 @@
 
     <div class="settings-cont clearfix">
 
-        <div class="setting-left l" style="float: left">
-            <ul class="wrap-boxes">
-                <li>
-                    <a href="/user/setprofile">个人资料</a>
-                </li>
-                <li>
-                    <a href="/user/my_house">我的收藏</a>
-                </li>
-                <li class="active">
-                    <a href="/user/my_ping">我的评价</a>
-                </li>
-                <li >
-                    <a href="/user/setavator">头像设置</a>
-                </li>
-
-                <li >
-                    <a href="/user/setphone">手机设置</a>
-                    <span class='unbound'>未绑定</span>
-                </li>
-
-                <li>
-                    <a href="/user/setverifyemail"  class="onactive">邮箱验证</a>
-                    <span class='unbound'>未绑定</span>
-                </li>
-                <li >
-                    <a href="/user/setresetpwd">修改密码</a>
-                </li>
-                <li >
-                    <a no-pjajx href="/user/setbindsns">绑定帐号</a>
-                </li>
-            </ul>
-        </div>
+        @include('layouts.ownleft')
         <div class="setting-right-wrap wrap-boxes settings" style="margin-left: 280px;background-color: #ffffff">
             <div >
                 <ul class="nav nav-tabs" style="height: 50px;">
