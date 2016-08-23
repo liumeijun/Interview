@@ -135,10 +135,15 @@
                             </div>
                             <em class="split l"></em>
                             <!-- follow -->
-                            <a href="javascript:void(0)" data-id="325735" title="关注" class="l wenda-add-collection js-collection-btn">
-                                <i class="icon-heart"></i>
-                                <span class="detail-hearts js-detail-follow">0</span>
-                            </a>
+                            @if(empty($_SESSION['username']))
+                                <h4 id="house" style="float: right;"><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal"  style="color: red">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height: 20px;"></a></h4>
+                            @else
+                                @if(empty($house))
+                                    <h4 id="s1" style="float: right"><a onclick="addhouse()"><span  id="house" style="color: red">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></span></a></h4>
+                                @else
+                                    <h4 id="s1" style="float: right"><a onclick="delhouse()"><span  id="house" style="color: #0000ff">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></span></a></h4>
+                                @endif
+                            @endif
                         </div>
                         <!-- 个人信息 -->
                         <div class="detail-user">
@@ -270,7 +275,6 @@
                                                     <b class="agree" b="<?php echo $val['com_id'] ?>" >赞同</b>
                                                      </span>
                                                     <span class="oppose " data-ques-id="313011" data-answer-id="156829" style="background: #EDF1F2" ><b class="disagree" b="<?php echo $val['com_id']; ?>">取消反对</b></span>
-
                                              <?php } ?>
 
 
@@ -300,21 +304,11 @@
                     <h2 class="panel-title">相关问题</h2>
                 </div>
                 <div class="panel-body clearfix">
-                    <div class="mkhotlist padtop">
-                        <a class="relwenda" href="/wenda/detail/325765" target="_blank">jquery里 有时候用 &#039; &#039; 有时候用“ ”，请问有没有区别</a><i class="answer-num">2 回答</i>
-                    </div>
-                    <div class="mkhotlist ">
-                        <a class="relwenda" href="/wenda/detail/325737" target="_blank">前端工程师在北京、上海和深圳广州，哪里发展的更好？</a><i class="answer-num">7 回答</i>
-                    </div>
-                    <div class="mkhotlist ">
-                        <a class="relwenda" href="/wenda/detail/325732" target="_blank">网页开发工具我是一个htnl的初学者</a><i class="answer-num">2 回答</i>
-                    </div>
-                    <div class="mkhotlist ">
-                        <a class="relwenda" href="/wenda/detail/325717" target="_blank">【学的很混乱】c++，python，html，ccs，js……编程语言学多之后，你们觉得混乱吗？</a><i class="answer-num">5 回答</i>
-                    </div>
-                    <div class="mkhotlist bordbottom">
-                        <a class="relwenda" href="/wenda/detail/325709" target="_blank">jquery每行输完不用打 ； 吗</a><i class="answer-num">2 回答</i>
-                    </div>
+                    @foreach($xiangguan as $v)
+                        <div class="mkhotlist padtop">
+                            <a class="relwenda" href="detail?id=<?=$v['t_id']?>" target="_blank"><?= $v['t_title']?></a><i class="answer-num">2 回答</i>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             <!-- 广告 -->
@@ -325,54 +319,36 @@
                     <h3>相关分类</h3>
                 </div><!--title end-->
                 <ul class="cls-list">
-                    <li>
-                        <div class="class-info">
-                            <div class="class-icon">
-                                <a href="/wenda/5" target="_blank">
-                                    分类头像位置
-                                    {{--<img src="http://img.mukewang.com/563affe40001680c00900090.jpg" alt="Html/CSS"/>--}}
-                                </a>
-                            </div><!--.class-icon end-->
-                            <h4>
-                                <a href="/wenda/5" target="_blank">Html/CSS</a>
-                            </h4>
-                            <p class="follow-person">51065人关注</p>
-                            <a href="javascript:void(0)" data-tag-id="5" class="follow ">关注</a>
-
-                        </div><!--.class-info end-->
-                        <div class="desc">
-                            <a class="desc-link" href="/wenda/detail/325737" taget="_blank">前端工程师在北京、上海和深圳广州，哪里发展的更好？</a>
-                            <i class="answer-num">7 回答</i>
-                        </div>
-                        <div class="desc">
-                            <a class="desc-link" href="/wenda/detail/325648" taget="_blank">编网页时，单标签例如&lt;br&gt;&lt;br/&gt;哪个写...</a>
-                            <i class="answer-num">19 回答</i>
-                        </div>
-                    </li><!--li end-->
-                    <li>
-                        <div class="class-info">
-                            <div class="class-icon">
-                                <a href="/wenda/15" target="_blank">
-                                    我就是我不一样的开机按键公开了大事记kl
-                                    {{--<img src="http://img.mukewang.com/563aff530001428b00900090.jpg" alt="JQuery"/>--}}
-                                </a>
-                            </div><!--.class-icon end-->
-                            <h4>
-                                <a href="/wenda/15" target="_blank">JQuery</a>
-                            </h4>
-                            <p class="follow-person">18638人关注</p>
-                            <a href="javascript:void(0)" data-tag-id="15" class="follow ">关注</a>
-
-                        </div><!--.class-info end-->
-                        <div class="desc">
-                            <a class="desc-link" href="/wenda/detail/325765" taget="_blank">jquery里 有时候用 &#039; &#039; 有时候用“ ”...</a>
-                            <i class="answer-num">2 回答</i>
-                        </div>
-                        <div class="desc">
-                            <a class="desc-link" href="/wenda/detail/325767" taget="_blank">请问jquery中的remove与empty有什么不同</a>
-                            <i class="answer-num">1 回答</i>
-                        </div>
-                    </li><!--li end-->
+                    @foreach($ti as $key => $v)
+                        <li>
+                            <div class="class-info">
+                                <div class="class-icon">
+                                    <a href="/wenda/5" target="_blank">
+                                        分类头像位置
+                                        {{--<img src="http://img.mukewang.com/563affe40001680c00900090.jpg" alt="Html/CSS"/>--}}
+                                    </a>
+                                </div><!--.class-icon end-->
+                                <h4>
+                                    <a href="#" target="_blank"><?= $v['d_name']?></a>
+                                </h4>
+                                <p class="follow-person">51065人关注</p>
+                                <?php  if(!empty($_SESSION['username'])){ ?>
+                                    @if($v['is_guan'] == 0)
+                                <span id="direction_<?= $v['d_id']?>"><a href="javascript:void(0)" data-tag-id="5" class="follow"  onclick="g_direction(<?= $v['d_id']?>)" id="g_direction_<?= $v['d_id']?>">关注</a></span>
+                                    @else
+                                        <a href="javascript:void(0)" data-tag-id="5" class="follow" id="g_direction">已关注</a>
+                                    @endif
+                                <?php }else{ ?>
+                                <span><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" class="follow">关注</a></span>
+                                    {{--<span><a href="javascript:void(0)" data-tag-id="5"  onclick="is_house()"></a></span>--}}
+                                <?php } ?>
+                            </div><!--.class-info end-->
+                            <div class="desc">
+                                <a class="desc-link" href="/wenda/detail/325737" taget="_blank"></a>
+                                <i class="answer-num">7 回答</i>
+                            </div>
+                        </li><!--li end-->
+                    @endforeach
                 </ul><!--.cls-list end-->
             </div><!--.recommend-class end-->
 
@@ -427,6 +403,7 @@
     <script type="text/javascript">
         var ue = UE.getEditor('editor');
     </script>
+
     <?php  if(!empty($_SESSION['username'])){ ?>
     <script>
         $('#answer-frame').click(function(){
@@ -540,12 +517,77 @@
                         }
                     })
                 }
-
             })
-
         })
     </script>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script>
+        function addhouse(){
+            var tid = $("#tid").val();
+            $.ajax({
+                type: "POST",
+                url: "addhouse_wenda",
+                data: "tid="+tid,
+                success: function(msg){
+                    if(msg == 200){
+                        tr = '';
+                        tr += '<h4 id="s1" style="float: right"><a onclick="delhouse()" style = "color:blue" style="color:blue">已收藏&nbsp;&nbsp;<img src="/images/cancel.jpg" style="width: 20px;height:20px;"></a></h4>';
+                        $("#house").remove();
+                        $("#s1").html(tr);
+                    }
+                }
+            });
+        }
+
+        function is_house(){
+            alert('<a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" >登录</a>');
+            //location.href='index.php/login';
+        }
+
+        function delhouse(){
+            var tid = $("#tid").val();
+            $.ajax({
+                type: "POST",
+                url: "delhouse_wenda",
+                data: "tid="+tid,
+                success: function(msg){
+                    if(msg == 200){
+                        tr = '';
+                        tr += '<h4 id="s1" style="float: right"><a onclick="addhouse()" style="color:red">加入收藏&nbsp;&nbsp;<img src="/images/collection.jpg" style="width: 20px;height:20px;"></a></h4>';
+                        $("#house").remove();
+                        $("#s1").html(tr);
+                    }
+                }
+            });
+        }
+
+        function g_direction(d_id){
+            $.ajax({
+                type: "POST",
+                url: "g_direction",
+                data: "d_id="+d_id,
+                dataType: "json",
+                success: function(msg){
+                        var tr = '';
+                        for(var i=0;i<=msg.length;i++){
+                                tr += '<a href="javascript:void(0)" data-tag-id="5" class="follow" id="q_direction">已关注</a>';
+                        }
+                        $("#g_direction_"+d_id).remove();
+                        $("#direction_"+d_id).html(tr);
+                }
+            });
+        }
+
+        function q_direction(d_id){
+            alert(d_id)
+        }
+
+    </script>
+
+
+
     <?php } ?>
+
 </div>
 </body>
 </html>

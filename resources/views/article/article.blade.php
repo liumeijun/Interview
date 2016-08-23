@@ -84,7 +84,7 @@
                                 <img src="images/zan.jpg"  class="zan" width="15" height="20">
 
                                 <em id="z-<?php echo $v['a_id']?>">点赞
-                                    <?php echo $v['a_num']?>
+                                    <?php echo $v['zan']?>
                                 </em>
 
 

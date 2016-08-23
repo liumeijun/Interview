@@ -4,9 +4,8 @@
  *梁坤
  */
 namespace App\Http\Controllers;
-use DB,Request;
 use App\My\Down;
-
+use DB,Session,Request,Input;
 class CompanyController extends Controller
 {
 	//公司列表
@@ -30,10 +29,11 @@ class CompanyController extends Controller
 		$name_z = $_GET['name_z'];
 		$name_x = $_GET['name_x'];
 		if(empty($name_z)){
-		$arr = DB::table('shiti')->where('company_name',"$name_x")->simplePaginate(9);
+			$arr = DB::table('shiti')->where('company_name',"$name_x")->simplePaginate(9);
 		}else{
-		$arr = DB::table('shiti')->where('company_name',"$name_x")->where('direction_name',"$name_z")->simplePaginate(9);
-		}
+			$arr = DB::table('shiti')->where('company_name',"$name_x")->where('direction_name',"$name_z")->simplePaginate(9);
+		}    
+
 		return view('company/college_x',['exam'=>$arr]);
 	}
 	//查看试题
@@ -42,7 +42,7 @@ class CompanyController extends Controller
 		//$state = session_status();
 		//print_r($_SESSION);die;
 		if(!isset($_SESSION)){		
-		session_start();
+			session_start();
 		}
 		if(!empty($id)){
 		$sql = "select click from shiti where s_id='$id'";

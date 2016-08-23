@@ -38,39 +38,7 @@ var is_choice = "";
 
 <div class="settings-cont clearfix">
 
-  <div class="setting-left l">
-    <ul class="wrap-boxes">
-      <li>
-        <a href="/setprofile">个人资料</a>
-      </li>
-        <li >
-            <a href="/user/my_house">我的收藏</a>
-        </li>
-        <li >
-            <a href="/user/my_ping">我的评价</a>
-        </li>
-
-      <li >
-         <a href="/setavator">头像设置</a>
-       </li>
-       
-      <li >
-        <a href="/setphone">手机设置</a>
-                    <span class='unbound'>未绑定</span>
-              </li>
-      
-      <li >
-        <a href="/setverifyemail">邮箱验证</a>
-                    <span class='unbound'>未绑定</span>
-              </li>
-      <li >
-        <a href="/setresetpwd">修改密码</a>
-      </li>
-      <li  class="active">
-        <a no-pjajx href="/setbindsns"  class="onactive">绑定帐号</a>
-      </li>
-    </ul>
-  </div>
+ @include('layouts.ownleft')
   <div class="setting-right">
     <div class="setting-right-wrap wrap-boxes settings" >
         

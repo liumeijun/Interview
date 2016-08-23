@@ -1,7 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+    <style>
+        #overlay {
+            background: #000;
+            filter: alpha(opacity=50); /* IE的透明度 */
+            opacity: 0.5;  /* 透明度 */
+            display: none;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 100; /* 此处的图层要大于页面 */
+            display:none;
+        }
+        /*<!--登陆最外边的大div的css-->*/
+        #load{
+            position:absolute;
+
+            top:50%;
+
+            left:50%;
+            z-index:-1;
+            width: 300px;
+            z-index: 200;
+            height: 230px;
+
+            margin: -150px 0 0 -150px;
+
+            background:white;
+            border-radius: 2px;;
+            vertical-align: middle;
+            display:none;
+        }
+        /*<!--表单的css-->（需要自己修改）*/
+        #message{
+            color:red;
+            text-align: center;
+            width: 300px;
+            height:180px;
+        }
+        /*<!--按钮的css-->*/
+        #button{
+            width: 300px;
+            height: 50px;
+            background:orange;
+            border: none;
+        }
+    </style>
+    <meta charset="utf-8">
 <title>面试宝典-IT技术问答平台</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 <meta name="renderer" content="webkit">
@@ -58,26 +106,43 @@ var is_choice = "0";
         <span>程序员自己的问答社区</span>
         <a class="js-quiz" href="save">我要提问</a>
       </div>
-      <div class="nav">
+        <?php if($re=Input::get('is_look')){
+        ?>
+        <div class="nav">
+            <a href="/wenda?is_look=1" class="active">推荐</a>
+            <a href="bestnew?is_look=1" >最新</a>
+            <a href="waitreply?is_look=1">等待回答</a>
+            <div class="switch-box">
+                <div class="switch js-switch on">
+                    <div class="fill">
+                        <div class="outer"></div>
+                    </div>
+                    <div class="inner"></div>
+                </div>
+                <span>只显示关注内容</span>
+            </div>
+        </div>
+        <?php }else{?>
+        <div class="nav">
+            <a href="/wenda/" class="active" >推荐</a>
+            <a href="bestnew"  >最新</a>
+            <a href="waitreply" >等待回答</a>
+            <div class="switch-box">
+                <div class="switch js-switch">
+                    <div class="fill">
+                        <div class="outer"></div>
+                    </div>
+                    <div class="inner"></div>
+                </div>
+                <span>只显示关注内容</span>
+            </div>
+        </div>
+        <?php }?>
+
+      <div>
         
-              </div><!--.nav end-->
-      <!--推荐位-->
-                  <ul class="recommend">
-                
-              </ul><!--recommend end-->
-                  <!--左侧列表内容-->
-      <div >
-        
-
-
-
-
-
-
+         {{--问题 回答--}}
 <?php foreach($pro as $k=>$v){?>
-
-
-
 <div class="ques-answer">
     <div class="tag-img">
          <a href="#" target="_blank">
@@ -94,72 +159,41 @@ var is_choice = "0";
     </div>
         <div class="answer-con first" data-answer-id="156328" id="answer-con">
         <div class="user">
+
         </div>
         <div class="answer-content">
             <?php echo substr($v['t_content'],0,400)."…………" ;?>
         </div>
-        <div class="ctrl-bar clearfix">
-            <div class="share-box clearfix">
-                
-                <div class="share-box-con">
-                    <div class="bdsharebuttonbox" data-tag="share_answer_156328" data-quesid="156328">
-                        <a class="bds_weixin icon-share-weichat" data-cmd="weixin"></a>
-                        <a class="bds_tsina icon-share-weibo" data-cmd="tsina"></a>
-                        <a class="bds_qzone icon-share-qq" data-cmd="qzone" href="#"></a>
-                    </div>
-                </div>
-            </div>
 
-            <span class="shrink">收起</span>
+        <div class="ctrl-bar clearfix">
+            共<?php echo $v['num']; ?>条回答
         </div><!--.ctrl-bar end-->
     </div><!--.answer-con end-->
-    <div class="reply-con">
-        <ul class="reply-list">
-           
-
-        </ul><!--.reply-list end-->
-        <!--<div class="more-reply">点击展开后面<span>2</span>条评论</div>-->
-        <div class="release-reply-con clearfix">
-            <div class="user-pic">
-                                <span class="no-login-pic"><i class="icon-ques-revert"></i></span>
-                            </div><!--.user-pic end-->
-            <div class="user-name">
-                                <span class="no-login-user-name">未知生物</span>
-                            </div>
-            <div class="textarea-con">
-                <textarea ></textarea>
-                                
-                            </div>
-            <p class="err-tip"></p>
-            <div class="userCtrl clearfix">
-                <div class="verify-code"></div>
-                <div class="do-reply-btn" data-answer-id="156328" data-ques-uid="2413329">回复</div>
-            </div>
-        </div><!--.release-reply-con end-->
-    </div><!--.reply-con end-->
     </div><!--.ques-answer end-->
 
 
 
 <?php } ?>
 <style>
-            .pager{
-                position:absolute;
-                left:400px;
-                bottom:-20px;
-            }
-                        .pager li{
-                            float:left;
-                            margin-left:100px;
-                font-size:xx-large;
-                        }
-                    </style>
-             <?php echo $pro->links(); ?>
-
-
+    .pagination{
+        position:absolute;
+        left:450px;
+        bottom:-20px;
+    }
+    .pagination li{
+        float:left;
+        margin-left:10px;
+        font-size:24px;
+    }
+</style>
+          <?php if($re=Input::get('is_look')){?>
+             <?=$pro->appends(['is_look' => '1'])->links();?>
+          <?php }else{?>
+          <?=$pro->links();?>
+          <?php } ?>
 </div>
     </div> 
-    <?php $pro->render() ?>
+    <?php $pro->render();?>
     <div class="r wenda-slider">
 
       <!--.my-follow-class登录后可见-->
@@ -167,8 +201,22 @@ var is_choice = "0";
 <div class="recommend-class">
     <div class="title clearfix">
         <h3>推荐分类</h3>
-        <span class="all-cls">全部分类</span>
-    </div><!--title end-->
+
+        {{--全部分类遮罩层查看--}}
+        <a href="javascript:void(0)" onclick="hideOverlay()">全</a>
+        <!--登陆框-->
+        <div id="load">
+            <form>
+                <!--表单框-->
+                <div id="message"><div id="texts">表单</div></div>
+                <!--登陆按钮-->
+                <div ><input type="button" onclick="hideOverlay()" id="button" value="quanbu">全部</div>
+            </form>
+        </div>
+        <!--遮罩框-->
+        <div id="overlay"></div>
+</div><!--title end-->
+
     <ul class="cls-list">
                 <li>
             <div class="class-info">
@@ -227,7 +275,7 @@ var is_choice = "0";
             <li>
                 <div class="ranking first"><?= $key+1;?></div>
                 <div class="user-pic">
-                    <a target="_blank" href="/u/1088132/bbs">
+                    <a target="_blank" href="#">
                         <img src="<?= $v['img'];?>" alt="用户头像">
                     </a>
                 </div>
@@ -251,11 +299,11 @@ var is_choice = "0";
     <div class="tag-main">
         <h3><span>关注我喜欢或专注的猿问分类</span> <i class="icon-close2 js-close"></i></h3>
         <ul class="tag-list clearfix">
-                        <li data-tag-id="12" >
+            <li data-tag-id="12" >
                 <img src="picture/563aff7e0001c8c700900090.jpg" alt=""/>
                 <span>Android</span>
             </li>
-                    </ul>
+        </ul>
         <div class="save-btn">保存</div>
     </div><!--.tag-main end-->
 </div><!--.tag-pop end-->
@@ -311,32 +359,39 @@ var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(bp, s);
 })();
-
 </script>
-
+{{--关注和全部--}}
 <script type="text/javascript" src='../js/jquery-1.9.1.js'></script>
-<script type="text/javascript">
-    /* $(".bb").click( function () {
-           var zid=$(this).attr("pp"); 
-            //alert(zid)
-             $.ajax({
-               type: "GET",
-               url: "zid",
-               data: "name="+zid,
-               success: function(msg){
-                   // alert(msg)
-                   if(msg=='1'){
-                        alert('点赞成功');
-                    }
-                    else{
-                        alert('取消成功');
-                    }
-               }
-            });
-     });  */
-</script>
+    <script type="text/javascript">
+        $.ready($('.switch').click(function(){
+            if($(this).attr('class')=="switch js-switch"){
+//                $(this).attr("class",'switch js-switch on ')
+              location.href='wenda?is_look=1'
+            }else{
+                location.href='wenda'
+            }
+        }))
+    </script>
 
 
+    {{--JQUERY 代码--}}
+    <script>
+        /* 显示遮罩层 */
+        function showOverlay(){
+            $("#load").show()
+            $("#overlay").css("width",$(document).width())
+            $("#overlay").css("height",$(document).height())
+
+// fadeTo第一个参数为速度，第二个为透明度
+            // 多重方式控制透明度，保证兼容性，但也带来修改麻烦的问题
+            $("#overlay").fadeTo(200, 0.5);
+        }
+        /* 隐藏覆盖层 */
+        function hideOverlay() {
+            $("#overlay").fadeOut(200);
+            $("#load").hide()
+        }
+    </script>
 
 
 
