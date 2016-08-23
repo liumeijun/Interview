@@ -34,6 +34,7 @@ Route::post('email_deng','LoginController@email_deng');
 Route::get('weibo','LoginController@weibo');
 //个人中心   虎林修改
 Route::get('/setprofile', 'UserController@setprofile');
+Route::post('/setprofile', 'UserController@setprofile');
 Route::get('/setavator', 'UserController@setavator');
 Route::get('/setphone', 'UserController@setphone');
 Route::get('/setverifyemail', 'UserController@setverifyemail');
@@ -42,7 +43,7 @@ Route::get('/setbindsns', 'UserController@setbindsns');
 
 //保存个人资料
 Route::post('user/my_message', 'UserController@my_message');
-
+ 
 //我的收藏
 Route::get('user/my_house', 'UserController@my_house');
 //我的收藏->收藏的文章
@@ -141,8 +142,12 @@ Route::post('login', 'CommonController@login');
 Route::get('company', 'CompanyController@index');
 Route::get('college','CompanyController@college');
 Route::get('college_x','CompanyController@college_x');
-Route::get('college_exam','CompanyController@college_exam');
+Route::post('college_exam','CompanyController@college_exam');
+//简历显示
+Route::get('jian/{j_id}','CompanyController@jian');
 
+//简历采集word显示
+Route::get('resume','CompanyController@resume');	
 
 
 /*

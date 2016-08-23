@@ -137,7 +137,7 @@ class LoginController extends Controller
     }
     //邮件激活
     public function sendemail(){
-        echo "sda";die;
+        // echo "sda";die;
         $email = Request::input('email');
          $select  = DB::table('users')->where('user_md5','=',$email)->update(['user_state'=>'1']);
          // Session::put('u_id',$user_id);
@@ -219,6 +219,7 @@ class LoginController extends Controller
         include 'disan/open51094.class.php';
 
         $open = new open51094();
+        // print_r($open);die;
         $code = $_GET['code'];
         $data=$open->me($code);
         // print_r($data);die();
@@ -302,3 +303,4 @@ class LoginController extends Controller
         return $tmpInfo;
     }
 }
+ 

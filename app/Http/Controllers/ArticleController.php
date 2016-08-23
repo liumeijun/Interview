@@ -1,7 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
-header("content-type:text/html;charset=UTF-8");
+// header("content-type:text/html;charset=UTF-8");
 use DB,Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;

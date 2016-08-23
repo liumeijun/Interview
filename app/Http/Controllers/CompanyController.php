@@ -4,18 +4,20 @@
  *梁坤
  */
 namespace App\Http\Controllers;
-use DB;
+use DB,Request;
+use App\My\Down;
+
 class CompanyController extends Controller
 {
 	//公司列表
 	public function index(){
-		$re = "select * from direction";
+		$re = "select * from j_type";
 		$ra = DB::select($re);
-		$sql = "select * from company";
-		$arr = DB::select($sql);
-		$exam = DB::table('shiti')->simplePaginate(9);
+		// $sql = "select * from jianli";
+		// $arr = DB::select($sql);
+		$exam = DB::table('jianli')->simplePaginate(9);
 		// dd($exam);
-		return view('company/index',['arr'=>$arr,'re'=>$ra,'exam'=>$exam]);
+		return view('company/index',['re'=>$ra,'exam'=>$exam]);
 	}
 	//根据专业查询试题
 	public function college(){
@@ -55,8 +57,43 @@ class CompanyController extends Controller
 		if($count==0){
 		 echo "<script>alert('暂无试题');location.href='company'</script>";
 				}else{
-		$data=DB::table('exam')->where('company_id',"$id")->paginate(1);
-		return view('company/college_exam',['arr'=>$data]);
-				     }
+					$data=DB::table('exam')->where('company_id',"$id")->paginate(1);
+					return view('company/college_exam',['arr'=>$data]);
+				}
+	} 
+	//简历下载
+	public function jian($j_id){
+		// $j_id=Request::input('j_id');
+		// echo $j_id;die;
+		// $sql="select * from jianli ";
+		// print_r($sql);die;
+		$date=DB::table('jianli')->where('j_id',$j_id)->first();
+		return view('company/jian')->with('arr',$date);
 	}
-}
+
+
+	//简历下载
+	public function resume(){
+		$j_id=Request::input('j_id');
+
+		$date=DB::table('jianli')->where('j_id',$j_id)->first();
+		// echo 123;die;
+		// include 'disan/down.php';
+		$word = new Down();
+		// print_r($word);die;
+		$word->start();
+		//简历名字
+		// $wordname='./求职简历'.$j_id.".doc";
+		$wordname ='简历.doc';
+		//必须输出
+		echo $date['j_con'];	
+		$a=$word->save($wordname);
+		//var_dump($a);die;
+		header('Content-type:application/word');
+		header('Content-Disposition: attachment; filename='.$wordname.'');
+		//readfile($wordname);
+		ob_flush();//每次执行前刷新缓存
+		flush();
+
+	}
+} 
