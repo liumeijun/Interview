@@ -47,8 +47,8 @@
 <div class="tcm-sub-mod">
 <h4 class="tcm-hd">职业方向</h4>
 <div class="tcm-bd">
-@foreach($re as $key=>$value)
-<a class="zzz" data-id="{{$value['d_name']}}" href="#">{{$value['d_name']}}</a>
+@foreach($re as $key=>$v)
+<a class="zzz" data-id="{{$v['t_name']}}" href="#">{{$v['t_name']}}</a>
 @endforeach
 </div>
 </div>
@@ -69,10 +69,7 @@ data-id="134">阿里巴巴</a>
 <div class="tcm-sub-mod">
 <h4 class="tcm-hd">公司</h4>
 <div class="tcm-bd">
-@foreach($arr as $key=>$value)
-<a class="xxx" data-id="{{$value['company_name']}}" href="#">{{$value['company_name']}}</a>
 
-@endforeach
 </div>
 </div>
 </div>
@@ -93,18 +90,19 @@ data-id="134">阿里巴巴</a>
 </div>
 <div class="module-body" id="exam">
 <ul class="content-item-box clearfix">
-@foreach($exam as $key=>$value)
+@foreach($exam as $key=>$v)
 <li>
-<a href="college_exam?id={{$value['s_id']}}">
+<a href="college_exam?id={{$v['j_id']}}">
 <div class="content-item-brief">
-<h1>{{$value['s_logo']}}</h1>
+<h1>{{$v['j_loge']}}</h1>
 <div class="web-logoimg">
 <img src="../images/resume.jpg" style="width:90px; height:100px;" />
 </div>
-<div class="exam-foot">已有{{$value['click']}}人参加</div>
+<div class="exam-foot">已有{{$v['j_age']}}人参加</div>
 <dl class="exam-info">
 <dd><span class="link-green"></span></dd>
-<dd class="exam-btn"><span class="btn  btn-block btn-primary" >查看详情</span></dd>
+<a href="{{URL('jian',$v['j_id'])}}"><dd class="exam-btn"><span class="btn  btn-block btn-primary" >查看详情</span></dd></a>
+
 </dl>
 </div>                                               
 </a> 
@@ -152,7 +150,7 @@ data-id="134">阿里巴巴</a>
 <script>
 		$(document).on("click",".zzz",function(){
 			var name = $(this).attr("data-id");
-			$("#college").attr('value',name);
+			$("#college").attr('v',name);
 			$.get("college",{name:name},function(data){
 				$("#exam").html(data);
 			})
