@@ -82,15 +82,15 @@ var is_choice = "0";
 
 @include('layouts.master')
 
-        <div class='search-warp clearfix' style='min-width: 32px; height: 60px;'>
-            <div class="search-area min" data-search="top-banner">
-                <input class="search-input" data-suggest-trigger="suggest-trigger" placeholder="请输入想搜索的内容..." type="text" autocomplete="off">
-                <input type='hidden' class='btn_search' data-search-btn="search-btn" />
-                <ul class="search-area-result" data-suggest-result="suggest-result">
-                </ul>
-            </div>
-            <div class='showhide-search' data-show='no'><i class='icon-search'></i></div>
-        </div>
+        {{--<div class='search-warp clearfix' style='min-width: 32px; height: 60px;'>--}}
+            {{--<div class="search-area min" data-search="top-banner">--}}
+                {{--<input class="search-input" data-suggest-trigger="suggest-trigger" placeholder="请输入想搜索的内容..." type="text" autocomplete="off">--}}
+                {{--<input type='hidden' class='btn_search' data-search-btn="search-btn" />--}}
+                {{--<ul class="search-area-result" data-suggest-result="suggest-result">--}}
+                {{--</ul>--}}
+            {{--</div>--}}
+            {{--<div class='showhide-search' data-show='no'><i class='icon-search'></i></div>--}}
+        {{--</div>--}}
     </div>
 </div>
 
@@ -203,7 +203,7 @@ var is_choice = "0";
         <h3>推荐分类</h3>
 
         {{--全部分类遮罩层查看--}}
-        <a href="javascript:void(0)" onclick="hideOverlay()">全</a>
+        <a href="javascript:void(0)" onclick="hideOverlay()"></a>
         <!--登陆框-->
         <div id="load">
             <form>

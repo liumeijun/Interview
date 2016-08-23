@@ -80,6 +80,10 @@ class WendaController extends Controller
         $honor = DB::select("select user_name,img,count(comments_replay.user_id) from
 comments_replay join users on comments_replay.user_id = users.user_id group by
  comments_replay.user_id order by count(comments_replay.user_id) desc limit 10");
+
+        //查看分类
+
+
         return view('wenda/wenda',['pro'=>$pro,'honor' => $honor,'is_look']);
     }
 
@@ -223,7 +227,6 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
         $article_type = DB::table('a_lei')->get();
 
         return view('wenda/wenda',['pro'=>$pro,'honor' => $honor,'article_type' => $article_type]);
-        //return view('wenda/waitreply',['pro'=>$pro,'honor' => $honor]);
     }
 
 
@@ -238,7 +241,7 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
         if(empty($_SESSION['username'])){
             echo "<script>alert('请先登录'),location.href='index'</script>";die;
         }else{
-            $pro=DB::table('direction')->get();
+            $pro=DB::table('direction')->orderBy("d_name","desc")->limit('5')->get();
         
         //显示各个学院
         return view('wenda/save',['pro'=>$pro]);
@@ -342,7 +345,7 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
         unset($xiangguan[0]);
 
         //查询相关分类
-        $type = DB::table('direction')->get();
+        $type = DB::table('direction')->orderBy('d_name','desc')->limit('5')->get();
         $ti = DB::table('t_tw')->join("direction",'t_tw.d_id','=','direction.d_id')
             ->groupBy('t_tw.d_id')->orderBy('t_tw.add_time')->get();
         //判断是否收藏分类
@@ -364,12 +367,10 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
                 }
             }
         }
+        $arr['user']=DB::table('users')->select('img','user_name')->where("user_id",$u_id)->first();
         //返回数据
         return view('wenda/detail',['arr'=>$arr],['arr_com'=>$arr1,'arr_user'=>$arr_user,'house' => $is_house,'xiangguan' => $xiangguan,'type' => $type,'ti' => $ti]);
-            $arr['user']=DB::table('users')->select('img','user_name')->where("user_id",$u_id)->first();
         }
-        //返回数据
-        //return view('wenda/detail',['arr'=>$arr],['arr_com'=>$arr1,'arr_user'=>$arr_user]);
     /*
      * 添加评论
      */
@@ -485,20 +486,40 @@ comments_replay join users on comments_replay.user_id = users.user_id group by
         }
     }
 
+
     /*
      * 时庆庆
      * 2016-08-21
-     *关注分类
+     *取消分类和收藏
      */
-    public function g_direction(){
+    public function q_direction(){
         if(!isset($_SESSION)){
             session_start();
         }
-        $d_id = $_POST['d_id'];
+        $d_id1 = $_POST['d_id'];
+        $i = $_POST['i'];
+        echo $d_id1."<br>";
+        echo $i;
+        $d_id = substr($d_id1,12);
         //$user_name = Session::get('username');
         $u_id=$_SESSION['u_id'];
-        $arr = DB::insert("insert into house_direction(user_id,d_id) values('$u_id','$d_id')");
+        if($i == 1){
+            $arr = DB::insert("insert into house_direction(user_id,d_id) values('$u_id','$d_id')");
+        }else{
+            $arr = DB::delete("delete from house_direction where user_id = $u_id and d_id = '$d_id'");
+        }
         $msg = DB::table("house_direction")->where("user_id","$u_id")->get();
         echo json_encode($msg);
+    }
+
+    /*
+     * 时庆庆
+     * 2016-08-23
+     * 跳转分类
+     * */
+    public function fenlei(){
+        $d_id = Request::get('d_Id');
+        $fenlei = DB::table("t_tw")->where("d_id","$d_id")->get();
+        return view('wenda/fenlei',['fenlei' => $fenlei]);
     }
 }

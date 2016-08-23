@@ -27,7 +27,7 @@ class ArticleController extends Controller
             if($arr){
                 $article[$key]['zan']=$arr;
             }else{
-                $article[$key]['zan']="0";
+                $article[$key]['zan']=0;
             }
         }
 //        print_r($arr);die;
@@ -142,8 +142,14 @@ desc limit 10");
         $arr = DB::table("article")
             ->join("ar_type", "article.a_type", "=", "ar_type.at_id")
             ->where("article.a_id", $id)->get();
-        $zan=DB::table('article_zan')->where(["article_id"=>$id])->count();
-        //print_r($arr);die;
+        //查询点赞数量
+        $arr=DB::table('article_zan')->where(["article_id"=>$id])->count();
+        if($arr){
+            $zan=$arr;
+        }else{
+            $zan= 0;
+        }
+
         //评论
         $aping = DB::table('aping')->join("users", "aping.u_id", "=", "users.user_id")->join("article", "aping.a_id", "=", "article.a_id")->orderBy("aping.ap_id", "desc")->select('aping.ap_id','aping.ap_con','aping.u_id','article.a_id','aping.a_addtime','users.user_name','users.img','article.a_num','article.a_con','article.a_title')->get();
         //回答（回答评论）
@@ -159,7 +165,7 @@ desc limit 10");
         //print_r($aping);die;
         //查询是否收藏
         if (empty($_SESSION['username'])) {
-            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping,'a_ping' => $a_ping]);
+            return view('article/wxiang', ['arr' => $arr[0], 'username' => $username, 'aping' => $aping,'a_ping' => $a_ping,'zan' => $zan]);
         } else {
             $user_id = DB::table('users')->where("user_name", "$username")
                                          ->orwhere("user_phone","$username")

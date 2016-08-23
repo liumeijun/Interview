@@ -329,19 +329,21 @@
                                     </a>
                                 </div><!--.class-icon end-->
                                 <h4>
-                                    <a href="#" target="_blank"><?= $v['d_name']?></a>
+                                    <a href="fenlei?d_id=<?= $v['d_id']?>" target="_blank"><?= $v['d_name']?></a>
                                 </h4>
                                 <p class="follow-person">51065人关注</p>
+                                <span id="direction_<?= $v['d_id']?>">
                                 <?php  if(!empty($_SESSION['username'])){ ?>
                                     @if($v['is_guan'] == 0)
-                                <span id="direction_<?= $v['d_id']?>"><a href="javascript:void(0)" data-tag-id="5" class="follow"  onclick="g_direction(<?= $v['d_id']?>)" id="g_direction_<?= $v['d_id']?>">关注</a></span>
+                                        <a href="javascript:void(0)" data-tag-id="5" class="follow" name="off" id="g_direction_<?= $v['d_id']?>">关注</a>
                                     @else
-                                        <a href="javascript:void(0)" data-tag-id="5" class="follow" id="g_direction">已关注</a>
+                                        <a href="javascript:void(0)" data-tag-id="5" class="follow" name="on" id="g_direction_<?= $v['d_id']?>">已关注</a>
                                     @endif
                                 <?php }else{ ?>
                                 <span><a href="#login-modal" id="" data-category="UserAccount" data-action="login" data-toggle="modal" class="follow">关注</a></span>
                                     {{--<span><a href="javascript:void(0)" data-tag-id="5"  onclick="is_house()"></a></span>--}}
                                 <?php } ?>
+                                </span>
                             </div><!--.class-info end-->
                             <div class="desc">
                                 <a class="desc-link" href="/wenda/detail/325737" taget="_blank"></a>
@@ -418,6 +420,32 @@
     </script>
     <script>
         jQuery(document).ready(function($) {
+
+            $(".follow").click(function(){
+                var d_id = $(this).attr('id');
+
+                var name = $(this).html();
+                var g=$(this);
+//                alert(pro.html());return
+//                alert(name);return
+                if(name=="已关注"){
+                    var tr = "关注";
+                    var i = 0;
+                }else{
+                    var tr = '已关注';
+                    var i = 1;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "q_direction",
+                    data: {d_id:d_id,i:i},
+                    success:function(msg){
+                       g.html(tr)
+                    }
+                });
+            })
+
+
          $('.agree').click(function(){
             /*获取同意按钮*/
              var ag=$(this)
@@ -559,27 +587,6 @@
                     }
                 }
             });
-        }
-
-        function g_direction(d_id){
-            $.ajax({
-                type: "POST",
-                url: "g_direction",
-                data: "d_id="+d_id,
-                dataType: "json",
-                success: function(msg){
-                        var tr = '';
-                        for(var i=0;i<=msg.length;i++){
-                                tr += '<a href="javascript:void(0)" data-tag-id="5" class="follow" id="q_direction">已关注</a>';
-                        }
-                        $("#g_direction_"+d_id).remove();
-                        $("#direction_"+d_id).html(tr);
-                }
-            });
-        }
-
-        function q_direction(d_id){
-            alert(d_id)
         }
 
     </script>

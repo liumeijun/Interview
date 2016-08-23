@@ -145,8 +145,7 @@ var isLogin=1
                                                     // $(".huan").html(date);
                                                 }
                                             }
-
-                                        })
+                                        );
                                     })
                           </script>
                         </div>
@@ -235,11 +234,24 @@ var isLogin=1
                         <div class="comment-footer">
                             <?php
                                 $now_time = time();
-                                $a_time = strtotime($v['a_addtime'])
-
+                                $a_time = strtotime($v['a_addtime']);
+                               $timediff = $now_time-$a_time;
                             ?>
-
-                           <span class="feed-list-times"><?=intval($now_time-$a_time);?>秒</span>
+                           <span class="feed-list-times">
+                               @if($timediff/31536000>1)
+                                   <?= floor($timediff/3153600)?>年前
+                               @elseif($timediff/2592000>1)
+                                    <?= floor($timediff/2592000)?>月前
+                               @elseif($timediff/86400>1)
+                                    <?= floor($timediff/86400)?>天前
+                               @elseif($timediff/3600>1)
+                                    <?= floor($timediff/3600)?>小时前
+                               @elseif($timediff/60>1)
+                                   <?= floor($timediff/60)?>分钟前
+                               @else
+                                    <?= $time?>秒前
+                               @endif
+                               </span>
                                 <?php
                                 if(empty($_SESSION['username'])){
                                 $user_name = 0; ?>

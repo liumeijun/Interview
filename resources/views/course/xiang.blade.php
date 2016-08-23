@@ -284,17 +284,33 @@ var GC = {
       <div class="evaluation-list">
         <h3>试题评价</h3>
         <div class="evaluation-info clearfix">
-          <p class="satisfaction">满意度评分：<em>9.9</em></p>
+          <p class="satisfaction">满意度评分：<em><?= $pingjun;?></em></p>
           <div class="star-box">
+              @if($pingjun <= 1)
+              <img src="images/xing.jpg" width="20" height="20">
+              @elseif($pingjun <= 2)
+              <img src="images/xing.jpg" width="20" height="20">
+              <img src="images/xing.jpg" width="20" height="20">
+              @elseif($pingjun <= 3)
+              <img src="images/xing.jpg" width="20" height="20">
+              <img src="images/xing.jpg" width="20" height="20">
+              <img src="images/xing.jpg" width="20" height="20">
+              @elseif($pingjun <= 4)
+              <img src="images/xing.jpg" width="20" height="20">
+              <img src="images/xing.jpg" width="20" height="20">
+              <img src="images/xing.jpg" width="20" height="20">
+              <img src="images/xing.jpg" width="20" height="20">
+              @elseif($pingjun <= 5)
               <img src="images/xing.jpg" width="20" height="20">
               <img src="images/xing.jpg" width="20" height="20">
               <img src="images/xing.jpg" width="20" height="20">
               <img src="images/xing.jpg" width="20" height="20">
               <img src="images/xing.jpg" width="20" height="20">
-                                              </div><!--star-box end-->
-          <p>内容实用：9.9</p>
-          <p>通俗易懂：9.6</p>
-          <p>逻辑清晰：9.4</p>
+              @endif
+          </div><!--star-box end-->
+          <p>内容实用：4.9</p>
+          <p>通俗易懂：4.6</p>
+          <p>逻辑清晰：4.4</p>
           <p class="person_num"><em>1337</em>位同学参与评价</p>
         </div><!--evaluation-info end-->
                             <div class="evaluation">

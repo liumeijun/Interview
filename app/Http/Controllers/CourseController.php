@@ -149,12 +149,19 @@ class CourseController extends Controller
             $arr['img']='http://123.56.249.121/api/logo/传媒.jpg';
         }
 
+        //查询积分
+        $sql = "select sum(e_score) as num ,count(*) as geshu from e_ping where e_id = $id group by e_id";
+        $fen_num = DB::select($sql);
+        print_r($fen_num);
+        $fen = $fen_num[0]['num']/$fen_num[0]['geshu'];
+        $pingjun= sprintf("%.1f",$fen);
+
         //查询是否收藏
         if (empty($_SESSION['username'])) {
-            return view('course/xiang',['arr'=>$arr,'ping'=>$ping]);
+            return view('course/xiang',['arr'=>$arr,'ping'=>$ping,['pingjun' => $pingjun]]);
         } else {
             $is_house = DB::table("house_college_questions")->where(['user_id' => $uid, 'college_questions_id' => $id])->get();
-            return view('course/xiang',['arr'=>$arr,'ping'=>$ping,'house' => $is_house]);
+            return view('course/xiang',['arr'=>$arr,'ping'=>$ping,'house' => $is_house,'pingjun' => $pingjun]);
         }
     }
 

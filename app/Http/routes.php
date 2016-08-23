@@ -87,8 +87,12 @@ Route::any('hui', 'WendaController@hui');
 Route::post('addhouse_wenda','WendaController@addhouse_wenda');
 //取消关注
 Route::post('delhouse_wenda','WendaController@delhouse_wenda');
-//关注分类
-Route::post('g_direction','WendaController@g_direction');
+
+//关注取消分类
+Route::post('q_direction','WendaController@q_direction');
+
+//跳转分类
+Route::get('fenlei','WendaController@fenlei');
 
 
 //试题评论
